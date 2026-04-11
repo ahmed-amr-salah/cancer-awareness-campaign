@@ -816,10 +816,16 @@
 
 <!-- ============================== RELAXATION ============================== -->
 <div class="page" id="page-relaxation">
-  <section class="page-hero bg-lavender">
-    <span class="emoji-big">🧘</span>
-    <h1 style="color:var(--purple)">Relaxation & Stress Relief</h1>
-    <p>Treatment can feel overwhelming sometimes. These simple techniques help calm your mind, ease your body, and bring you back to a place of peace and safety.</p>
+  <section class="page-hero bg-lavender" style="position:relative; overflow:hidden;">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none;">
+      <source src="resources/YOGA_VIDEO.mp4" type="video/mp4">
+      <!-- fallback: shows nothing if video unsupported -->
+    </video>
+    <div class="hero-inner" style="position:relative; z-index:2;">
+      <span class="emoji-big">🧘</span>
+      <h1 style="color:var(--purple)">Relaxation & Stress Relief</h1>
+      <p>Treatment can feel overwhelming sometimes. These simple techniques help calm your mind, ease your body, and bring you back to a place of peace and safety.</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
@@ -835,7 +841,7 @@
               .rl-wrap { max-width:640px; margin:0 auto; text-align:center; }
               .rl-desc { font-size:0.95rem; color:var(--text-mid); font-style:italic; margin-bottom:14px; }
               .rl-circle {
-                width:180px; height:180px; border-radius:40%;
+                width:180px; height:180px; border-radius:50%;
                 background: var(--lavender-mid); border: 3px solid var(--lavender);
                 display:flex; align-items:center; justify-content:center; margin: 0 auto 18px;
                 font-size:16px; font-weight:600; color:var(--blue-dark);
