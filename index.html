@@ -827,29 +827,95 @@
         <p style="color:var(--purple)">"In the middle of difficulty lies the opportunity for peace. A single deep breath can truly change everything."</p>
       </div>
       <div class="cards-grid">
-        <div class="card" style="border-top:4px solid var(--purple);">
-          <div class="card-icon">🌬️</div>
-          <h3>Deep Breathing Exercises</h3>
-          <p>Deep breathing activates your body's natural calm response. Try the 4-7-8 method: breathe in for 4 counts, hold for 7, breathe out for 8 counts slowly.</p>
-          <ul><li>Practice before medical procedures to reduce anxiety</li><li>Use it whenever you feel overwhelmed or scared</li><li>Even 3 deep breaths can make a real difference</li></ul>
-        </div>
-        <div class="card" style="border-top:4px solid var(--blue);">
-          <div class="card-icon">🎵</div>
-          <h3>Listen to Calming Music</h3>
-          <p>Music has a powerful effect on your emotions and body. Creating a personal "calm playlist" for difficult moments is a wonderful tool to always have ready.</p>
-          <ul><li>Nature sounds, lo-fi music, or soft instrumentals work well</li><li>Use headphones for a more immersive calming experience</li><li>Let the music gently wash away tension</li></ul>
-        </div>
-        <div class="card" style="border-top:4px solid var(--mint-mid);">
-          <div class="card-icon">🧠</div>
-          <h3>Meditation & Quiet Time</h3>
-          <p>You don't need experience to meditate. Sitting quietly and focusing on your breath for just a few minutes is more than enough to feel the benefits.</p>
-          <ul><li>Try guided meditation apps designed for teens</li><li>Body scan meditation helps release tension bit by bit</li><li>Even 5 minutes of silence can completely reset your mood</li></ul>
-        </div>
-        <div class="card" style="border-top:4px solid var(--rose);">
-          <div class="card-icon">📱</div>
-          <h3>Helpful Apps & Digital Tools</h3>
-          <p>There are many free apps and resources designed specifically to help young people manage stress, anxiety, and overwhelming emotions gently.</p>
-          <ul><li>Calm, Headspace, and Smiling Mind are great starting points</li><li>Coloring apps can be deeply meditative and calming</li><li>Sleep story apps are perfect for bedtime relaxation</li></ul>
+        <!-- Replace relaxation cards with a focused breathing widget -->
+        <div class="card expanded" style="padding:18px; border-top:4px solid var(--purple); width:100%;">
+          <div class="card-body" style="display:block;">
+            <style>
+              /* breathing widget (namespaced rl_) - uses site palette */
+              .rl-wrap { max-width:640px; margin:0 auto; text-align:center; }
+              .rl-desc { font-size:0.95rem; color:var(--text-mid); font-style:italic; margin-bottom:14px; }
+              .rl-circle {
+                width:180px; height:180px; border-radius:40%;
+                background: var(--lavender-mid); border: 3px solid var(--lavender);
+                display:flex; align-items:center; justify-content:center; margin: 0 auto 18px;
+                font-size:16px; font-weight:600; color:var(--blue-dark);
+                transition: transform 1s ease-in-out, background 1s;
+              }
+              .rl-phase { font-size:15px; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+              .rl-count { font-size:32px; font-family: 'Playfair Display', serif; color:var(--lavender); margin-bottom:18px; min-height:44px; }
+              .rl-steps { display:flex; justify-content:center; gap:8px; margin-bottom:16px; }
+              .rl-step { padding:6px 12px; font-size:13px; border-radius:16px; background:var(--cream); color:var(--text-mid); border:1px solid rgba(0,0,0,0.06); }
+              .rl-step.active { background:var(--lavender); color:#fff; border-color:var(--lavender); }
+              .rl-start { padding:10px 28px; font-size:15px; border-radius:999px; border:1px solid var(--lavender); background:var(--lavender); color:#fff; cursor:pointer; }
+              .rl-start:hover { background:#7a6db0; }
+              .rl-note { font-size:13px; color:var(--text-mid); margin-top:12px; font-style:italic; }
+            </style>
+
+            <div class="rl-wrap">
+              <div class="rl-desc">Box breathing is a simple technique to bring calm and focus — breathe slowly and gently.</div>
+              <div class="rl-circle" id="rl-breath-circle">Ready</div>
+              <div class="rl-phase" id="rl-breath-phase">Box breathing · 4 counts each step</div>
+              <div class="rl-count" id="rl-breath-count"></div>
+              <div class="rl-steps">
+                <div class="rl-step" id="rl-bs0">Breathe in</div>
+                <div class="rl-step" id="rl-bs1">Hold</div>
+                <div class="rl-step" id="rl-bs2">Breathe out</div>
+                <div class="rl-step" id="rl-bs3">Hold</div>
+              </div>
+              <button class="rl-start" id="rl-breath-btn">Begin</button>
+              <div class="rl-note">Close your eyes if you wish · breathe gently</div>
+            </div>
+
+            <script>
+              (function(){
+                // namespaced breathing functions (rl_)
+                let rl_bRun=false, rl_bTimer=null, rl_bTick=null, rl_bPhase=0, rl_bCount=0;
+                const rl_phases = [
+                  {label:'Breathe in', dur:4, scale:1.35, bg: 'var(--lavender-mid)'},
+                  {label:'Hold', dur:4, scale:1.35, bg: 'var(--lavender-mid)'},
+                  {label:'Breathe out', dur:4, scale:1.0, bg: 'var(--mint-mid)'},
+                  {label:'Hold', dur:4, scale:1.0, bg: 'var(--mint-mid)'}
+                ];
+
+                function rl_reset() {
+                  const c = document.getElementById('rl-breath-circle');
+                  c.textContent = 'Ready'; c.style.transform = ''; c.style.background = getComputedStyle(document.documentElement).getPropertyValue('--lavender-mid') || '#D4CCEE';
+                  document.getElementById('rl-breath-phase').textContent = 'Box breathing · 4 counts each step';
+                  document.getElementById('rl-breath-count').textContent = '';
+                  for(let i=0;i<4;i++) document.getElementById('rl-bs'+i).classList.remove('active');
+                }
+
+                function rl_runPhase(){
+                  if(!rl_bRun) return;
+                  const p = rl_phases[rl_bPhase % 4];
+                  const c = document.getElementById('rl-breath-circle');
+                  c.textContent = p.label;
+                  c.style.transform = `scale(${p.scale})`;
+                  // resolve CSS var to computed color
+                  const bg = getComputedStyle(document.documentElement).getPropertyValue(p.bg.replace(/var\(|\)/g,'')) || '';
+                  c.style.background = p.bg;
+                  document.getElementById('rl-breath-phase').textContent = p.label;
+                  for(let i=0;i<4;i++) document.getElementById('rl-bs'+i).classList.toggle('active', i===rl_bPhase%4);
+                  rl_bCount = p.dur;
+                  document.getElementById('rl-breath-count').textContent = rl_bCount;
+                  clearInterval(rl_bTick);
+                  rl_bTick = setInterval(()=>{ rl_bCount--; document.getElementById('rl-breath-count').textContent = rl_bCount>0? rl_bCount : ''; }, 1000);
+                  rl_bTimer = setTimeout(()=>{ clearInterval(rl_bTick); rl_bPhase++; rl_runPhase(); }, p.dur * 1000);
+                }
+
+                function rl_toggle(){
+                  rl_bRun = !rl_bRun;
+                  const btn = document.getElementById('rl-breath-btn');
+                  btn.textContent = rl_bRun ? 'Stop' : 'Begin';
+                  if(rl_bRun){ rl_bPhase = 0; rl_runPhase(); } else { clearTimeout(rl_bTimer); clearInterval(rl_bTick); rl_reset(); }
+                }
+
+                document.getElementById('rl-breath-btn').addEventListener('click', rl_toggle);
+                // ensure reset on load
+                rl_reset();
+              })();
+            </script>
+          </div>
         </div>
       </div>
     </div>
@@ -1091,29 +1157,139 @@
         <p style="color:var(--blue-dark)">"A game isn't just a game — it's a tiny vacation for your mind, a moment where you get to exist somewhere else entirely."</p>
       </div>
       <div class="cards-grid">
-        <div class="card" style="border-top:4px solid var(--blue);">
-          <div class="card-icon">🕹️</div>
-          <h3>Video Games — Solo & With Friends</h3>
-          <p>Video games can be genuinely therapeutic. They distract from discomfort, create feelings of achievement, and let you socialize and connect online.</p>
-          <ul><li>Choose games that match your mood and energy level</li><li>Multiplayer games keep you connected to your friends</li><li>Ask if your hospital has any gaming programs or consoles</li></ul>
-        </div>
-        <div class="card" style="border-top:4px solid var(--green);">
-          <div class="card-icon">🧩</div>
-          <h3>Puzzles & Brain Games</h3>
-          <p>Puzzles give your brain a gentle, satisfying workout. They are perfect for low-energy days when you still want to feel engaged and accomplished.</p>
-          <ul><li>Jigsaw puzzles, crosswords, and Sudoku all count</li><li>Complete one section at a time — there's no pressure or rush</li><li>Celebrate every single completed puzzle!</li></ul>
-        </div>
-        <div class="card" style="border-top:4px solid var(--purple);">
-          <div class="card-icon">🎲</div>
-          <h3>Board Games & Card Games</h3>
-          <p>Playing games in person with family creates warmth, laughter, and connection — all of which are true medicine for the heart and soul.</p>
-          <ul><li>Simple games like Uno, Chess, or Checkers are perfect</li><li>Board games encourage conversation and shared laughter</li><li>Teach your family a new game you just discovered</li></ul>
-        </div>
-        <div class="card" style="border-top:4px solid var(--rose);">
-          <div class="card-icon">📺</div>
-          <h3>Movies, Shows & YouTube</h3>
-          <p>Sometimes the best entertainment is watching something you genuinely love — a funny series, an adventure film, or a creative YouTube channel.</p>
-          <ul><li>Create a "watch list" of shows to look forward to</li><li>Host a virtual movie night with distant friends</li><li>Watch with family for beautiful shared experiences</li></ul>
+        <!-- Games hub (inlined from games-hub.html) - breathing omitted -->
+        <div class="card expanded" style="padding:18px; border-top:4px solid var(--blue); width:100%;">
+          <div class="card-body" style="display:block;">
+            <style>
+              /* lightweight hub styles using site palette; centered layout */
+              .gh-hub { max-width: 980px; margin: 0 auto; display:flex; flex-direction:column; align-items:center; }
+              .gh-header { text-align: center; margin-bottom: 12px; }
+              .gh-header h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--text-dark); font-weight:800; }
+              .gh-header p { font-size: 0.9rem; color: var(--text-mid); font-style: italic; }
+              .gh-tabs { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; justify-content:center; }
+              .gh-tab {
+                padding:8px 16px; font-size:13px; border-radius:999px; cursor:pointer;
+                background: white; border:1px solid rgba(0,0,0,0.06); color:var(--text-mid);
+              }
+              .gh-tab.active { background: linear-gradient(90deg,var(--sky-mid),var(--lavender-mid)); color:var(--blue-dark); font-weight:700; border-color:transparent; }
+              .gh-panel { background: white; border-radius:14px; padding:18px; box-shadow: var(--shadow-soft); display:flex; justify-content:center; align-items:center; flex-direction:column; }
+              .gh-score { font-size:13px; color:var(--text-mid); margin-bottom:12px; }
+              /* memory */
+              .gh-mem-grid { display:grid; grid-template-columns: repeat(4, minmax(72px, 1fr)); gap:12px; max-width:440px; margin:0 auto; }
+              .gh-mc { aspect-ratio:1; border-radius:12px; border:1.2px solid rgba(0,0,0,0.06); background:var(--lavender); display:flex;align-items:center;justify-content:center; font-size:32px; cursor:pointer; user-select:none; }
+              .gh-mc.flipped, .gh-mc.matched { background: white; }
+              .gh-mc.matched { background: var(--mint-mid); }
+              /* puzzle */
+              .gh-puz-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:6px; max-width:240px; margin:0 auto; }
+              .gh-pt { aspect-ratio:1; border-radius:10px; border:1px solid rgba(0,0,0,0.06); background: var(--gold); color: #3b2a00; display:flex;align-items:center;justify-content:center; cursor:pointer; font-weight:700; }
+              .gh-pt.empty { background:transparent; border-color:transparent; cursor:default; }
+              /* word guess */
+              .gh-word-board { display:flex; flex-direction:column; gap:8px; align-items:center; }
+              .gh-wc { width:44px; height:44px; border-radius:8px; border:1.2px solid rgba(0,0,0,0.06); display:flex;align-items:center;justify-content:center; background:white; font-weight:700; text-transform:uppercase; }
+              .gh-wc.correct { background: var(--mint-mid); color: var(--green-dark); }
+              .gh-wc.present { background: var(--peach-mid); color: #7a5820; }
+              .gh-wc.absent { background: var(--cream); color: var(--text-mid); }
+              .gh-controls { margin-top:12px; display:flex; gap:8px; align-items:center; justify-content:center; }
+              .gh-btn { padding:8px 14px; border-radius:12px; border:1px solid rgba(0,0,0,0.06); background:white; cursor:pointer; }
+              @media (max-width:860px){ .gh-mem-grid { grid-template-columns: repeat(4, minmax(48px,1fr)); gap:8px; max-width:320px; } .gh-hub { padding: 8px 0; } }
+            </style>
+
+            <div class="gh-hub">
+              <div class="gh-header">
+                <h3>Games & Activities</h3>
+                <p>Light, gentle games to distract, focus, and lift your mood.</p>
+              </div>
+
+              <div class="gh-tabs" role="tablist">
+                <button class="gh-tab active" data-gh-tab="memory">Memory match</button>
+                <button class="gh-tab" data-gh-tab="puzzle">Slide puzzle</button>
+                <button class="gh-tab" data-gh-tab="word">Word guess</button>
+              </div>
+
+              <div class="gh-panel">
+                <!-- MEMORY -->
+                <div id="gh-game-memory">
+                  <div class="gh-score" id="gh-mem-score">Pairs found: 0 / 8 · Moves: 0</div>
+                  <div class="gh-mem-grid" id="gh-mem-grid"></div>
+                  <div class="gh-msg" id="gh-mem-msg" style="margin-top:10px;color:var(--text-mid);"></div>
+                  <div style="margin-top:12px"><button class="gh-btn" id="gh-mem-new">New game</button></div>
+                </div>
+
+                <!-- PUZZLE -->
+                <div id="gh-game-puzzle" style="display:none;">
+                  <div class="gh-score" id="gh-puz-score">Moves: 0</div>
+                  <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px">Slide tiles to arrange numbers 1–8 in order</p>
+                  <div class="gh-puz-grid" id="gh-puz-grid"></div>
+                  <div class="gh-msg" id="gh-puz-msg" style="margin-top:10px;color:var(--text-mid);"></div>
+                  <div style="margin-top:12px"><button class="gh-btn" id="gh-puz-shuffle">Shuffle again</button></div>
+                </div>
+
+                <!-- WORD -->
+                <div id="gh-game-word" style="display:none;">
+                  <div class="gh-score">Guess the 5-letter word — you have 6 tries</div>
+                  <div class="gh-word-board" id="gh-word-board"></div>
+                  <div class="gh-controls">
+                    <input id="gh-word-input" maxlength="5" placeholder="Your guess…" style="padding:8px 12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);text-transform:uppercase;" />
+                    <button class="gh-btn" id="gh-word-go">Guess</button>
+                    <button class="gh-btn" id="gh-word-new">New word</button>
+                  </div>
+                  <div class="gh-legend" style="margin-top:10px;font-size:12px;color:var(--text-mid);">Correct = green · Present = amber · Not in word = muted</div>
+                  <div class="gh-msg" id="gh-word-msg" style="margin-top:8px;color:var(--text-mid);"></div>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              (function(){
+                // Namespaced games hub (gh_)
+                const tabs = document.querySelectorAll('.gh-tab');
+                const panels = {
+                  memory: document.getElementById('gh-game-memory'),
+                  puzzle: document.getElementById('gh-game-puzzle'),
+                  word: document.getElementById('gh-game-word')
+                };
+                tabs.forEach(t=> t.addEventListener('click', ()=>{
+                  const name = t.dataset.ghTab;
+                  tabs.forEach(x=>x.classList.toggle('active', x===t));
+                  Object.keys(panels).forEach(k=> panels[k].style.display = (k===name)?'block':'none');
+                }));
+
+                // ===== MEMORY =====
+                const gh_emojis = ['🌸','🌻','🍃','🦋','🌈','🐚','🌙','✨'];
+                let gh_mFlip=[], gh_mMatch=0, gh_mMoves=0, gh_mLock=false;
+                function gh_initMem(){
+                  const cards = [...gh_emojis,...gh_emojis].sort(()=>Math.random()-.5);
+                  gh_mFlip=[]; gh_mMatch=0; gh_mMoves=0; gh_mLock=false;
+                  document.getElementById('gh-mem-msg').textContent='';
+                  document.getElementById('gh-mem-score').textContent='Pairs found: 0 / 8 · Moves: 0';
+                  const g = document.getElementById('gh-mem-grid'); g.innerHTML='';
+                  cards.forEach(e => { const d=document.createElement('div'); d.className='gh-mc'; d.dataset.e=e; d.textContent=''; d.addEventListener('click', ()=> gh_flipCard(d)); g.appendChild(d); });
+                }
+                function gh_flipCard(c){ if(gh_mLock||c.classList.contains('flipped')||c.classList.contains('matched')) return; c.classList.add('flipped'); c.textContent=c.dataset.e; gh_mFlip.push(c); if(gh_mFlip.length===2){ gh_mLock=true; gh_mMoves++; document.getElementById('gh-mem-score').textContent=`Pairs found: ${gh_mMatch} / 8 · Moves: ${gh_mMoves}`; if(gh_mFlip[0].dataset.e===gh_mFlip[1].dataset.e){ gh_mFlip.forEach(x=>x.classList.add('matched')); gh_mMatch++; gh_mFlip=[]; gh_mLock=false; document.getElementById('gh-mem-score').textContent=`Pairs found: ${gh_mMatch} / 8 · Moves: ${gh_mMoves}`; if(gh_mMatch===8) document.getElementById('gh-mem-msg').textContent='Wonderful — you found all the pairs!'; } else { setTimeout(()=>{ gh_mFlip.forEach(x=>{x.classList.remove('flipped'); x.textContent='';}); gh_mFlip=[]; gh_mLock=false; }, 900); } } }
+                document.getElementById('gh-mem-new').addEventListener('click', gh_initMem);
+                gh_initMem();
+
+                // ===== PUZZLE =====
+                let gh_pt=[1,2,3,4,5,6,7,8,0], gh_pm=0;
+                function gh_initPuz(){ gh_pt=[1,2,3,4,5,6,7,8,0]; for(let i=gh_pt.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [gh_pt[i],gh_pt[j]]=[gh_pt[j],gh_pt[i]]; } gh_pm=0; document.getElementById('gh-puz-msg').textContent=''; gh_renderPuz(); }
+                function gh_renderPuz(){ document.getElementById('gh-puz-score').textContent='Moves: '+gh_pm; const g=document.getElementById('gh-puz-grid'); g.innerHTML=''; gh_pt.forEach((t,i)=>{ const d=document.createElement('div'); d.className='gh-pt'+(t===0?' empty':''); d.textContent=t===0?'':t; if(t!==0) d.addEventListener('click', ()=> gh_moveTile(i)); g.appendChild(d); }); }
+                function gh_moveTile(i){ const e=gh_pt.indexOf(0); const ok=(i%3!==0&&e===i-1)||(i%3!==2&&e===i+1)||(e===i-3)||(e===i+3); if(!ok) return; [gh_pt[i],gh_pt[e]]=[gh_pt[e],gh_pt[i]]; gh_pm++; gh_renderPuz(); if(gh_pt.join('')==='123456780') document.getElementById('gh-puz-msg').textContent='Puzzle solved! Well done.'; }
+                document.getElementById('gh-puz-shuffle').addEventListener('click', gh_initPuz);
+                gh_initPuz();
+
+                // ===== WORD GUESS =====
+                const gh_wordList = ['HEART','BLOOM','GRACE','PEACE','LIGHT','BRAVE','SMILE','FAITH','SHINE','DREAM','FLORA','BLISS','HAVEN'];
+                let gh_wa='', gh_wg=[], gh_wDone=false;
+                function gh_initWord(){ gh_wa = gh_wordList[Math.floor(Math.random()*gh_wordList.length)]; gh_wg=[]; gh_wDone=false; document.getElementById('gh-word-msg').textContent=''; document.getElementById('gh-word-input').value=''; gh_renderWord(); }
+                function gh_renderWord(){ const board=document.getElementById('gh-word-board'); board.innerHTML=''; for(let r=0;r<6;r++){ const row=document.createElement('div'); row.style.display='flex'; row.style.gap='6px'; for(let c=0;c<5;c++){ const cell=document.createElement('div'); cell.className='gh-wc'; if(r<gh_wg.length){ cell.textContent=gh_wg[r].w[c]; cell.classList.add(gh_wg[r].r[c]); } row.appendChild(cell); } board.appendChild(row); } }
+                function gh_submitWord(){ if(gh_wDone) return; const inp=document.getElementById('gh-word-input'); const g=inp.value.toUpperCase().trim(); if(g.length!==5){ document.getElementById('gh-word-msg').textContent='Please type a 5-letter word.'; return; } const result=[]; g.split('').forEach((l,i)=>{ if(l===gh_wa[i]) result.push('correct'); else if(gh_wa.includes(l)) result.push('present'); else result.push('absent'); }); gh_wg.push({w:g,r:result}); inp.value=''; gh_renderWord(); if(g===gh_wa){ document.getElementById('gh-word-msg').textContent='Beautiful — you got it! 🌸'; gh_wDone=true; } else if(gh_wg.length===6){ document.getElementById('gh-word-msg').textContent='The word was: '+gh_wa; gh_wDone=true; } }
+                document.getElementById('gh-word-go').addEventListener('click', gh_submitWord);
+                document.getElementById('gh-word-new').addEventListener('click', gh_initWord);
+                document.getElementById('gh-word-input').addEventListener('keydown', e=>{ if(e.key==='Enter') gh_submitWord(); });
+                gh_initWord();
+              })();
+            </script>
+          </div>
         </div>
       </div>
     </div>
