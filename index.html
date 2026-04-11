@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happiness & Well-Being for Young Cancer Patients</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #e8f4fd;
+    --sky-mid: #b8def5;
+    --blue: #5aace1;
+    --blue-dark: #3a8bc4;
+    --mint: #e6f7f0;
+    --mint-mid: #a8e0c8;
+    --green: #5abf98;
+    --green-dark: #3a9f7a;
+    --lavender: #f0ebfb;
+    --lavender-mid: #c8b8f0;
+    --purple: #9b7de8;
+    --yellow: #fef9e6;
+    --yellow-mid: #fae5a0;
+    --gold: #f5c842;
+    --pink: #fdf0f5;
+    --pink-mid: #f5b8d4;
+    --rose: #e8779a;
+    --peach: #fff5ee;
+    --peach-mid: #ffd4b0;
+    --orange: #f5a050;
+    --white: #ffffff;
+    --cream: #fdfbf8;
+    --text-dark: #2d3a4a;
+    --text-mid: #5a6a7a;
+    --text-light: #8a9aaa;
+    --shadow-soft: 0 4px 20px rgba(90,172,225,0.12);
+    --shadow-card: 0 8px 32px rgba(90,172,225,0.15);
+    --shadow-hover: 0 12px 40px rgba(90,172,225,0.25);
+    --radius: 20px;
+    --radius-lg: 32px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(90,172,225,0.15);
+    box-shadow: 0 2px 20px rgba(90,172,225,0.1);
+  }
+  .nav-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 68px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--blue-dark);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .nav-logo span { font-size: 1.4rem; }
+  .nav-links {
+    display: flex; flex-wrap: wrap; gap: 2px; list-style: none;
+  }
+  .nav-links a {
+    display: block; padding: 6px 10px;
+    font-size: 0.77rem; font-weight: 700;
+    color: var(--text-mid);
+    text-decoration: none; border-radius: 10px;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: var(--sky); color: var(--blue-dark);
+  }
+  .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--blue-dark); border-radius: 2px; transition: 0.3s; }
+
+  /* PAGES */
+  .page { display: none; padding-top: 68px; min-height: 100vh; }
+  .page.active { display: block; animation: fadeIn 0.5s ease both; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO */
+  .hero {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #e8f4fd 0%, #eef8f2 40%, #f0ebfb 100%);
+    padding: 90px 24px 80px; text-align: center;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(90,172,225,0.16) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -100px; left: -100px;
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(155,125,232,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block; margin-bottom: 18px;
+    background: linear-gradient(135deg, var(--sky-mid), var(--lavender-mid));
+    color: var(--blue-dark); font-size: 0.78rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 20px; border-radius: 50px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700; color: var(--text-dark);
+    line-height: 1.25; margin-bottom: 20px;
+    max-width: 800px; margin-left: auto; margin-right: auto;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+  .hero h1 em { color: var(--blue-dark); font-style: normal; }
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--text-mid); max-width: 620px;
+    margin: 0 auto 36px; line-height: 1.85;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white; font-family: 'Nunito', sans-serif;
+    font-size: 1rem; font-weight: 800;
+    padding: 14px 32px; border-radius: 50px;
+    border: none; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(90,172,225,0.35);
+    transition: all 0.3s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(90,172,225,0.45); }
+  .btn-secondary {
+    background: white; color: var(--blue-dark);
+    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+    padding: 14px 32px; border-radius: 50px;
+    border: 2px solid var(--sky-mid); cursor: pointer;
+    transition: all 0.3s; text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--sky); transform: translateY(-2px); }
+
+  /* SECTION */
+  .section { padding: 72px 24px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.73rem; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: var(--text-dark); margin-bottom: 14px; line-height: 1.3;
+  }
+  .section-title em { color: var(--blue-dark); font-style: normal; }
+  .section-sub {
+    font-size: 1.05rem; color: var(--text-mid);
+    max-width: 560px; line-height: 1.8; margin-bottom: 48px;
+  }
+
+  /* modifier to allow a section-sub paragraph to take more horizontal space */
+  .section-sub.wide {
+    /* responsive width: use up to 900px but allow smaller screens to scale */
+    max-width: 900px;
+    width: clamp(360px, 80%, 900px);
+  }
+
+  /* hero: video background, overlay for readability, and responsive fallback */
+  .hero { position: relative; overflow: hidden; }
+  .hero .section-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0; pointer-events: none;
+    filter: saturate(0.98) brightness(0.75);
+  }
+  /* subtle overlay so text stays readable on top of video; sits between video (z=0) and content (z=2) */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;width: 100%; height: 100%;
+    /* cover the exact same area as the absolutely-positioned video (inset:0) */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.237));
+    pointer-events: none;
+  }
+  /* ensure content sits above video/overlay */
+  .hero .section-inner { position: relative; z-index: 2; }
+  .hero-inner { position: relative; z-index: 2; }
+
+  /* hide video on smaller screens and for reduced motion preferences */
+  @media (max-width: 860px) {
+    .hero .section-video { display: none; }
+    .hero::before { background: linear-gradient(180deg, rgba(232,244,253,0.8), rgba(240,235,251,0.8)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero .section-video { display: none; }
+  }
+
+  /* ABOUT CARDS */
+  .about-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .about-card {
+    background: white; border-radius: var(--radius);
+    padding: 32px 28px; box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(90,172,225,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .about-card:nth-child(1)::before { background: linear-gradient(90deg, var(--blue), var(--mint-mid)); }
+  .about-card:nth-child(2)::before { background: linear-gradient(90deg, var(--purple), var(--pink-mid)); }
+  .about-card:nth-child(3)::before { background: linear-gradient(90deg, var(--gold), var(--orange)); }
+  .about-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  .about-card .icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .about-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+  .about-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; }
+
+  /* TOPIC GRID */
+  .topic-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;
+  }
+  .topic-card {
+    border-radius: var(--radius); padding: 28px 20px; text-align: center;
+    box-shadow: var(--shadow-soft); cursor: pointer; transition: all 0.3s;
+    text-decoration: none; border: none; display: block;
+  }
+  .topic-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .topic-card .t-icon { font-size: 2.4rem; margin-bottom: 12px; }
+  .topic-card .t-name { font-size: 0.9rem; font-weight: 800; color: var(--text-dark); }
+  .tc1 { background: linear-gradient(135deg, #e8f4fd, #d8ecf8); }
+  .tc2 { background: linear-gradient(135deg, #e6f7f0, #d0f0e4); }
+  .tc3 { background: linear-gradient(135deg, #fef9e6, #fdf0d0); }
+  .tc4 { background: linear-gradient(135deg, #f0ebfb, #e4d8f8); }
+  .tc5 { background: linear-gradient(135deg, #fff5ee, #ffeadc); }
+  .tc6 { background: linear-gradient(135deg, #fdf0f5, #fae0ec); }
+  .tc7 { background: linear-gradient(135deg, #e8f4fd, #d8ecf8); }
+  .tc8 { background: linear-gradient(135deg, #fef9e6, #fdf0d0); }
+  .tc9 { background: linear-gradient(135deg, #e6f7f0, #d0f0e4); }
+  .tc10 { background: linear-gradient(135deg, #f0ebfb, #e4d8f8); }
+
+  /* TESTIMONIAL */
+  .testimonial-banner {
+    background: linear-gradient(135deg, var(--blue-dark), #7b5fc8);
+    border-radius: var(--radius-lg); padding: 52px 40px; text-align: center;
+    color: white; margin: 60px 0 0; position: relative; overflow: hidden;
+  }
+  .testimonial-banner::before {
+    content: '\275D'; position: absolute; top: -20px; left: 20px;
+    font-size: 9rem; color: rgba(255,255,255,0.06); font-family: serif; line-height: 1;
+  }
+  .testimonial-banner p {
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    font-family: 'Playfair Display', serif; font-style: italic;
+    line-height: 1.7; max-width: 700px; margin: 0 auto 14px;
+  }
+  .testimonial-banner small { font-size: 0.85rem; opacity: 0.75; font-weight: 600; }
+
+  /* STEPS BANNER */
+  .steps-banner {
+    background: linear-gradient(135deg, #fffbf0, #fff5f8);
+    border-radius: var(--radius-lg); border: 2px solid var(--yellow-mid);
+    padding: 36px 40px; margin: 48px 0 0;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .steps-banner .star { font-size: 2.5rem; flex-shrink: 0; }
+  .steps-banner h3 { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+  .steps-banner p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 64px 24px 52px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; margin-bottom: 16px; line-height: 1.25;
+  }
+  .page-hero p {
+    font-size: 1.05rem; color: var(--text-mid);
+    max-width: 580px; margin: 0 auto; line-height: 1.85;
+  }
+  .page-hero .emoji-big { font-size: 4rem; margin-bottom: 18px; display: block; }
+
+  /* CONTENT CARDS */
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; margin-top: 0;
+  }
+  .cards-grid { align-items: start; }
+  .card {
+    background: white; border-radius: var(--radius); padding: 30px 26px;
+    box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.9);
+    transition: all 0.3s;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+  .card .card-icon { font-size: 2rem; margin-bottom: 14px; }
+  .card h3 { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+  .card p { font-size: 0.93rem; color: var(--text-mid); line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; margin-top: 10px; }
+  .card ul li {
+    font-size: 0.9rem; color: var(--text-mid); padding: 5px 0;
+    padding-left: 20px; position: relative; line-height: 1.55;
+  }
+  .card ul li::before {
+    content: '✦'; position: absolute; left: 0; color: var(--blue); font-size: 0.65rem; top: 8px;
+  }
+
+  /* Collapsible card behavior: show only icon and h3 by default using .card-body wrapper */
+  .card { overflow: hidden; }
+  /* hide the card body by default */
+  .card .card-body { display: none; }
+  /* reveal when expanded */
+  .card.expanded .card-body { display: block; }
+  /* smoother animation using max-height to avoid sudden layout shifts */
+  .card .card-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .card.expanded .card-body { max-height: 1000px; }
+
+  /* Card images: responsive, capped size so they don't dominate the card */
+  .card img { display: block; max-width: 100%; height: auto; border-radius: 12px; margin: 14px 0; }
+  .card .card-body img { max-width: 320px; width: 100%; height: auto; object-fit: cover; }
+  /* make header elements interactive */
+  .card .card-icon, .card > h3 { cursor: pointer; }
+  /* small toggle indicator on h3 */
+  .card > h3 { position: relative; padding-right: 28px; }
+  .card > h3::after {
+    content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    font-weight: 900; color: var(--text-mid);
+  }
+  .card.expanded > h3::after { content: '−'; }
+
+  /* QUOTE BOX */
+  .quote-box {
+    background: linear-gradient(135deg, var(--sky), var(--lavender));
+    border-radius: var(--radius-lg); padding: 40px; text-align: center;
+    margin-bottom: 48px; border-left: 5px solid var(--blue);
+  }
+  .quote-box p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--blue-dark); font-style: italic; line-height: 1.75;
+  }
+
+  /* BG VARIANTS */
+  .bg-sky { background: linear-gradient(135deg, var(--sky) 0%, #f5f0fb 100%); }
+  .bg-mint { background: linear-gradient(135deg, var(--mint) 0%, var(--sky) 100%); }
+  .bg-lavender { background: linear-gradient(135deg, var(--lavender) 0%, var(--pink) 100%); }
+  .bg-yellow { background: linear-gradient(135deg, var(--yellow) 0%, var(--peach) 100%); }
+  .bg-pink { background: linear-gradient(135deg, var(--pink) 0%, var(--lavender) 100%); }
+
+  /* TIPS LIST */
+  .tips-list { display: flex; flex-direction: column; gap: 14px; margin-top: 0; }
+  .tip-item {
+    background: white; border-radius: 16px; padding: 20px 24px;
+    display: flex; align-items: flex-start; gap: 18px;
+    box-shadow: var(--shadow-soft); transition: all 0.3s;
+  }
+  .tip-item:hover { transform: translateX(6px); box-shadow: var(--shadow-card); }
+  .tip-item .tip-num {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 0.88rem; color: white;
+  }
+  .tip-item p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.65; padding-top: 7px; }
+
+  /* CONCLUSION */
+  .conclusion-hero {
+    background: linear-gradient(135deg, #e8f4fd, #eef8f2, #f0ebfb);
+    padding: 84px 24px; text-align: center;
+  }
+  .conclusion-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem); color: var(--text-dark); margin-bottom: 20px;
+  }
+  .pillars-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px; margin: 48px 0;
+  }
+  .pillar {
+    background: white; border-radius: var(--radius); padding: 26px 18px; text-align: center;
+    box-shadow: var(--shadow-soft); transition: all 0.3s;
+  }
+  .pillar:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .pillar .p-icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .pillar p { font-size: 0.87rem; font-weight: 700; color: var(--text-mid); line-height: 1.5; }
+  .final-message {
+    background: linear-gradient(135deg, var(--blue-dark), #7b5fc8);
+    color: white; border-radius: var(--radius-lg); padding: 64px 40px; text-align: center; margin: 60px 0;
+  }
+  .final-message h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 18px; line-height: 1.3;
+  }
+  .final-message p { font-size: 1rem; opacity: 0.9; max-width: 620px; margin: 0 auto; line-height: 1.85; }
+  .final-message .heart { font-size: 3rem; margin-bottom: 20px; display: block; }
+
+  /* REFERENCES */
+  .ref-card {
+    background: white; border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-soft); border-left: 4px solid var(--blue);
+    margin-bottom: 16px; transition: all 0.3s;
+  }
+  .ref-card:hover { transform: translateX(5px); }
+  .ref-card .ref-num {
+    font-size: 0.72rem; font-weight: 800; color: var(--blue);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .ref-card p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.65; }
+  .ref-placeholder {
+    display: inline-block; margin-top: 8px;
+    background: var(--sky); color: var(--blue-dark);
+    font-size: 0.7rem; font-weight: 800;
+    padding: 3px 12px; border-radius: 50px; letter-spacing: 0.05em;
+  }
+
+  /* FOOTER */
+  footer { background: var(--text-dark); color: rgba(255,255,255,0.8); padding: 56px 24px 32px; }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px;
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: white; font-weight: 700; margin-bottom: 12px; }
+  .footer-desc { font-size: 0.87rem; opacity: 0.6; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .footer-col p { font-size: 0.85rem; opacity: 0.6; line-height: 1.9; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 0.8rem; opacity: 0.45; }
+
+  /* MILESTONE MINI CARDS */
+  .mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-top: 20px; }
+  .mini-card { border-radius: 14px; padding: 20px; text-align: center; }
+  .mini-card .mc-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .mini-card p { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); }
+
+  /* MOBILE */
+  @media (max-width: 860px) {
+    .nav-links {
+      display: none; flex-direction: column;
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: white; border-bottom: 1px solid var(--sky-mid);
+      padding: 16px; gap: 4px;
+    }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .steps-banner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="showPage('home')"><span>🌟</span> HappyJourney</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+      <li><a onclick="showPage('relationships')" id="nav-relationships">Relationships</a></li>
+      <li><a onclick="showPage('food')" id="nav-food">Food</a></li>
+      <li><a onclick="showPage('physical')" id="nav-physical">Physical</a></li>
+      <li><a onclick="showPage('relaxation')" id="nav-relaxation">Relaxation</a></li>
+      <li><a onclick="showPage('creativity')" id="nav-creativity">Creativity</a></li>
+      <li><a onclick="showPage('games')" id="nav-games">Games</a></li>
+      <li><a onclick="showPage('humor')" id="nav-humor">Humor</a></li>
+      <li><a onclick="showPage('memories')" id="nav-memories">Memories</a></li>
+      <li><a onclick="showPage('goals')" id="nav-goals">Goals</a></li>
+      <li><a onclick="showPage('sleep')" id="nav-sleep">Sleep</a></li>
+      <li><a onclick="showPage('conclusion')" id="nav-conclusion">Conclusion</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================== HOME ============================== -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/video_1.mp4" type="video/mp4">
+      <!-- fallback: shows nothing if video unsupported -->
+    </video>
+    <div class="hero-inner">
+      <div class="hero-badge">Ages 8–19 · Wellness & Happiness Guide</div>
+      <h1>Finding <em>Happiness</em> During the Cancer Journey</h1>
+      <p>This website is designed to help young cancer patients ages 8–19 find happiness, comfort, and strength through simple daily activities, emotional support, and positive routines during treatment.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('relationships')">Explore All Topics ✨</button>
+        <button class="btn-secondary" onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'})">Learn More ↓</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sky" id="about-section">
+    <div class="section-inner">
+      <div class="section-label">Why It Matters</div>
+      <div class="section-title">Happiness Is <em>Part of Healing</em></div>
+  <p class="section-sub wide">Finding Happiness During the Cancer Journey
+                             Happiness is an important part of life, especially for young cancer patients aged 10–30. Cancer does not only affect the body; it also impacts emotional, social, and mental well-being. During treatment, patients may experience stress, fear, or loneliness, which makes finding ways to feel happy and supported even more important.
+                             This website is designed to help young cancer patients, as well as their families, friends, and caregivers, understand how different aspects of life can improve happiness. Research shows that emotional well-being is closely connected to physical health, meaning that feeling positive and supported can help patients cope better with treatment and daily challenges. </p>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="icon">💛</div>
+          <h3>Happiness Helps Your Healing</h3>
+          <p>Positive emotions during treatment support your overall well-being, reduce stress, and make the entire journey feel more manageable and hopeful.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🧠</div>
+          <h3>Mental Health Is Just as Important</h3>
+          <p>Your feelings matter deeply. Anxiety, loneliness, and sadness are normal — and you deserve support for your mind and heart, not just your body.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🌱</div>
+          <h3>Small Steps Make a Big Difference</h3>
+          <p>You don't need big changes. A laugh, a creative moment, a warm conversation, or a restful nap — tiny moments of joy truly add up and help.</p>
+        </div>
+      </div>
+      <div class="steps-banner">
+        <div class="star">⭐</div>
+        <div>
+          <h3>Remember: Every Small Moment Counts</h3>
+          <p>You don't have to feel happy every second — and that's perfectly okay. But whenever you can, reach for a little joy. Watch something funny, talk to a friend, draw something colorful. You deserve it.</p>
+        
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream);">
+    <div class="section-inner">
+      <div class="section-label">Navigate</div>
+      <div class="section-title">Explore <em>Your Wellness Topics</em></div>
+      <p class="section-sub">Click any topic below to discover helpful ideas, activities, and tips made especially for you.</p>
+      <div class="topic-grid">
+        <div class="topic-card tc1" onclick="showPage('relationships')">
+          <div class="t-icon">🤝</div><div class="t-name">Relationships</div>
+        </div>
+        <div class="topic-card tc2" onclick="showPage('food')">
+          <div class="t-icon">🍎</div><div class="t-name">Food</div>
+        </div>
+        <div class="topic-card tc3" onclick="showPage('physical')">
+          <div class="t-icon">🏃</div><div class="t-name">Physical Wellness</div>
+        </div>
+        <div class="topic-card tc4" onclick="showPage('relaxation')">
+          <div class="t-icon">🧘</div><div class="t-name">Relaxation</div>
+        </div>
+        <div class="topic-card tc5" onclick="showPage('creativity')">
+          <div class="t-icon">🎨</div><div class="t-name">Creativity</div>
+        </div>
+        <div class="topic-card tc6" onclick="showPage('games')">
+          <div class="t-icon">🎮</div><div class="t-name">Games</div>
+        </div>
+        <div class="topic-card tc7" onclick="showPage('humor')">
+          <div class="t-icon">😂</div><div class="t-name">Humor</div>
+        </div>
+        <div class="topic-card tc8" onclick="showPage('memories')">
+          <div class="t-icon">🌟</div><div class="t-name">Memories</div>
+        </div>
+        <div class="topic-card tc9" onclick="showPage('goals')">
+          <div class="t-icon">🎯</div><div class="t-name">Goals</div>
+        </div>
+        <div class="topic-card tc10" onclick="showPage('sleep')">
+          <div class="t-icon">😴</div><div class="t-name">Sleep</div>
+        </div>
+      </div>
+
+      <div class="testimonial-banner">
+        <p>"You are not alone on this journey. Thousands of young people are finding ways to smile, laugh, create, and connect — even during the hardest days. You can too."</p>
+        <small>— A message to every young patient reading this 💙</small>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">🌟 Happiness & Well-Being</div>
+        <p class="footer-desc">A school project dedicated to promoting happiness, comfort, and well-being for young cancer patients ages 8–19. Every student deserves to smile, even during the hardest times.</p>
+      </div>
+      <div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div>
+      <div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div>
+    </div>
+    <div class="footer-bottom">Made with 💙 as a school project · For educational purposes only · Always consult your healthcare team</div>
+  </footer>
+</div>
+
+<!-- ============================== RELATIONSHIPS ============================== -->
+<div class="page" id="page-relationships">
+  <section class="page-hero bg-sky">
+    <span class="emoji-big">🤝</span>
+    <h1 style="color:var(--blue-dark)">Relationships & Support</h1>
+    <p>Staying connected with people who care about you is one of the most powerful things you can do for your happiness and strength during treatment.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box">
+        <p>"You don't have to face this journey alone — every connection you keep is a light that guides you through the dark."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">📞</div>
+          <h3>Stay in Touch with Friends</h3>
+          <div class="card-body">
+            <p>Even when you can't be together in person, your friendships are still alive and real. Keeping those connections warm matters enormously.</p>
+            <ul>
+              <li>Video calls feel more personal and special than texts</li>
+              <li>Send a funny meme or a voice note to make them smile</li>
+              <li>Online gaming together counts as quality time</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--green);">
+          <div class="card-icon">👨‍👩‍👧</div>
+          <h3>Lean on Your Family</h3>
+          <div class="card-body">
+            <p>Your family loves you more than words can say. Letting them in — even when it feels hard — strengthens your bond and eases your heart.</p>
+            <ul>
+              <li>Share how you're feeling, even when it's scary</li>
+              <li>Ask for company when you feel lonely</li>
+              <li>Watch movies or play games together at home</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--purple);">
+          <div class="card-icon">💬</div>
+          <h3>Join a Support Group</h3>
+          <div class="card-body">
+            <p>Talking to others your age who truly understand what you're going through can feel like a huge, warm relief. You are not the only one.</p>
+            <ul>
+              <li>Online support groups for young cancer patients exist</li>
+              <li>Many hospitals have peer support programs</li>
+              <li>Sharing your story can also help others</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">🗣️</div>
+          <h3>Talk About Your Feelings</h3>
+          <div class="card-body">
+            <p>It's okay to not be okay. Hiding feelings makes them heavier. Sharing them — even just a little — makes them lighter and more manageable.</p>
+            <ul>
+              <li>Talk to a trusted adult, counselor, or therapist</li>
+              <li>Write your feelings in a journal if talking feels hard</li>
+              <li>You are always allowed to feel scared, angry, or sad</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <div class="card-icon">🌸</div>
+          <h3>Accept Help with Kindness</h3>
+          <div class="card-body">
+            <p>Letting others help you is not weakness — it is wisdom. People genuinely want to support you, so allow them to be there for you.</p>
+            <ul>
+              <li>Say yes when someone offers to visit or help</li>
+              <li>Tell people clearly what kind of support you need</li>
+              <li>A simple "thank you" strengthens every relationship</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== FOOD ============================== -->
+<div class="page" id="page-food">
+  <section class="page-hero bg-yellow">
+    <span class="emoji-big">🍎</span>
+    <h1 style="color:#b06800">Food & Comfort</h1>
+    <p>Food is more than just fuel — it can bring joy, comfort, and connection. Enjoying your favorite foods (within doctor guidelines) is a small but meaningful way to feel happy.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--yellow),var(--peach));border-left-color:var(--gold);">
+        <p style="color:#a06010">"A favorite meal, a warm snack, or a sweet treat — sometimes the simplest things bring the brightest smiles."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <div class="card-icon">😋</div>
+          <h3>Favorite Foods Boost Your Mood</h3>
+          <div class="card-body">
+            <img src="resources/molokhia_1.jpg.webp" alt="Comfort Food" style="border-radius:12px;">
+            <p> "Molokhia" </p>
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--orange);">
+          <div class="card-icon">🍰</div>
+          <h3>Small Treats Bring Big Joy</h3>
+          <div class="card-body">
+            <img src="resources/Egyptian-Rice-Pudding-Traditional.jpg" alt="Comfort Food" style="border-radius:12px;">
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">👨‍👩‍👧</div>
+          <h3>Eating Together Creates Connection</h3>
+          <div class="card-body">
+            <img src="resources/18325d0ac663e6282bc6193b93d7f81d.jpg" alt="Comfort Food" style="border-radius:12px;">
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--green);">
+          <div class="card-icon">🎉</div>
+          <h3>Fun Food Activities</h3>
+          <div class="card-body">
+            <img src="resources/tropical-fruit-salad-square-500x500.jpeg.webp" alt="Comfort Food" style="border-radius:12px;">
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">🩺</div>
+          <h3>Always Follow Doctor Recommendations</h3>
+          <div class="card-body">
+            <img src="resources/c37c0484e5a7d85515d6f5995100538c6f931bea.jpg.avif" alt="Comfort Food" style="border-radius:12px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== PHYSICAL ============================== -->
+<div class="page" id="page-physical">
+  <section class="page-hero bg-mint">
+    <span class="emoji-big">🏃</span>
+    <h1 style="color:var(--green-dark)">Physical Wellness</h1>
+    <p>Gentle movement, even just a little each day, can lift your mood, reduce fatigue, and help your body feel stronger. Always listen to your body and go at your own pace.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--mint),#eefff6);border-left-color:var(--green);">
+        <p style="color:var(--green-dark)">"Moving your body — even just a little — is a way of saying: I am here, I am alive, and I am taking care of myself."</p>
+      </div>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div class="tip-num" style="background:linear-gradient(135deg,var(--green),var(--blue))">1</div>
+          <p><strong>Start With a Short Walk</strong> — Even 5 to 10 minutes of walking around your home or yard can improve circulation, boost your energy, and genuinely lift your mood.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num" style="background:linear-gradient(135deg,var(--blue),var(--purple))">2</div>
+          <p><strong>Try Gentle Stretching</strong> — Stretching in the morning or evening reduces body tension and stiffness, especially during treatment. It takes only a few minutes and feels wonderful.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num" style="background:linear-gradient(135deg,var(--purple),var(--rose))">3</div>
+          <p><strong>Explore Yoga for Kids and Teens</strong> — Yoga is low-impact, calming, and fully adaptable to any energy level. It also helps with breathing and mindfulness at the same time.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num" style="background:linear-gradient(135deg,var(--rose),var(--orange))">4</div>
+          <p><strong>Dance to Your Favorite Song</strong> — Put on one upbeat song and move however feels good to you. Even gentle swaying counts and can instantly change your entire mood for the better.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-num" style="background:linear-gradient(135deg,var(--orange),var(--gold))">5</div>
+          <p><strong>Always Match Activity to Your Energy Level</strong> — Some days you'll feel stronger, some days you won't. Both are perfectly okay. Rest is also physical wellness — never push past your body's limits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== RELAXATION ============================== -->
+<div class="page" id="page-relaxation">
+  <section class="page-hero bg-lavender">
+    <span class="emoji-big">🧘</span>
+    <h1 style="color:var(--purple)">Relaxation & Stress Relief</h1>
+    <p>Treatment can feel overwhelming sometimes. These simple techniques help calm your mind, ease your body, and bring you back to a place of peace and safety.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--lavender),#f5f0ff);border-left-color:var(--purple);">
+        <p style="color:var(--purple)">"In the middle of difficulty lies the opportunity for peace. A single deep breath can truly change everything."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--purple);">
+          <div class="card-icon">🌬️</div>
+          <h3>Deep Breathing Exercises</h3>
+          <p>Deep breathing activates your body's natural calm response. Try the 4-7-8 method: breathe in for 4 counts, hold for 7, breathe out for 8 counts slowly.</p>
+          <ul><li>Practice before medical procedures to reduce anxiety</li><li>Use it whenever you feel overwhelmed or scared</li><li>Even 3 deep breaths can make a real difference</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">🎵</div>
+          <h3>Listen to Calming Music</h3>
+          <p>Music has a powerful effect on your emotions and body. Creating a personal "calm playlist" for difficult moments is a wonderful tool to always have ready.</p>
+          <ul><li>Nature sounds, lo-fi music, or soft instrumentals work well</li><li>Use headphones for a more immersive calming experience</li><li>Let the music gently wash away tension</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--mint-mid);">
+          <div class="card-icon">🧠</div>
+          <h3>Meditation & Quiet Time</h3>
+          <p>You don't need experience to meditate. Sitting quietly and focusing on your breath for just a few minutes is more than enough to feel the benefits.</p>
+          <ul><li>Try guided meditation apps designed for teens</li><li>Body scan meditation helps release tension bit by bit</li><li>Even 5 minutes of silence can completely reset your mood</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">📱</div>
+          <h3>Helpful Apps & Digital Tools</h3>
+          <p>There are many free apps and resources designed specifically to help young people manage stress, anxiety, and overwhelming emotions gently.</p>
+          <ul><li>Calm, Headspace, and Smiling Mind are great starting points</li><li>Coloring apps can be deeply meditative and calming</li><li>Sleep story apps are perfect for bedtime relaxation</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== CREATIVITY ============================== -->
+<div class="page" id="page-creativity">
+  <section class="page-hero" style="background:linear-gradient(135deg,#fff5ee,#fdf0f5,#f0ebfb)">
+    <span class="emoji-big">🎨</span>
+    <h1 style="color:var(--rose)">Creativity & Expression</h1>
+    <p>Creating something — art, music, writing, or crafts — is one of the most powerful ways to express your feelings, calm your mind, and bring beauty into your day.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,#fff5ee,#fdf0f5);border-left-color:var(--rose);">
+        <p style="color:var(--rose)">"Creativity is your heart speaking out loud. There is no wrong way to make something that is truly yours."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">🖌️</div>
+          <h3>Drawing, Painting & Crafts</h3>
+          <p>Visual arts are deeply therapeutic. You don't need to be "good at art" — the act of creating is what heals, not the result.</p>
+          <ul><li>Watercolors, colored pencils, or markers all work beautifully</li><li>Try drawing how you feel instead of writing it down</li><li>Crafting with paper, clay, or fabric is also very calming</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">📖</div>
+          <h3>Writing Stories or Journaling</h3>
+          <p>Writing is a safe space to process your thoughts, tell your story, and release emotions that are hard to express out loud to anyone.</p>
+          <ul><li>Keep a personal journal — no rules, just honest you</li><li>Write a short story where you are the brave hero</li><li>List 3 things that made you smile today</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--purple);">
+          <div class="card-icon">🎶</div>
+          <h3>Music & Singing</h3>
+          <p>Music connects directly to your emotions. Singing, humming, or playing a simple instrument can release tension and spark joy at the same time.</p>
+          <ul><li>Sing your favorite songs out loud — seriously, it helps!</li><li>Make playlists that match and shift your mood</li><li>Write simple song lyrics about your own journey</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <div class="card-icon">📸</div>
+          <h3>Photography & Digital Art</h3>
+          <p>You don't need a professional camera. Your phone is enough to capture meaningful, beautiful moments in your everyday world.</p>
+          <ul><li>Start a "photo a day" project of things you love</li><li>Use free apps to create colorful digital artwork</li><li>Make a digital scrapbook of your happiest moments</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== GAMES ============================== -->
+<div class="page" id="page-games">
+  <section class="page-hero" style="background:linear-gradient(135deg,#e8f4fd,#e6f7f0)">
+    <span class="emoji-big">🎮</span>
+    <h1 style="color:var(--blue-dark)">Games & Entertainment</h1>
+    <p>Games are not just fun — they keep your mind active, reduce boredom, and help you connect with others. Playing is a powerful and legitimate form of well-being!</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--sky),#eefff6);border-left-color:var(--blue);">
+        <p style="color:var(--blue-dark)">"A game isn't just a game — it's a tiny vacation for your mind, a moment where you get to exist somewhere else entirely."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">🕹️</div>
+          <h3>Video Games — Solo & With Friends</h3>
+          <p>Video games can be genuinely therapeutic. They distract from discomfort, create feelings of achievement, and let you socialize and connect online.</p>
+          <ul><li>Choose games that match your mood and energy level</li><li>Multiplayer games keep you connected to your friends</li><li>Ask if your hospital has any gaming programs or consoles</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--green);">
+          <div class="card-icon">🧩</div>
+          <h3>Puzzles & Brain Games</h3>
+          <p>Puzzles give your brain a gentle, satisfying workout. They are perfect for low-energy days when you still want to feel engaged and accomplished.</p>
+          <ul><li>Jigsaw puzzles, crosswords, and Sudoku all count</li><li>Complete one section at a time — there's no pressure or rush</li><li>Celebrate every single completed puzzle!</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--purple);">
+          <div class="card-icon">🎲</div>
+          <h3>Board Games & Card Games</h3>
+          <p>Playing games in person with family creates warmth, laughter, and connection — all of which are true medicine for the heart and soul.</p>
+          <ul><li>Simple games like Uno, Chess, or Checkers are perfect</li><li>Board games encourage conversation and shared laughter</li><li>Teach your family a new game you just discovered</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">📺</div>
+          <h3>Movies, Shows & YouTube</h3>
+          <p>Sometimes the best entertainment is watching something you genuinely love — a funny series, an adventure film, or a creative YouTube channel.</p>
+          <ul><li>Create a "watch list" of shows to look forward to</li><li>Host a virtual movie night with distant friends</li><li>Watch with family for beautiful shared experiences</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== HUMOR ============================== -->
+<div class="page" id="page-humor">
+  <section class="page-hero" style="background:linear-gradient(135deg,var(--yellow),var(--peach))">
+    <span class="emoji-big">😂</span>
+    <h1 style="color:#b06800">Humor & Positivity</h1>
+    <p>Laughter really is one of the best medicines. Finding humor and joy in everyday moments can genuinely reduce stress and help you feel so much lighter.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--yellow),#fff5cc);border-left-color:var(--gold);">
+        <p style="color:#a06010">"Laughter is a tiny holiday. Every time you laugh, your body relaxes, your heart lifts, and the world feels a little less heavy."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <div class="card-icon">🎬</div>
+          <h3>Watch Funny Videos & Movies</h3>
+          <p>Comedy is genuinely therapeutic. Laughter releases endorphins — your brain's natural feel-good chemicals. Build yourself a funny playlist today!</p>
+          <ul><li>Find your favorite comedians or funny YouTube channels</li><li>Watch a silly animated movie or a classic comedy</li><li>Ask friends to share their funniest videos with you</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--orange);">
+          <div class="card-icon">😄</div>
+          <h3>Share Jokes & Memes</h3>
+          <p>A perfectly timed joke or meme sent to a friend creates instant connection and shared joy. Start a "joke of the day" tradition with someone you love!</p>
+          <ul><li>Keep a notes app full of your favorite jokes</li><li>Send a funny meme to someone who needs a smile today</li><li>Swap silly jokes with family during meals</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">🌈</div>
+          <h3>Find the Funny in Small Things</h3>
+          <p>Humor is a skill you can actually practice and grow. Learning to find the gentle absurdity in everyday life is a true superpower for managing hard times.</p>
+          <ul><li>Keep a "funny moments" diary and add to it daily</li><li>Try to spot one silly thing in your day, every single day</li><li>Share these small moments with someone you love</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--purple);">
+          <div class="card-icon">😊</div>
+          <h3>Positivity Boosters</h3>
+          <p>Even when humor feels difficult, positivity can be practiced. Simple gratitude habits genuinely rewire how you experience your entire day.</p>
+          <ul><li>Write down 3 good things that happened today</li><li>Say one kind thing to yourself each morning</li><li>Surround yourself with positive people and uplifting content</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== MEMORIES ============================== -->
+<div class="page" id="page-memories">
+  <section class="page-hero" style="background:linear-gradient(135deg,var(--pink),var(--lavender))">
+    <span class="emoji-big">🌟</span>
+    <h1 style="color:var(--purple)">Memories & Celebrations</h1>
+    <p>Every single day holds something worth remembering. Celebrating small wins, capturing happy moments, and honoring milestones keeps your heart full of gratitude and joy.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--pink),#fef0fa);border-left-color:var(--rose);">
+        <p style="color:var(--rose)">"Celebrate every small victory — finishing a treatment session, making it through a hard day, finding a reason to smile. These moments matter more than you know."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--rose);">
+          <div class="card-icon">🎉</div>
+          <h3>Celebrate Small Wins</h3>
+          <p>Every treatment session completed is a real victory. Every difficult day survived is worth acknowledging. Don't wait for big milestones — celebrate small moments right now.</p>
+          <ul><li>Finish a treatment session? Treat yourself to something special</li><li>Get through a hard day? Call someone who loves you</li><li>Complete a goal? Write it down and truly admire it</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <div class="card-icon">🎂</div>
+          <h3>Honor Birthdays & Special Days</h3>
+          <p>Birthdays, holidays, and anniversaries are still absolutely worth celebrating — even when your celebration looks a little different this year.</p>
+          <ul><li>Plan a small but meaningful celebration at home</li><li>Have friends and family record video messages for you</li><li>Make the day feel special in YOUR unique way</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">📷</div>
+          <h3>Create Photo Albums & Scrapbooks</h3>
+          <p>Preserving happy memories gives you something beautiful to look back on and helps you see — clearly — just how far you have already come.</p>
+          <ul><li>Print your favorite photos and arrange them lovingly</li><li>Make a digital photo book or a slideshow video</li><li>Include handwritten notes, stickers, and drawings</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--green);">
+          <div class="card-icon">💭</div>
+          <h3>Revisit Happy Memories</h3>
+          <p>Your good memories belong to you forever. Revisiting them through photos, stories, or music can be deeply comforting and healing during tough times.</p>
+          <ul><li>Create a "memory jar" — write good moments on paper slips</li><li>Ask family to share funny or warm stories together</li><li>Make a playlist of songs tied to your happiest moments</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== GOALS ============================== -->
+<div class="page" id="page-goals">
+  <section class="page-hero bg-mint">
+    <span class="emoji-big">🎯</span>
+    <h1 style="color:var(--green-dark)">Goals & Motivation</h1>
+    <p>Setting small, meaningful goals gives you something to look forward to, builds your confidence, and reminds you that you are still moving forward — even on the hardest of days.</p>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,var(--mint),#eefff6);border-left-color:var(--green);">
+        <p style="color:var(--green-dark)">"You don't have to climb the whole mountain at once. Take one small step. Then another. That is exactly how you reach the top."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid var(--green);">
+          <div class="card-icon">📚</div>
+          <h3>Reading & Learning Goals</h3>
+          <p>A small reading or learning goal gives your mind a positive focus and a genuinely satisfying sense of progress and personal achievement.</p>
+          <ul><li>Pick a book you've always wanted to read</li><li>Learn one new word, fact, or skill each day</li><li>Watch a fascinating documentary about something you love</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--blue);">
+          <div class="card-icon">🏆</div>
+          <h3>Creative & Project Goals</h3>
+          <p>Completing a creative project — even a small one — builds a powerful sense of real accomplishment. You made that. Nobody can ever take it from you.</p>
+          <ul><li>Complete a drawing, short story, or craft project</li><li>Finish a puzzle or jigsaw from start to finish</li><li>Start and complete one small personal project this week</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--purple);">
+          <div class="card-icon">📝</div>
+          <h3>How to Set Good Goals</h3>
+          <p>Good goals feel achievable and exciting, not overwhelming or stressful. They should make you feel a spark of hope, not a wave of pressure.</p>
+          <ul><li>Be specific: "read 10 pages today" beats "read more"</li><li>Break big goals into tiny, manageable daily steps</li><li>Write your goals down and check them off with pride</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <div class="card-icon">🌱</div>
+          <h3>Goals Build Hope for Tomorrow</h3>
+          <p>Having something to work toward — no matter how small — keeps the future feeling real, positive, and worth looking forward to with genuine excitement.</p>
+          <ul><li>Make a "bucket list" of fun things to do after treatment</li><li>Visualize yourself achieving your goal clearly</li><li>Celebrate every single goal you reach, no matter the size</li></ul>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;">🏅 Goal Milestones to Try</h3>
+        <div class="mini-grid">
+          <div class="mini-card" style="background:linear-gradient(135deg,#e8f4fd,#d8ecf8)">
+            <div class="mc-icon">📖</div><p>Finish a Book</p>
+          </div>
+          <div class="mini-card" style="background:linear-gradient(135deg,#e6f7f0,#d0f0e4)">
+            <div class="mc-icon">🎨</div><p>Complete an Art Piece</p>
+          </div>
+          <div class="mini-card" style="background:linear-gradient(135deg,var(--yellow),#fdf0d0)">
+            <div class="mc-icon">🧩</div><p>Solve a Puzzle</p>
+          </div>
+          <div class="mini-card" style="background:linear-gradient(135deg,var(--lavender),#e4d8f8)">
+            <div class="mc-icon">🌱</div><p>Grow Something</p>
+          </div>
+          <div class="mini-card" style="background:linear-gradient(135deg,var(--pink),#fae0ec)">
+            <div class="mc-icon">✍️</div><p>Write a Short Story</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== SLEEP ============================== -->
+<div class="page" id="page-sleep">
+  <section class="page-hero" style="background:linear-gradient(135deg,#1e2a4a,#2a3a6a)">
+    <span class="emoji-big">😴</span>
+    <h1 style="color:#c8d8f8">Sleep & Rest</h1>
+    <p style="color:rgba(200,216,248,0.8)">Rest is not laziness — it is healing. Quality sleep helps your body recover, your mind stay steady, and your heart stay hopeful every single day.</p>
+  </section>
+  <section class="section" style="background:linear-gradient(135deg,#f0f4ff,#f5f0fb)">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,#e8eeff,#f0ebfb);border-left-color:#6080d0">
+        <p style="color:#4060b0">"Sleep is the golden chain that ties health and our bodies together. Let yourself rest — you have truly earned it."</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" style="border-top:4px solid #6080d0">
+          <div class="card-icon">🌙</div>
+          <h3>Why Sleep Matters So Much</h3>
+          <p>During treatment, your body works incredibly hard to heal. Sleep is when the most important repair and recovery truly happens. It is not just rest — it is medicine.</p>
+          <ul><li>Directly supports immune system function</li><li>Improves mood and emotional regulation</li><li>Reduces pain sensitivity and anxiety</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--lavender-mid)">
+          <div class="card-icon">🕯️</div>
+          <h3>Create a Calming Bedtime Routine</h3>
+          <p>A consistent, peaceful bedtime routine signals to your body that it's time to wind down, making it much easier to fall asleep and stay asleep through the night.</p>
+          <ul><li>Dim the lights about 30 minutes before sleep</li><li>Read, listen to soft music, or try gentle deep breathing</li><li>Avoid screens for at least 30 minutes before bed</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--mint-mid)">
+          <div class="card-icon">☁️</div>
+          <h3>Make Your Sleep Space Cozy</h3>
+          <p>Your sleep environment has a real effect on the quality of your rest. A comfortable, calm space makes a meaningful difference to how well you sleep.</p>
+          <ul><li>Use soft, comfortable bedding and pillows you love</li><li>Keep the room comfortably cool and as dark as possible</li><li>Add a soft lamp, fairy lights, or a cozy calming scent</li></ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--rose)">
+          <div class="card-icon">🧘</div>
+          <h3>Managing Sleep During Treatment</h3>
+          <p>Treatment can make sleeping harder sometimes. Nausea, anxiety, or discomfort may interfere — but these gentle strategies can still help you get needed rest.</p>
+          <ul><li>Try relaxation techniques to calm your body before sleep</li><li>Short naps during the day are completely okay and healing</li><li>Always talk to your doctor if sleep problems persist</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+</div>
+
+<!-- ============================== CONCLUSION ============================== -->
+<div class="page" id="page-conclusion">
+  <section class="conclusion-hero">
+    <div style="font-size:4.5rem;margin-bottom:20px">💪</div>
+    <h1>You Are <span style="color:var(--blue-dark)">Stronger</span> Than You Think</h1>
+    <p style="font-size:1.1rem;color:var(--text-mid);max-width:640px;margin:18px auto 0;line-height:1.85">The road you're walking is not easy. But you are not walking it alone — and you are more resilient, more brave, and more full of light than you may feel right now.</p>
+  </section>
+
+  <section class="section" style="background:linear-gradient(135deg,var(--sky),var(--mint))">
+    <div class="section-inner">
+      <div class="section-label">Key Takeaways</div>
+      <div class="section-title">What We've <em>Learned Together</em></div>
+      <p class="section-sub">Happiness is possible — and it lives in small, everyday moments that you can reach for, one at a time.</p>
+      <div class="pillars-grid">
+        <div class="pillar"><div class="p-icon">🤝</div><p>Relationships reduce loneliness and give you strength</p></div>
+        <div class="pillar"><div class="p-icon">🍎</div><p>Comfort food and shared meals bring real joy</p></div>
+        <div class="pillar"><div class="p-icon">🏃</div><p>Gentle movement lifts your mood every day</p></div>
+        <div class="pillar"><div class="p-icon">🧘</div><p>Relaxation reduces anxiety and calms the mind</p></div>
+        <div class="pillar"><div class="p-icon">🎨</div><p>Creativity is a safe space for all your feelings</p></div>
+        <div class="pillar"><div class="p-icon">🎮</div><p>Games keep your mind active and entertained</p></div>
+        <div class="pillar"><div class="p-icon">😂</div><p>Laughter is a genuine and powerful form of healing</p></div>
+        <div class="pillar"><div class="p-icon">🌟</div><p>Memories and celebrations honor your journey</p></div>
+        <div class="pillar"><div class="p-icon">🎯</div><p>Goals give you hope and a sense of real purpose</p></div>
+        <div class="pillar"><div class="p-icon">😴</div><p>Rest is essential medicine for both body and mind</p></div>
+      </div>
+
+      <div class="final-message">
+        <span class="heart">💙</span>
+        <h2>Keep Believing in Better Days</h2>
+        <p>Happiness is not just a destination — it lives in the small, ordinary moments: a warm meal, a kind conversation, a song you love, a dream you're quietly working toward. Even in the hardest times, these moments are always there, waiting for you. You deserve every single one of them. Keep going. We believe in you with our whole hearts.</p>
+      </div>
+
+      <!-- REFERENCES -->
+      <div style="margin-top:64px">
+        <div class="section-label">Academic References</div>
+        <div class="section-title">References & <em>Sources</em></div>
+        <p class="section-sub">The following sources informed the content of this school project. Full citations are formatted as placeholders to be completed according to your school's required citation style.</p>
+
+        <div class="ref-card">
+          <div class="ref-num">Reference 1</div>
+          <p>American Cancer Society. (Year). <em>Emotional and Social Effects of Cancer for Teens and Young Adults.</em> American Cancer Society Official Website. Retrieved from [URL]</p>
+          <span class="ref-placeholder">Placeholder — to be completed</span>
+        </div>
+        <div class="ref-card">
+          <div class="ref-num">Reference 2</div>
+          <p>National Cancer Institute. (Year). <em>Children with Cancer: A Guide for Parents — Coping and Emotional Support.</em> National Institutes of Health Publications. Retrieved from [URL]</p>
+          <span class="ref-placeholder">Placeholder — to be completed</span>
+        </div>
+        <div class="ref-card">
+          <div class="ref-num">Reference 3</div>
+          <p>Childhood Cancer International. (Year). <em>Psychosocial Care Standards for Children and Adolescents with Cancer.</em> CCI Global Publications. Retrieved from [URL]</p>
+          <span class="ref-placeholder">Placeholder — to be completed</span>
+        </div>
+        <div class="ref-card">
+          <div class="ref-num">Reference 4</div>
+          <p>World Health Organization. (Year). <em>Mental Health and Well-Being for Children Living with Chronic Illness.</em> WHO Press, Geneva. Retrieved from [URL]</p>
+          <span class="ref-placeholder">Placeholder — to be completed</span>
+        </div>
+        <div class="ref-card">
+          <div class="ref-num">Reference 5</div>
+          <p>Children's Oncology Group Foundation. (Year). <em>Long-Term Follow-Up Guidelines — Psychosocial Health and Quality of Life.</em> COG Foundation Official Site. Retrieved from [URL]</p>
+          <span class="ref-placeholder">Placeholder — to be completed</span>
+        </div>
+        <div class="ref-card">
+          <div class="ref-num">Reference 6</div>
+          <p>Pediatric Oncology Resource Center. (Year). <em>Creative Arts Therapy as a Complementary Approach in Pediatric Cancer Care.</em> PORC Publications. Retrieved from [URL]</p>
+          <span class="ref-placeholder">Placeholder — to be completed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">🌟 Happiness & Well-Being</div>
+        <p class="footer-desc">A school project dedicated to promoting happiness, comfort, and well-being for young cancer patients ages 8–19. Every student deserves to smile, even during the hardest times.</p>
+      </div>
+      <div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div>
+      <div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div>
+    </div>
+    <div class="footer-bottom">Made with 💙 as a school project · For educational purposes only · Always consult your healthcare team</div>
+  </footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const page = document.getElementById('page-' + id);
+    if (page) { page.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    const navLink = document.getElementById('nav-' + id);
+    if (navLink) navLink.classList.add('active');
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  
+  // Collapsible cards: attach after DOM content exists
+  (function () {
+    function toggleCard(card, expand) {
+      if (expand === undefined) expand = !card.classList.contains('expanded');
+      if (expand) card.classList.add('expanded'); else card.classList.remove('expanded');
+      var heading = card.querySelector('h3');
+      if (heading) heading.setAttribute('aria-expanded', String(expand));
+    }
+
+    document.querySelectorAll('.card').forEach(function (card) {
+      // Wrap all elements after the h3 into a .card-body so toggling only affects this card
+      var heading = card.querySelector('h3');
+      if (heading) {
+        // create a wrapper and move all children that are not the icon or heading into it
+        if (!card.querySelector('.card-body')) {
+          var wrapper = document.createElement('div');
+          wrapper.className = 'card-body';
+          // collect current children (live collection -> copy to array)
+          var children = Array.from(card.children);
+          children.forEach(function (child) {
+            if (child !== heading && !child.classList.contains('card-icon')) {
+              wrapper.appendChild(child);
+            }
+          });
+          // append wrapper (will now sit after remaining children like icon and h3)
+          card.appendChild(wrapper);
+        }
+      }
+      var icon = card.querySelector('.card-icon');
+      if (heading) {
+        heading.setAttribute('tabindex', '0');
+        heading.setAttribute('role', 'button');
+        heading.setAttribute('aria-expanded', 'false');
+        heading.addEventListener('click', function () { toggleCard(card); });
+        heading.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCard(card); }
+        });
+      }
+      if (icon) {
+        icon.setAttribute('tabindex', '0');
+        icon.addEventListener('click', function () { toggleCard(card); });
+        icon.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCard(card); }
+        });
+      }
+    });
+  })();
+</script>
+</body>
+</html>
