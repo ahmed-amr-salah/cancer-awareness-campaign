@@ -294,6 +294,20 @@
     padding: 64px 24px 52px; text-align: center;
     position: relative; overflow: hidden;
   }
+  .page-hero.has-video .section-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0; pointer-events: none;
+    filter: saturate(0.98) brightness(0.75);
+  }
+  .page-hero.has-video::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.25));
+    z-index: 1;
+    pointer-events: none;
+  }
+  .page-hero.has-video .hero-inner { position: relative; z-index: 2; }
+  .page-hero.has-video p { color: #fff; }
   .page-hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.8rem, 4vw, 2.8rem);
@@ -378,6 +392,23 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(1rem, 2.5vw, 1.3rem);
     color: var(--blue-dark); font-style: italic; line-height: 1.75;
+  }
+
+  .memories-note {
+    max-width: 900px;
+    margin: -14px auto 28px;
+    background: linear-gradient(135deg, #fff7fb, #fff2f8);
+    border: 1px solid rgba(232, 119, 154, 0.22);
+    border-left: 5px solid var(--rose);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 6px 20px rgba(232, 119, 154, 0.1);
+  }
+  .memories-note p {
+    margin: 0;
+    color: #6e4d5f;
+    font-size: 0.98rem;
+    line-height: 1.8;
   }
 
   /* BG VARIANTS */
@@ -478,6 +509,8 @@
       background: white; border-bottom: 1px solid var(--sky-mid);
       padding: 16px; gap: 4px;
     }
+    .page-hero.has-video .section-video { display: none; }
+    .page-hero.has-video::before { display: none; }
     .nav-links.open { display: flex; }
     .hamburger { display: flex; }
     .footer-inner { grid-template-columns: 1fr; }
@@ -535,7 +568,7 @@
       <div class="section-label">Why It Matters</div>
       <div class="section-title">Happiness Is <em>Part of Healing</em></div>
   <p class="section-sub wide">Finding Happiness During the Cancer Journey
-                             Happiness is an important part of life, especially for young cancer patients aged 10–30. Cancer does not only affect the body; it also impacts emotional, social, and mental well-being. During treatment, patients may experience stress, fear, or loneliness, which makes finding ways to feel happy and supported even more important.
+                             Happiness is an important part of life, especially for young cancer patients aged 9–18. Cancer does not only affect the body; it also impacts emotional, social, and mental well-being. During treatment, patients may experience stress, fear, or loneliness, which makes finding ways to feel happy and supported even more important.
                              This website is designed to help young cancer patients, as well as their families, friends, and caregivers, understand how different aspects of life can improve happiness. Research shows that emotional well-being is closely connected to physical health, meaning that feeling positive and supported can help patients cope better with treatment and daily challenges. </p>
       <div class="about-grid">
         <div class="about-card">
@@ -615,8 +648,8 @@
         <div class="footer-logo">🌟 Happiness & Well-Being</div>
         <p class="footer-desc">A school project dedicated to promoting happiness, comfort, and well-being for young cancer patients ages 8–19. Every student deserves to smile, even during the hardest times.</p>
       </div>
-      <div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div>
-      <div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div>
+      <div class="footer-col"><h4>Group Members</h4><p>Mohamed Orabi<br>Mohamed El-Wakeel<br>Moataz<br>Reem <br> Habiba</p></div>
+      <div class="footer-col"><h4>Project Info</h4><p>The American University in Cairo<br>Core 1010<br> Dr.Nesreen Fakhr<br> Spring 2026</p></div>
     </div>
     <div class="footer-bottom">Made with 💙 as a school project · For educational purposes only · Always consult your healthcare team</div>
   </footer>
@@ -624,10 +657,15 @@
 
 <!-- ============================== RELATIONSHIPS ============================== -->
 <div class="page" id="page-relationships">
-  <section class="page-hero bg-sky">
-    <span class="emoji-big">🤝</span>
-    <h1 style="color:var(--blue-dark)">Relationships & Support</h1>
-    <p>Staying connected with people who care about you is one of the most powerful things you can do for your happiness and strength during treatment.</p>
+  <section class="page-hero bg-sky has-video">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/RelationshipVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🤝</span>
+      <h1 style="color:var(--blue-dark)">Relationships & Support</h1>
+      <p>Staying connected with people who care about you is one of the most powerful things you can do for your happiness and strength during treatment.</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
@@ -698,15 +736,21 @@
       </div>
     </div>
   </section>
-  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
+  <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>Mohamed Orabi<br>Mohamed El-Wakeel<br>Moataz<br>Reem <br> Habiba</p></div>
+      <div class="footer-col"><h4>Project Info</h4><p>The American University in Cairo<br>Core 1010<br> Dr.Nesreen Fakhr<br> Spring 2026</p></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
 </div>
 
 <!-- ============================== FOOD ============================== -->
 <div class="page" id="page-food">
-  <section class="page-hero bg-yellow">
-    <span class="emoji-big">🍎</span>
-    <h1 style="color:#b06800">Food & Comfort</h1>
-    <p>Food is more than just fuel — it can bring joy, comfort, and connection. Enjoying your favorite foods (within doctor guidelines) is a small but meaningful way to feel happy.</p>
+  <section class="page-hero bg-yellow has-video">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/FoodVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🍎</span>
+      <h1 style="color:#b06800">Food & Comfort</h1>
+      <p>Food is more than just fuel — it can bring joy, comfort, and connection. Enjoying your favorite foods (within doctor guidelines) is a small but meaningful way to feel happy.</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
@@ -758,10 +802,15 @@
 
 <!-- ============================== PHYSICAL ============================== -->
 <div class="page" id="page-physical">
-  <section class="page-hero bg-mint">
-    <span class="emoji-big">🏃</span>
-    <h1 style="color:var(--green-dark)">Physical Wellness</h1>
-    <p>Gentle movement, even just a little each day, can lift your mood, reduce fatigue, and help your body feel stronger. Always listen to your body and go at your own pace.</p>
+  <section class="page-hero bg-mint has-video">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/PhysicalVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🏃</span>
+      <h1 style="color:var(--green-dark)">Physical Wellness</h1>
+      <p>Gentle movement, even just a little each day, can lift your mood, reduce fatigue, and help your body feel stronger. Always listen to your body and go at your own pace.</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
@@ -931,10 +980,15 @@
 
 <!-- ============================== CREATIVITY ============================== -->
 <div class="page" id="page-creativity">
-  <section class="page-hero" style="background:linear-gradient(135deg,#fff5ee,#fdf0f5,#f0ebfb)">
-    <span class="emoji-big">🎨</span>
-    <h1 style="color:var(--rose)">Creativity & Expression</h1>
-    <p>Creating something — art, music, writing, or crafts — is one of the most powerful ways to express your feelings, calm your mind, and bring beauty into your day.</p>
+  <section class="page-hero has-video" style="background:linear-gradient(135deg,#fff5ee,#fdf0f5,#f0ebfb)">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/CreativityVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🎨</span>
+      <h1 style="color:var(--rose)">Creativity & Expression</h1>
+      <p>Creating something — art, music, writing, or crafts — is one of the most powerful ways to express your feelings, calm your mind, and bring beauty into your day.</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
@@ -1152,10 +1206,15 @@
 
 <!-- ============================== GAMES ============================== -->
 <div class="page" id="page-games">
-  <section class="page-hero" style="background:linear-gradient(135deg,#e8f4fd,#e6f7f0)">
-    <span class="emoji-big">🎮</span>
-    <h1 style="color:var(--blue-dark)">Games & Entertainment</h1>
-    <p>Games are not just fun — they keep your mind active, reduce boredom, and help you connect with others. Playing is a powerful and legitimate form of well-being!</p>
+  <section class="page-hero has-video" style="background:linear-gradient(135deg,#e8f4fd,#e6f7f0)">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/GamesVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🎮</span>
+      <h1 style="color:var(--blue-dark)">Games & Entertainment</h1>
+      <p>Games are not just fun — they keep your mind active, reduce boredom, and help you connect with others. Playing is a powerful and legitimate form of well-being!</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
@@ -1348,15 +1407,23 @@
 <!---->
 <!-- ============================== MEMORIES ============================== -->
 <div class="page" id="page-memories">
-  <section class="page-hero" style="background:linear-gradient(135deg,var(--pink),var(--lavender))">
-    <span class="emoji-big">🌟</span>
-    <h1 style="color:var(--purple)">Memories & Celebrations</h1>
-    <p>Every single day holds something worth remembering. Celebrating small wins, capturing happy moments, and honoring milestones keeps your heart full of gratitude and joy.</p>
+  <section class="page-hero has-video" style="background:linear-gradient(135deg,var(--pink),var(--lavender))">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/MemoriesVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🌟</span>
+      <h1 style="color:var(--purple)">Memories & Celebrations</h1>
+      <p>Every single day holds something worth remembering. Celebrating small wins, capturing happy moments, and honoring milestones keeps your heart full of gratitude and joy.</p>
+    </div>
   </section>
   <section class="section">
     <div class="section-inner">
       <div class="quote-box" style="background:linear-gradient(135deg,var(--pink),#fef0fa);border-left-color:var(--rose);">
         <p style="color:var(--rose)">"Celebrate every small victory — finishing a treatment session, making it through a hard day, finding a reason to smile. These moments matter more than you know."</p>
+      </div>
+      <div class="memories-note">
+        <p>This space also works as a gratitude journal, where you can pause and notice the good moments in your day, even the small ones. It is a place to write about things you are thankful for, happy memories, or little victories that brought comfort, strength, or joy. Keeping a gratitude journal can help you focus more on hope, appreciation, and the positive parts of everyday life.</p>
       </div>
       <div class="cards-grid">
         <!-- Memories journal playground (minimal, relaxed) -->
@@ -1441,17 +1508,21 @@
 </div>
 
 <!-- ============================== GOALS ============================== -->
+<!-- ============================== GOALS ============================== -->
 <div class="page" id="page-goals">
   <section class="page-hero bg-mint">
     <span class="emoji-big">🎯</span>
     <h1 style="color:var(--green-dark)">Goals & Motivation</h1>
     <p>Setting small, meaningful goals gives you something to look forward to, builds your confidence, and reminds you that you are still moving forward — even on the hardest of days.</p>
   </section>
+
   <section class="section">
     <div class="section-inner">
       <div class="quote-box" style="background:linear-gradient(135deg,var(--mint),#eefff6);border-left-color:var(--green);">
         <p style="color:var(--green-dark)">"You don't have to climb the whole mountain at once. Take one small step. Then another. That is exactly how you reach the top."</p>
       </div>
+
+      <!-- INFO CARDS -->
       <div class="cards-grid">
         <div class="card" style="border-top:4px solid var(--green);">
           <div class="card-icon">📚</div>
@@ -1479,6 +1550,7 @@
         </div>
       </div>
 
+      <!-- MILESTONE MINI CARDS -->
       <div style="margin-top:48px;">
         <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;">🏅 Goal Milestones to Try</h3>
         <div class="mini-grid">
@@ -1501,15 +1573,517 @@
       </div>
     </div>
   </section>
+
+  <!-- ===================== YEARLY JOURNAL ===================== -->
+  <section id="yearly-journal-section" style="
+    background: linear-gradient(135deg, #f0faf5 0%, #eef6fb 50%, #f5f0fd 100%);
+    padding: 72px 24px;
+  ">
+    <div class="section-inner">
+
+      <!-- Header -->
+      <div style="text-align:center; margin-bottom:48px;">
+        <div class="section-label" style="color:var(--green-dark)">Your Personal Space</div>
+        <div class="section-title">My <em>Yearly Goals Journal</em></div>
+        <p class="section-sub" style="margin:0 auto;">
+          This is your playground. Set goals for the year across four areas of life that matter.
+          Write as little or as much as you like — then export a beautiful copy to keep.
+        </p>
+      </div>
+
+      <!-- Year selector & patient name -->
+      <div id="yj-header" style="
+        background: white; border-radius: 20px; padding: 28px 32px;
+        box-shadow: 0 4px 24px rgba(90,172,225,0.12);
+        display: flex; flex-wrap: wrap; gap: 20px; align-items: center;
+        margin-bottom: 36px;
+      ">
+        <div style="flex:1; min-width:200px;">
+          <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--green-dark); margin-bottom:8px;">Your Name</label>
+          <input id="yj-name" type="text" placeholder="e.g. Alex" style="
+            width:100%; padding:11px 16px; border-radius:12px;
+            border:2px solid #d0eee2; font-family:'Nunito',sans-serif;
+            font-size:1rem; font-weight:700; color:var(--text-dark);
+            outline:none; transition:border 0.2s;
+          " onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#d0eee2'" />
+        </div>
+        <div style="flex:1; min-width:200px;">
+          <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--green-dark); margin-bottom:8px;">Year</label>
+          <input id="yj-year" type="number" placeholder="2025" min="2020" max="2040" style="
+            width:100%; padding:11px 16px; border-radius:12px;
+            border:2px solid #d0eee2; font-family:'Nunito',sans-serif;
+            font-size:1rem; font-weight:700; color:var(--text-dark);
+            outline:none; transition:border 0.2s;
+          " onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#d0eee2'" />
+        </div>
+        <div style="flex:1; min-width:200px;">
+          <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--green-dark); margin-bottom:8px;">My One Word for This Year</label>
+          <input id="yj-word" type="text" placeholder="e.g. Courage, Hope, Grow..." style="
+            width:100%; padding:11px 16px; border-radius:12px;
+            border:2px solid #d0eee2; font-family:'Nunito',sans-serif;
+            font-size:1rem; font-weight:700; color:var(--text-dark);
+            outline:none; transition:border 0.2s;
+          " onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#d0eee2'" />
+        </div>
+      </div>
+
+      <!-- Category Tabs -->
+      <div id="yj-tabs" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:22px;">
+        <button class="yj-tab yj-tab-active" data-cat="career" onclick="yjSwitchTab('career')" style="
+          padding:11px 22px; border-radius:50px; border:none; cursor:pointer;
+          font-family:'Nunito',sans-serif; font-weight:800; font-size:0.9rem;
+          background:linear-gradient(135deg,#5abf98,#3a8bc4); color:white;
+          box-shadow:0 4px 14px rgba(90,191,152,0.3); transition:all 0.25s;
+        ">💼 Career & Learning</button>
+        <button class="yj-tab" data-cat="spiritual" onclick="yjSwitchTab('spiritual')" style="
+          padding:11px 22px; border-radius:50px; border:none; cursor:pointer;
+          font-family:'Nunito',sans-serif; font-weight:800; font-size:0.9rem;
+          background:#eee; color:var(--text-mid); transition:all 0.25s;
+        ">🙏 Spiritual & Inner</button>
+        <button class="yj-tab" data-cat="health" onclick="yjSwitchTab('health')" style="
+          padding:11px 22px; border-radius:50px; border:none; cursor:pointer;
+          font-family:'Nunito',sans-serif; font-weight:800; font-size:0.9rem;
+          background:#eee; color:var(--text-mid); transition:all 0.25s;
+        ">💪 Health & Body</button>
+        <button class="yj-tab" data-cat="social" onclick="yjSwitchTab('social')" style="
+          padding:11px 22px; border-radius:50px; border:none; cursor:pointer;
+          font-family:'Nunito',sans-serif; font-weight:800; font-size:0.9rem;
+          background:#eee; color:var(--text-mid); transition:all 0.25s;
+        ">🤝 Social & Relationships</button>
+      </div>
+
+      <!-- Journal Panels -->
+      <div id="yj-panels" style="margin-top:0;">
+
+        <!-- CAREER panel -->
+        <div id="yj-panel-career" class="yj-panel" style="
+          background:white; border-radius:0 20px 20px 20px;
+          box-shadow:0 8px 32px rgba(90,191,152,0.12);
+          padding:36px 32px; border-top:4px solid var(--green);
+        ">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="font-size:2.4rem;">💼</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--green-dark); font-weight:700;">Career & Learning Goals</div>
+              <div style="font-size:0.88rem; color:var(--text-light); margin-top:2px;">Education, skills, creativity, passions you want to grow</div>
+            </div>
+          </div>
+          <div id="yj-goals-career"></div>
+          <button onclick="yjAddGoal('career')" style="
+            margin-top:16px; padding:10px 22px; border-radius:50px;
+            border:2px dashed var(--green); background:transparent;
+            color:var(--green-dark); font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:0.88rem; cursor:pointer;
+            transition:all 0.2s;
+          " onmouseover="this.style.background='var(--mint)'" onmouseout="this.style.background='transparent'">
+            + Add a Goal
+          </button>
+          <div style="margin-top:28px; border-top:1px solid #e8f5ee; padding-top:24px;">
+            <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--green-dark); margin-bottom:10px;">💭 My intentions & reflections for this area</label>
+            <textarea id="yj-note-career" placeholder="Write freely here... What does growth in this area mean to you? Why does it matter? How will you feel when you get there?" style="
+              width:100%; min-height:110px; padding:14px 16px;
+              border-radius:14px; border:2px solid #d0eee2;
+              font-family:'Nunito',sans-serif; font-size:0.93rem;
+              color:var(--text-dark); line-height:1.7; resize:vertical; outline:none;
+              transition:border 0.2s;
+            " onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#d0eee2'"></textarea>
+          </div>
+        </div>
+
+        <!-- SPIRITUAL panel -->
+        <div id="yj-panel-spiritual" class="yj-panel" style="
+          display:none; background:white; border-radius:0 20px 20px 20px;
+          box-shadow:0 8px 32px rgba(155,125,232,0.12);
+          padding:36px 32px; border-top:4px solid var(--purple);
+        ">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="font-size:2.4rem;">🙏</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:#7b5fc8; font-weight:700;">Spiritual & Inner Goals</div>
+              <div style="font-size:0.88rem; color:var(--text-light); margin-top:2px;">Peace, faith, mindfulness, gratitude, inner strength</div>
+            </div>
+          </div>
+          <div id="yj-goals-spiritual"></div>
+          <button onclick="yjAddGoal('spiritual')" style="
+            margin-top:16px; padding:10px 22px; border-radius:50px;
+            border:2px dashed var(--purple); background:transparent;
+            color:#7b5fc8; font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:0.88rem; cursor:pointer;
+            transition:all 0.2s;
+          " onmouseover="this.style.background='var(--lavender)'" onmouseout="this.style.background='transparent'">
+            + Add a Goal
+          </button>
+          <div style="margin-top:28px; border-top:1px solid #ede8f8; padding-top:24px;">
+            <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#7b5fc8; margin-bottom:10px;">💭 My intentions & reflections for this area</label>
+            <textarea id="yj-note-spiritual" placeholder="Write freely here... What brings you peace? What do you believe in? What practice or ritual would nourish your soul this year?" style="
+              width:100%; min-height:110px; padding:14px 16px;
+              border-radius:14px; border:2px solid #ddd4f5;
+              font-family:'Nunito',sans-serif; font-size:0.93rem;
+              color:var(--text-dark); line-height:1.7; resize:vertical; outline:none;
+              transition:border 0.2s;
+            " onfocus="this.style.borderColor='var(--purple)'" onblur="this.style.borderColor='#ddd4f5'"></textarea>
+          </div>
+        </div>
+
+        <!-- HEALTH panel -->
+        <div id="yj-panel-health" class="yj-panel" style="
+          display:none; background:white; border-radius:0 20px 20px 20px;
+          box-shadow:0 8px 32px rgba(90,172,225,0.12);
+          padding:36px 32px; border-top:4px solid var(--blue);
+        ">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="font-size:2.4rem;">💪</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--blue-dark); font-weight:700;">Health & Body Goals</div>
+              <div style="font-size:0.88rem; color:var(--text-light); margin-top:2px;">Rest, movement, nourishment, self-care, healing</div>
+            </div>
+          </div>
+          <div id="yj-goals-health"></div>
+          <button onclick="yjAddGoal('health')" style="
+            margin-top:16px; padding:10px 22px; border-radius:50px;
+            border:2px dashed var(--blue); background:transparent;
+            color:var(--blue-dark); font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:0.88rem; cursor:pointer;
+            transition:all 0.2s;
+          " onmouseover="this.style.background='var(--sky)'" onmouseout="this.style.background='transparent'">
+            + Add a Goal
+          </button>
+          <div style="margin-top:28px; border-top:1px solid #d8edf8; padding-top:24px;">
+            <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue-dark); margin-bottom:10px;">💭 My intentions & reflections for this area</label>
+            <textarea id="yj-note-health" placeholder="Write freely here... What does caring for your body look like for you this year? What small habit would make you feel stronger?" style="
+              width:100%; min-height:110px; padding:14px 16px;
+              border-radius:14px; border:2px solid #c8def5;
+              font-family:'Nunito',sans-serif; font-size:0.93rem;
+              color:var(--text-dark); line-height:1.7; resize:vertical; outline:none;
+              transition:border 0.2s;
+            " onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#c8def5'"></textarea>
+          </div>
+        </div>
+
+        <!-- SOCIAL panel -->
+        <div id="yj-panel-social" class="yj-panel" style="
+          display:none; background:white; border-radius:0 20px 20px 20px;
+          box-shadow:0 8px 32px rgba(245,168,80,0.12);
+          padding:36px 32px; border-top:4px solid var(--orange);
+        ">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="font-size:2.4rem;">🤝</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:#c07020; font-weight:700;">Social & Relationship Goals</div>
+              <div style="font-size:0.88rem; color:var(--text-light); margin-top:2px;">Friendships, family, kindness, connection, community</div>
+            </div>
+          </div>
+          <div id="yj-goals-social"></div>
+          <button onclick="yjAddGoal('social')" style="
+            margin-top:16px; padding:10px 22px; border-radius:50px;
+            border:2px dashed var(--orange); background:transparent;
+            color:#c07020; font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:0.88rem; cursor:pointer;
+            transition:all 0.2s;
+          " onmouseover="this.style.background='var(--peach)'" onmouseout="this.style.background='transparent'">
+            + Add a Goal
+          </button>
+          <div style="margin-top:28px; border-top:1px solid #fde0c8; padding-top:24px;">
+            <label style="display:block; font-size:0.75rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#c07020; margin-bottom:10px;">💭 My intentions & reflections for this area</label>
+            <textarea id="yj-note-social" placeholder="Write freely here... Who matters most to you? What kind of friend or family member do you want to be? What connection do you want to nurture?" style="
+              width:100%; min-height:110px; padding:14px 16px;
+              border-radius:14px; border:2px solid #fdd4a8;
+              font-family:'Nunito',sans-serif; font-size:0.93rem;
+              color:var(--text-dark); line-height:1.7; resize:vertical; outline:none;
+              transition:border 0.2s;
+            " onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='#fdd4a8'"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Button -->
+      <div style="text-align:center; margin-top:48px;">
+        <p style="font-size:0.93rem; color:var(--text-light); margin-bottom:18px;">
+          When you're ready, export your goals journal as a beautiful PDF to save, print, or share.
+        </p>
+        <button onclick="yjExport()" style="
+          background:linear-gradient(135deg, var(--green-dark), var(--blue-dark));
+          color:white; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+          padding:16px 40px; border-radius:50px; border:none; cursor:pointer;
+          box-shadow:0 6px 24px rgba(58,159,122,0.35); transition:all 0.3s;
+          letter-spacing:0.02em;
+        " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(58,159,122,0.45)'"
+           onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(58,159,122,0.35)'">
+           Export My Goals Journal
+        </button>
+      </div>
+
+    </div>
+  </section>
+
   <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
 </div>
 
+<!-- ===================== YEARLY JOURNAL SCRIPTS ===================== -->
+<style>
+  /* Tab active states */
+  .yj-tab-active[data-cat="career"]   { background:linear-gradient(135deg,#5abf98,#3a8bc4) !important; color:white !important; box-shadow:0 4px 14px rgba(90,191,152,0.3) !important; }
+  .yj-tab-active[data-cat="spiritual"]{ background:linear-gradient(135deg,#9b7de8,#c87da8) !important; color:white !important; box-shadow:0 4px 14px rgba(155,125,232,0.3) !important; }
+  .yj-tab-active[data-cat="health"]   { background:linear-gradient(135deg,#5aace1,#3a8bc4) !important; color:white !important; box-shadow:0 4px 14px rgba(90,172,225,0.3) !important; }
+  .yj-tab-active[data-cat="social"]   { background:linear-gradient(135deg,#f5a050,#e87050) !important; color:white !important; box-shadow:0 4px 14px rgba(245,160,80,0.3) !important; }
+
+  .yj-goal-row {
+    display: flex; align-items: center; gap: 10px;
+    background: #f8fdfb; border-radius: 12px; padding: 10px 14px;
+    margin-bottom: 10px; border: 1px solid #e0f0e8;
+    transition: border 0.2s;
+  }
+  .yj-goal-row:focus-within { border-color: var(--green); }
+  .yj-goal-check {
+    width: 22px; height: 22px; border-radius: 50%; border: 2px solid #a8dcc8;
+    flex-shrink: 0; cursor: pointer; appearance: none; -webkit-appearance: none;
+    position: relative; transition: all 0.2s; background: white;
+  }
+  .yj-goal-check:checked {
+    background: var(--green); border-color: var(--green);
+  }
+  .yj-goal-check:checked::after {
+    content: '✓'; position: absolute; color: white;
+    font-size: 13px; font-weight: 900;
+    left: 50%; top: 50%; transform: translate(-50%,-50%);
+  }
+  .yj-goal-input {
+    flex: 1; border: none; background: transparent;
+    font-family: 'Nunito', sans-serif; font-size: 0.95rem;
+    color: var(--text-dark); font-weight: 600; outline: none;
+  }
+  .yj-goal-input.done { text-decoration: line-through; color: var(--text-light); }
+  .yj-del-btn {
+    background: none; border: none; cursor: pointer; font-size: 1.1rem;
+    color: #ccc; padding: 2px 4px; border-radius: 6px; transition: all 0.2s; line-height: 1;
+  }
+  .yj-del-btn:hover { color: #e87070; background: #fff0f0; }
+
+  @media print {
+    nav, .page-hero, .quote-box, .cards-grid, .mini-grid, #yj-tabs button,
+    button, .page:not(#page-goals), footer { display: none !important; }
+    #page-goals { display: block !important; }
+    #yearly-journal-section { padding: 0 !important; background: white !important; }
+  }
+</style>
+
+<script>
+(function() {
+  // ------- State -------
+  var yjData = {
+    career:   { goals: [], note: '' },
+    spiritual:{ goals: [], note: '' },
+    health:   { goals: [], note: '' },
+    social:   { goals: [], note: '' }
+  };
+
+  // Seed with placeholder goals so the journal isn't blank on load
+  var seeds = {
+    career: [
+      "Learn something new this month",
+      "Complete a creative project",
+      "Read one book I've been meaning to"
+    ],
+    spiritual: [
+      "Practice 5 minutes of quiet time daily",
+      "Write 3 things I'm grateful for each week",
+      "Find one thing that brings me peace"
+    ],
+    health: [
+      "Drink enough water every day",
+      "Try one gentle movement I enjoy",
+      "Rest without guilt when I need to"
+    ],
+    social: [
+      "Reach out to someone I care about",
+      "Tell someone I love them",
+      "Do one kind act for a friend or family member"
+    ]
+  };
+
+  var cats = ['career','spiritual','health','social'];
+
+  // Init goals from seeds
+  cats.forEach(function(cat) {
+    seeds[cat].forEach(function(text) {
+      yjData[cat].goals.push({ id: Date.now() + Math.random(), text: text, done: false });
+    });
+  });
+
+  // ------- Render -------
+  function renderGoals(cat) {
+    var container = document.getElementById('yj-goals-' + cat);
+    if (!container) return;
+    container.innerHTML = '';
+    yjData[cat].goals.forEach(function(g) {
+      var row = document.createElement('div');
+      row.className = 'yj-goal-row';
+      row.innerHTML =
+        '<input type="checkbox" class="yj-goal-check" ' + (g.done ? 'checked' : '') + ' data-id="' + g.id + '" onchange="yjToggle(\'' + cat + '\',' + g.id + ')" />' +
+        '<input type="text" class="yj-goal-input' + (g.done ? ' done' : '') + '" value="' + escHtml(g.text) + '" placeholder="Type your goal here..." data-id="' + g.id + '" oninput="yjEdit(\'' + cat + '\',' + g.id + ',this.value)" />' +
+        '<button class="yj-del-btn" onclick="yjDelete(\'' + cat + '\',' + g.id + ')" title="Remove">✕</button>';
+      container.appendChild(row);
+    });
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ------- Actions -------
+  window.yjAddGoal = function(cat) {
+    yjData[cat].goals.push({ id: Date.now() + Math.random(), text: '', done: false });
+    renderGoals(cat);
+    // focus last input
+    setTimeout(function() {
+      var inputs = document.querySelectorAll('#yj-goals-' + cat + ' .yj-goal-input');
+      if (inputs.length) inputs[inputs.length - 1].focus();
+    }, 50);
+  };
+
+  window.yjToggle = function(cat, id) {
+    yjData[cat].goals.forEach(function(g) {
+      if (g.id == id) g.done = !g.done;
+    });
+    renderGoals(cat);
+  };
+
+  window.yjEdit = function(cat, id, val) {
+    yjData[cat].goals.forEach(function(g) {
+      if (g.id == id) g.text = val;
+    });
+  };
+
+  window.yjDelete = function(cat, id) {
+    yjData[cat].goals = yjData[cat].goals.filter(function(g) { return g.id != id; });
+    renderGoals(cat);
+  };
+
+  window.yjSwitchTab = function(cat) {
+    // update tabs
+    document.querySelectorAll('.yj-tab').forEach(function(btn) {
+      btn.classList.remove('yj-tab-active');
+      btn.style.background = '#eee';
+      btn.style.color = 'var(--text-mid)';
+      btn.style.boxShadow = 'none';
+    });
+    var activeBtn = document.querySelector('.yj-tab[data-cat="' + cat + '"]');
+    if (activeBtn) activeBtn.classList.add('yj-tab-active');
+    // update panels
+    cats.forEach(function(c) {
+      var p = document.getElementById('yj-panel-' + c);
+      if (p) p.style.display = (c === cat) ? 'block' : 'none';
+    });
+  };
+
+  // ------- Export -------
+  window.yjExport = function() {
+    // Collect current textarea notes
+    cats.forEach(function(cat) {
+      var ta = document.getElementById('yj-note-' + cat);
+      if (ta) yjData[cat].note = ta.value;
+    });
+
+    var name  = document.getElementById('yj-name').value.trim() || 'My';
+    var year  = document.getElementById('yj-year').value.trim() || new Date().getFullYear();
+    var word  = document.getElementById('yj-word').value.trim();
+
+    var catMeta = {
+      career:   { icon:'💼', label:'Career & Learning',          color:'#3a9f7a', bg:'#f0faf5' },
+      spiritual:{ icon:'🙏', label:'Spiritual & Inner',           color:'#7b5fc8', bg:'#f5f0fd' },
+      health:   { icon:'💪', label:'Health & Body',               color:'#3a8bc4', bg:'#f0f6fd' },
+      social:   { icon:'🤝', label:'Social & Relationships',      color:'#c07020', bg:'#fff5ee' }
+    };
+
+    var sectionsHtml = cats.map(function(cat) {
+      var m = catMeta[cat];
+      var d = yjData[cat];
+      var goalsRows = d.goals.map(function(g) {
+        var check = g.done
+          ? '<span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:' + m.color + ';text-align:center;line-height:18px;font-size:11px;color:white;font-weight:900;flex-shrink:0;">✓</span>'
+          : '<span style="display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;"></span>';
+        var textStyle = g.done ? 'text-decoration:line-through;color:#aaa;' : 'color:#2d3a4a;';
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0;">' + check + '<span style="font-size:14px;' + textStyle + '">' + escHtml(g.text || '—') + '</span></div>';
+      }).join('');
+
+      var noteHtml = d.note
+        ? '<div style="margin-top:16px;padding:14px 16px;background:white;border-radius:10px;border-left:3px solid ' + m.color + ';font-size:13px;color:#5a6a7a;line-height:1.7;font-style:italic;">' + escHtml(d.note).replace(/\n/g,'<br>') + '</div>'
+        : '';
+
+      return '<div style="margin-bottom:28px;border-radius:16px;overflow:hidden;border:1px solid #e8e8e8;">' +
+        '<div style="padding:16px 22px;background:' + m.color + ';color:white;display:flex;align-items:center;gap:10px;">' +
+          '<span style="font-size:1.5rem;">' + m.icon + '</span>' +
+          '<span style="font-family:Georgia,serif;font-size:1.1rem;font-weight:700;">' + m.label + '</span>' +
+        '</div>' +
+        '<div style="padding:18px 22px;background:' + m.bg + ';">' +
+          goalsRows +
+          noteHtml +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    var wordBadge = word
+      ? '<div style="display:inline-block;margin-top:10px;padding:6px 20px;border-radius:50px;background:rgba(255,255,255,0.25);font-size:0.95rem;font-weight:700;letter-spacing:0.05em;">My word for ' + year + ': &ldquo;' + escHtml(word) + '&rdquo;</div>'
+      : '';
+
+    var exportHtml = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
+      '<title>' + escHtml(name) + "'s Goals Journal – " + year + '</title>' +
+      '<style>body{margin:0;padding:0;font-family:\'Nunito\',\'Segoe UI\',sans-serif;background:#fafafa;color:#2d3a4a;}' +
+      '@media print{body{background:white;}}</style>' +
+      '</head><body>' +
+      '<div style="max-width:780px;margin:0 auto;padding:40px 24px;">' +
+        '<div style="background:linear-gradient(135deg,#3a9f7a,#3a8bc4);color:white;border-radius:20px;padding:40px 36px;text-align:center;margin-bottom:36px;">' +
+          '<div style="font-size:3rem;margin-bottom:12px;">🎯</div>' +
+          '<h1 style="font-family:Georgia,serif;font-size:2rem;font-weight:700;margin:0 0 8px;">' + escHtml(name) + "'s Goals Journal</h1>" +
+          '<div style="font-size:1.1rem;opacity:0.9;">' + year + '</div>' +
+          wordBadge +
+        '</div>' +
+        sectionsHtml +
+        '<div style="text-align:center;margin-top:36px;padding:24px;background:#f0faf5;border-radius:16px;">' +
+          '<div style="font-size:1.8rem;margin-bottom:8px;">💙</div>' +
+          '<p style="font-style:italic;color:#5a6a7a;font-size:0.95rem;line-height:1.7;max-width:500px;margin:0 auto;">You are brave for setting goals. Every small step forward is a victory worth celebrating.</p>' +
+        '</div>' +
+        '<div style="text-align:center;margin-top:20px;font-size:0.75rem;color:#aaa;">Generated from HappyJourney · For educational purposes only</div>' +
+      '</div>' +
+      '<script>window.print();<\/script>' +
+      '</body></html>';
+
+    var blob = new Blob([exportHtml], { type: 'text/html' });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href = url;
+    a.download = (name + '_Goals_' + year + '.html').replace(/\s+/g,'_');
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() { URL.revokeObjectURL(url); a.remove(); }, 1000);
+  };
+
+  // ------- Init -------
+  document.addEventListener('DOMContentLoaded', function() {
+    cats.forEach(function(cat) { renderGoals(cat); });
+    document.getElementById('yj-year').value = new Date().getFullYear();
+  });
+
+  // Also run immediately in case DOM is already ready
+  if (document.readyState !== 'loading') {
+    cats.forEach(function(cat) { renderGoals(cat); });
+    var yjYearField = document.getElementById('yj-year');
+    if (yjYearField && !yjYearField.value) yjYearField.value = new Date().getFullYear();
+  }
+})();
+</script>
+
 <!-- ============================== SLEEP ============================== -->
 <div class="page" id="page-sleep">
-  <section class="page-hero" style="background:linear-gradient(135deg,#1e2a4a,#2a3a6a)">
-    <span class="emoji-big">😴</span>
-    <h1 style="color:#c8d8f8">Sleep & Rest</h1>
-    <p style="color:rgba(200,216,248,0.8)">Rest is not laziness — it is healing. Quality sleep helps your body recover, your mind stay steady, and your heart stay hopeful every single day.</p>
+  <section class="page-hero has-video" style="background:linear-gradient(135deg,#1e2a4a,#2a3a6a)">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/SleepVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">😴</span>
+      <h1 style="color:#c8d8f8">Sleep & Rest</h1>
+      <p style="color:rgb(255, 255, 255)">Rest is not laziness — it is healing. Quality sleep helps your body recover, your mind stay steady, and your heart stay hopeful every single day.</p>
+    </div>
   </section>
   <section class="section" style="background:linear-gradient(135deg,#f0f4ff,#f5f0fb)">
     <div class="section-inner">
