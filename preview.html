@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food — Interactive Activities</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold:      #f5c842;
+    --gold-dk:   #c89a10;
+    --orange:    #f5a050;
+    --orange-dk: #d07828;
+    --rose:      #f07878;
+    --rose-lt:   #fde8e8;
+    --green:     #5abf98;
+    --green-dk:  #3a9f7a;
+    --mint:      #e6f7f0;
+    --mint-mid:  #a8e0c8;
+    --blue:      #5aace1;
+    --blue-dark: #3a8bc4;
+    --sky:       #e8f4fd;
+    --lavender:  #f0ebfb;
+    --purple:    #9b7de8;
+    --yellow-lt: #fffbec;
+    --peach:     #fff5ee;
+    --cream:     #fdfbf8;
+    --text:      #2d3a4a;
+    --text-mid:  #5a6a7a;
+    --text-lt:   #8a9aaa;
+    --r:  20px;
+    --rlg: 28px;
+    --shadow: 0 8px 40px rgba(245,200,66,0.14);
+    --shadow2: 0 8px 40px rgba(90,172,225,0.14);
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(160deg, #fffbec 0%, #fff5ee 45%, #eef8f2 100%);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    color: var(--text);
+  }
+
+  .page-label { text-align: center; margin-bottom: 44px; }
+  .page-label .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #fde8c8, #fde0c0);
+    color: var(--orange-dk);
+    font-size: 0.72rem; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 6px 20px; border-radius: 50px; margin-bottom: 14px;
+  }
+  .page-label h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--text); line-height: 1.25;
+  }
+  .page-label h1 em { color: var(--orange-dk); font-style: normal; }
+  .page-label p {
+    color: var(--text-mid); font-size: 1rem;
+    max-width: 520px; margin: 12px auto 0; line-height: 1.75;
+  }
+
+  .wrapper { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+
+  /* ══ CARD SHELL ══ */
+  .icard {
+    background: white; border-radius: var(--rlg);
+    padding: 44px 40px; position: relative; overflow: hidden;
+  }
+  .icard.card-a { box-shadow: var(--shadow); }
+  .icard.card-b { box-shadow: var(--shadow2); }
+  .icard::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    border-radius: var(--rlg) var(--rlg) 0 0;
+  }
+  .icard.card-a::before { background: linear-gradient(90deg, var(--gold), var(--orange), var(--rose)); }
+  .icard.card-b::before { background: linear-gradient(90deg, var(--green), var(--blue), var(--purple)); }
+
+  .act-badge {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 50px; margin-bottom: 10px;
+  }
+  .act-badge.a { background: linear-gradient(135deg, #fde8c8, #fde0c0); color: var(--orange-dk); }
+  .act-badge.b { background: linear-gradient(135deg, var(--mint), var(--sky)); color: var(--green-dk); }
+
+  .icard h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: var(--text); margin-bottom: 8px; line-height: 1.3;
+  }
+  .icard > p {
+    color: var(--text-mid); font-size: 0.95rem; line-height: 1.75;
+    max-width: 600px; margin-bottom: 32px;
+  }
+
+  /* ══ MOOD SELECTOR ══ */
+  .mood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px; margin-bottom: 32px;
+  }
+  .mood-btn {
+    background: var(--yellow-lt); border: 2px solid transparent;
+    border-radius: 18px; padding: 20px 12px;
+    text-align: center; cursor: pointer;
+    transition: all 0.25s; font-family: 'Nunito', sans-serif;
+    user-select: none;
+  }
+  .mood-btn:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(245,160,80,0.2); }
+  .mood-btn .m-emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+  .mood-btn .m-name  { font-size: 0.82rem; font-weight: 800; color: var(--text-mid); }
+  .mood-btn.sel {
+    border-color: var(--orange);
+    background: linear-gradient(135deg, #fff3d4, #ffe8d4);
+    box-shadow: 0 6px 24px rgba(245,160,80,0.28);
+    transform: translateY(-4px);
+  }
+  .mood-btn.sel .m-name { color: var(--orange-dk); }
+
+  /* ══ FOOD RESULTS ══ */
+  #mood-result {
+    display: none;
+    animation: fadeUp 0.5s ease both;
+    background: linear-gradient(135deg, var(--yellow-lt), var(--peach));
+    border-radius: 20px; padding: 32px 28px;
+    border: 2px solid rgba(245,200,66,0.25);
+    margin-top: 4px;
+  }
+  #mood-result .r-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+  }
+  #mood-result .r-emoji { font-size: 2.5rem; }
+  #mood-result h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--text); line-height: 1.3;
+  }
+  #mood-result h3 span { color: var(--orange-dk); }
+  #mood-result .r-intro { font-size: 0.93rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 22px; }
+
+  .food-suggestions { display: flex; flex-direction: column; gap: 12px; }
+  .food-item {
+    background: white; border-radius: 14px; padding: 16px 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+    box-shadow: 0 3px 14px rgba(245,200,66,0.1);
+    transition: transform 0.2s;
+    animation: fadeUp 0.4s ease both;
+  }
+  .food-item:hover { transform: translateX(4px); }
+  .food-item:nth-child(2) { animation-delay: 0.07s; }
+  .food-item:nth-child(3) { animation-delay: 0.14s; }
+  .food-item .fi-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .food-item .fi-name { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+  .food-item .fi-why  { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
+
+  .mood-note {
+    margin-top: 18px;
+    background: rgba(90,172,225,0.08);
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 0.83rem; color: var(--text-mid); line-height: 1.65;
+    border-left: 3px solid var(--blue);
+  }
+
+  /* ══ HAPPY PLATE BUILDER ══ */
+  .builder-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* SVG PLATE */
+  .plate-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  #plate-svg {
+    width: 100%; max-width: 320px;
+    filter: drop-shadow(0 8px 24px rgba(90,191,152,0.22));
+  }
+  .plate-title {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    color: var(--text-mid); text-align: center;
+  }
+  #plate-label {
+    font-size: 0.82rem; font-weight: 700; color: var(--text-lt);
+    text-align: center; min-height: 20px;
+    transition: all 0.3s;
+  }
+  .plate-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .btn-clear {
+    background: var(--rose-lt); color: var(--rose);
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.84rem;
+    padding: 10px 20px; border-radius: 50px; border: 2px solid rgba(240,120,120,0.25);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-clear:hover { background: #fbd8d8; transform: translateY(-1px); }
+
+  /* FOOD PALETTE */
+  .palette-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .palette-wrap h3 {
+    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--green-dk); margin-bottom: 2px;
+  }
+  .palette-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .food-pill {
+    background: var(--mint); border: 2px solid transparent;
+    border-radius: 14px; padding: 11px 12px;
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; transition: all 0.22s;
+    font-family: 'Nunito', sans-serif;
+    user-select: none;
+  }
+  .food-pill:hover { background: var(--mint-mid); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(90,191,152,0.2); }
+  .food-pill.on-plate {
+    background: linear-gradient(135deg, var(--mint), #c8f0e0);
+    border-color: var(--mint-mid);
+    box-shadow: 0 3px 12px rgba(90,191,152,0.22);
+  }
+  .food-pill .fp-em  { font-size: 1.5rem; flex-shrink: 0; }
+  .food-pill .fp-lbl { font-size: 0.8rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+
+  /* PLATE COUNTER */
+  #plate-count {
+    text-align: center; font-size: 0.85rem;
+    font-weight: 700; color: var(--text-lt); margin-top: 4px;
+  }
+  #plate-count.full { color: var(--green-dk); }
+
+  #plate-cheer {
+    display: none;
+    background: linear-gradient(135deg, var(--mint), #d4fce8);
+    border: 2px solid var(--mint-mid);
+    border-radius: 16px; padding: 18px 22px;
+    text-align: center; margin-top: 14px;
+    animation: fadeUp 0.4s ease both;
+    grid-column: 1 / -1;
+  }
+  #plate-cheer p { color: var(--green-dk); font-weight: 800; font-size: 0.95rem; line-height: 1.6; }
+
+  /* ══ ANIMATIONS ══ */
+  @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn    { 0% { transform: scale(0) rotate(-15deg); opacity: 0; } 70% { transform: scale(1.18) rotate(4deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+
+  @media (max-width: 640px) {
+    .builder-layout { grid-template-columns: 1fr; }
+    .icard { padding: 30px 20px; }
+    body { padding: 24px 14px 48px; }
+    .mood-grid { grid-template-columns: repeat(3, 1fr); }
+    .palette-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-label">
+  <div class="badge">🍎 Food Page · Interactive Activities</div>
+  <h1>Find Joy in <em>Every Bite</em></h1>
+  <p>Two warm, fun activities to help you rediscover comfort in food and make mealtime feel happy again — at your own pace, in your own way.</p>
+</div>
+
+<div class="wrapper">
+
+  <div class="icard card-a">
+    <span class="act-badge a">🌤 Interactive Activity</span>
+    <h2>How Are You Feeling? Let's Find Your Comfort Food</h2>
+    <p>Pick how you're feeling right now — and we'll suggest gentle, nourishing foods that match your mood and might help you feel a little better. Your feelings are valid, and so is your appetite. 💛</p>
+
+    <div class="mood-grid" id="mood-grid">
+      <button class="mood-btn" data-mood="tired"    onclick="pickMood(this)"><span class="m-emoji">😴</span><span class="m-name">Tired & Drained</span></button>
+      <button class="mood-btn" data-mood="nauseous" onclick="pickMood(this)"><span class="m-emoji">🤢</span><span class="m-name">Nauseous</span></button>
+      <button class="mood-btn" data-mood="anxious" onclick="pickMood(this)"><span class="m-emoji">😰</span><span class="m-name">Anxious</span></button>
+      <button class="mood-btn" data-mood="sad"      onclick="pickMood(this)"><span class="m-emoji">😢</span><span class="m-name">Sad & Low</span></button>
+      <button class="mood-btn" data-mood="happy"    onclick="pickMood(this)"><span class="m-emoji">😊</span><span class="m-name">Feeling Okay!</span></button>
+      <button class="mood-btn" data-mood="bored"    onclick="pickMood(this)"><span class="m-emoji">😑</span><span class="m-name">Bored & Restless</span></button>
+    </div>
+
+    <div id="mood-result">
+      <div class="r-header">
+        <span id="r-emoji" class="r-emoji"></span>
+        <h3 id="r-title"></h3>
+      </div>
+      <p id="r-intro" class="r-intro"></p>
+      <div class="food-suggestions" id="r-foods"></div>
+      <p class="mood-note">🩺 <strong>Always check with your medical team</strong> before trying new foods — some treatments affect what your body can tolerate, and your care team knows best.</p>
+    </div>
+  </div>
+
+  <div class="icard card-b">
+    <span class="act-badge b">🍽 Visualization</span>
+    <h2>Build Your Happy Comfort Plate</h2>
+    <p>Click any food below to place it on your plate and design your own perfect comfort meal. It's your plate — make it exactly the way you love it. ✨</p>
+
+    <div class="builder-layout" id="builder-layout">
+
+      <div class="plate-wrap">
+        <p class="plate-title">🍽 My Happy Plate</p>
+        <svg id="plate-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="foodShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.12)"/>
+            </filter>
+          </defs>
+          
+          <circle cx="150" cy="154" r="136" fill="rgba(90,191,152,0.08)"/>
+          <circle cx="150" cy="150" r="134" fill="#f0f9f4"/>
+          <circle cx="150" cy="150" r="130" fill="none" stroke="#c8e8d8" stroke-width="3"/>
+          <circle cx="150" cy="150" r="120" fill="none" stroke="#e0f4ea" stroke-width="2"/>
+          <circle cx="150" cy="150" r="112" fill="white"/>
+          <circle cx="150" cy="150" r="108" fill="none" stroke="#f0fdf6" stroke-width="6"/>
+          <g id="rim-dots" opacity="0.5">
+            <circle cx="150" cy="22"  r="4" fill="#a8e0c8"/>
+            <circle cx="214" cy="40"  r="3" fill="#f5c842"/>
+            <circle cx="261" cy="86"  r="4" fill="#f5a050"/>
+            <circle cx="278" cy="150" r="3" fill="#e8779a"/>
+            <circle cx="261" cy="214" r="4" fill="#9b7de8"/>
+            <circle cx="214" cy="260" r="3" fill="#5aace1"/>
+            <circle cx="150" cy="278" r="4" fill="#5abf98"/>
+            <circle cx="86"  cy="260" r="3" fill="#f5c842"/>
+            <circle cx="39"  cy="214" r="4" fill="#f5a050"/>
+            <circle cx="22"  cy="150" r="3" fill="#e8779a"/>
+            <circle cx="39"  cy="86"  r="4" fill="#9b7de8"/>
+            <circle cx="86"  cy="40"  r="3" fill="#5aace1"/>
+          </g>
+          <g id="plate-foods"></g>
+          <g id="empty-hint">
+            <text x="150" y="142" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#c0d8c8" font-weight="700">Click foods below</text>
+            <text x="150" y="162" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#c0d8c8" font-weight="700">to build your meal ✨</text>
+          </g>
+          <rect x="6" y="60" width="5" height="180" rx="3" fill="#e0ede8"/>
+          <rect x="6" y="60" width="5" height="60"  rx="3" fill="#c8dcd4"/>
+          <rect x="18" y="60" width="5" height="180" rx="3" fill="#e0ede8"/>
+          <rect x="270" y="60" width="8" height="180" rx="4" fill="#e0ede8"/>
+          <ellipse cx="274" cy="72" rx="10" ry="14" fill="#c8dcd4"/>
+        </svg>
+        <p id="plate-label">Your plate is empty — add something delicious! 🍴</p>
+        <div class="plate-actions">
+          <button class="btn-clear" onclick="clearPlate()">🗑 Clear Plate</button>
+        </div>
+        <p id="plate-count">0 of 8 foods added</p>
+      </div>
+
+      <div class="palette-wrap">
+        <h3>Choose Your Foods</h3>
+        <div class="palette-grid" id="palette-grid">
+          </div>
+      </div>
+
+    </div><div id="plate-cheer">
+      <p>🎉 Your plate looks amazing! That's a beautiful, happy meal — and you deserve every bite of it. Enjoy! 💙🌟</p>
+    </div>
+
+  </div></div><script>
+/* ══ MOOD FOOD DATA ════════════════════════════════════════════════ */
+const MOODS = {
+  tired: {
+    emoji: '😴', title: 'You\'re feeling <span>tired & drained</span>',
+    intro: 'When you\'re exhausted, your body craves gentle fuel that digests easily and restores energy slowly. These soft, nourishing options are easy on your system and provide real comfort.',
+    foods: [
+      { em: '🍌', name: 'Ripe Banana', why: 'Soft, sweet, and packed with natural sugars for quick energy. Easy to eat even with little appetite, and gentle on the stomach.' },
+      { em: '🍯', name: 'Honey Toast', why: 'Warm toast with honey is one of the most comforting foods there is. The carbohydrates give you a steady energy boost and the warmth feels deeply soothing.' },
+      { em: '🥣', name: 'Warm Oatmeal', why: 'Oatmeal is soft, filling, and slow-releasing — it keeps your energy steady for longer. Add a little honey or fruit to make it something to look forward to.' }
+    ]
+  },
+  nauseous: {
+    emoji: '🤢', title: 'You\'re feeling <span>nauseous</span>',
+    intro: 'Nausea during treatment is really tough. The key is small amounts, bland flavors, and cool or room-temperature foods. These options are among the gentlest on an unsettled stomach.',
+    foods: [
+      { em: '🍋', name: 'Ginger Lemon Water', why: 'Ginger is one of the most well-known natural remedies for nausea. Sipping it slowly — especially cold or at room temperature — can settle your stomach gently.' },
+      { em: '🍘', name: 'Plain Crackers', why: 'Dry, plain crackers are a classic comfort for nausea. They absorb excess stomach acid and are very easy to nibble even when your appetite is nearly gone.' },
+      { em: '🧊', name: 'Small Ice Chips', why: 'When swallowing feels hard, letting ice chips melt slowly in your mouth keeps you hydrated without overwhelming your stomach. It can also ease mouth soreness.' }
+    ]
+  },
+  anxious: {
+    emoji: '😰', title: 'You\'re feeling <span>anxious & worried</span>',
+    intro: 'When anxiety is high, warm and familiar foods help activate your body\'s natural calm response. Avoid caffeine — it worsens anxiety — and reach for these grounding options instead.',
+    foods: [
+      { em: '🍵', name: 'Warm Herbal Tea', why: 'Chamomile or peppermint tea is genuinely calming. The warmth, the smell, and the ritual of holding a warm cup all signal safety to your nervous system.' },
+      { em: '🫐', name: 'Blueberries', why: 'These tiny berries are rich in antioxidants and have been linked to reduced anxiety symptoms. They\'re also sweet, easy to eat, and bring a little burst of color and joy.' },
+      { em: '🥛', name: 'Warm Milk', why: 'Warm milk contains tryptophan, which helps your brain produce serotonin — the "feel good" chemical. It\'s one of the oldest comfort foods for a very good reason.' }
+    ]
+  },
+  sad: {
+    emoji: '😢', title: 'You\'re feeling <span>sad & a little low</span>',
+    intro: 'It\'s completely okay to feel sad. When you\'re emotionally heavy, your favorite comfort foods can be a gentle act of kindness to yourself. These choices gently lift your mood and remind you of warmth.',
+    foods: [
+      { em: '🍫', name: 'A Little Dark Chocolate', why: 'Chocolate triggers the release of serotonin and endorphins — your brain\'s natural happiness chemicals. A small piece genuinely does lift your mood. You deserve it.' },
+      { em: '🍲', name: 'Warm Soup', why: 'There\'s a reason every culture has a comfort soup. The warmth, the familiar flavors, and the ease of eating make soup one of the most emotionally nourishing foods there is.' },
+      { em: '🍓', name: 'Fresh Strawberries', why: 'Bright, sweet, and colorful — strawberries are associated with positive feelings and contain vitamin C which supports your mood. Let their color bring a little sunshine to your plate.' }
+    ]
+  },
+  happy: {
+    emoji: '😊', title: 'You\'re feeling <span>okay today — celebrate it!</span>',
+    intro: 'On days when you feel a bit better, it\'s a wonderful time to enjoy something a little more special. These are foods worth looking forward to — treat yourself today!',
+    foods: [
+      { em: '🧁', name: 'A Cupcake or Muffin', why: 'When you\'re feeling good, a sweet treat is a beautiful way to celebrate. Let yourself fully enjoy every bite — you\'ve earned this moment of pure delight.' },
+      { em: '🥗', name: 'A Colorful Fruit Salad', why: 'A bowl full of colorful fruits is as beautiful to look at as it is to eat. Mix your favorites and enjoy the variety of flavors, textures, and the joy of eating something vibrant.' },
+      { em: '🍕', name: 'Your Favorite Comfort Food', why: 'Whatever YOUR favorite food is — today is a great day to enjoy it. Don\'t overthink it. Just eat something that makes you happy, because you deserve happiness.' }
+    ]
+  },
+  bored: {
+    emoji: '😑', title: 'You\'re feeling <span>bored & restless</span>',
+    intro: 'Boredom is actually a signal that you need some stimulation! Food can be an adventure — try something with an interesting texture, a new flavor, or turn snack time into a little activity.',
+    foods: [
+      { em: '🍎', name: 'Apple Slices with Peanut Butter', why: 'The combination of crisp apple and creamy peanut butter gives you interesting contrasting textures and flavors. Arranging the slices on a plate can itself be a fun, simple activity.' },
+      { em: '🌈', name: 'Build a Rainbow Snack Plate', why: 'Pick one food of each color — red strawberry, orange carrot, yellow banana, green grape, purple blueberry. Arranging it is creative and eating it is an adventure through flavors.' },
+      { em: '🫙', name: 'Yogurt Parfait Layers', why: 'Layer yogurt, fruit, and a little granola in a clear cup. It\'s visually fun to build, satisfying to eat, and gives you something to do. Small activities like this really help lift boredom.' }
+    ]
+  }
+};
+
+function pickMood(el) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  const mood = el.dataset.mood;
+  const d = MOODS[mood];
+  document.getElementById('r-emoji').textContent = d.emoji;
+  document.getElementById('r-title').innerHTML  = d.title;
+  document.getElementById('r-intro').textContent = d.intro;
+  const foodsEl = document.getElementById('r-foods');
+  foodsEl.innerHTML = '';
+  d.foods.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'food-item';
+    div.style.animationDelay = (i * 0.08) + 's';
+    div.innerHTML = `<span class="fi-icon">${f.em}</span><div class="fi-body"><p class="fi-name">${f.name}</p><p class="fi-why">${f.why}</p></div>`;
+    foodsEl.appendChild(div);
+  });
+  const res = document.getElementById('mood-result');
+  res.style.display = 'block';
+  setTimeout(() => res.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+}
+
+/* ══ HAPPY PLATE DATA ═══════════════════════════════════════════════ */
+const FOODS = [
+  { id: 'banana',   em: '🍌', label: 'Banana',        color: '#f5e040', r: 26 },
+  { id: 'strawb',   em: '🍓', label: 'Strawberry',    color: '#f07070', r: 22 },
+  { id: 'blueberry',em: '🫐', label: 'Blueberries',   color: '#9080e8', r: 24 },
+  { id: 'oat',      em: '🥣', label: 'Oatmeal',       color: '#e8c880', r: 30 },
+  { id: 'choc',     em: '🍫', label: 'Chocolate',     color: '#8b5e3c', r: 24 },
+  { id: 'toast',    em: '🍞', label: 'Toast',         color: '#e8b060', r: 28 },
+  { id: 'apple',    em: '🍎', label: 'Apple',         color: '#e85050', r: 25 },
+  { id: 'yogurt',   em: '🥛', label: 'Yogurt',        color: '#f0f4f0', r: 28 },
+  { id: 'muffin',   em: '🧁', label: 'Muffin',        color: '#f0a060', r: 26 },
+  { id: 'grapes',   em: '🍇', label: 'Grapes',        color: '#9b5fc8', r: 24 },
+  { id: 'soup',     em: '🍲', label: 'Soup',          color: '#e8900c', r: 30 },
+  { id: 'tea',      em: '🍵', label: 'Warm Tea',      color: '#70b890', r: 26 },
+];
+
+// Plate positions for up to 8 items
+const POSITIONS = [
+  { x: 150, y: 105 }, { x: 105, y: 140 }, { x: 195, y: 140 },
+  { x: 120, y: 185 }, { x: 180, y: 185 }, { x: 150, y: 218 },
+  { x: 90,  y: 165 }, { x: 210, y: 165 }
+];
+
+const onPlate = new Map(); // id -> positionIndex
+
+function buildPalette() {
+  const grid = document.getElementById('palette-grid');
+  FOODS.forEach(f => {
+    const pill = document.createElement('div');
+    pill.className = 'food-pill';
+    pill.id = 'pill-' + f.id;
+    pill.innerHTML = `<span class="fp-em">${f.em}</span><span class="fp-lbl">${f.label}</span>`;
+    pill.onclick = () => toggleFood(f.id);
+    grid.appendChild(pill);
+  });
+}
+
+function toggleFood(id) {
+  if (onPlate.has(id)) {
+    removeFood(id);
+  } else {
+    addFood(id);
+  }
+}
+
+function addFood(id) {
+  if (onPlate.size >= 8) {
+    const pc = document.getElementById('plate-count');
+    pc.textContent = '🍽 Your plate is full! Clear some space first.';
+    pc.className = 'full';
+    setTimeout(() => updatePlateCount(), 2000);
+    return;
+  }
+  
+  const f   = FOODS.find(f => f.id === id);
+  const pos = POSITIONS[onPlate.size];
+  onPlate.set(id, onPlate.size);
+
+  document.getElementById('pill-' + id).classList.add('on-plate');
+
+  const g = document.getElementById('plate-foods');
+  const hint = document.getElementById('empty-hint');
+  hint.style.display = 'none';
+
+  // 1. Outer grouping wrapper exclusively for position
+  const node = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  node.id = 'food-' + id;
+  node.setAttribute('transform', `translate(${pos.x},${pos.y})`);
+
+  // 2. Inner grouping wrapper exclusively for animation
+  const animNode = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  animNode.style.animation = 'popIn 0.45s ease both';
+
+  // Circle background
+  const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circ.setAttribute('r', f.r);
+  circ.setAttribute('fill', f.color);
+  circ.setAttribute('opacity', '0.88');
+  circ.setAttribute('filter', 'url(#foodShadow)');
+  animNode.appendChild(circ);
+
+  // Emoji text
+  const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  txt.setAttribute('text-anchor', 'middle');
+  txt.setAttribute('dominant-baseline', 'central');
+  txt.setAttribute('font-size', Math.round(f.r * 1.1));
+  txt.setAttribute('dy', '1');
+  txt.textContent = f.em;
+  animNode.appendChild(txt);
+
+  // Assemble
+  node.appendChild(animNode);
+  g.appendChild(node);
+
+  updatePlateLabel(f.label);
+  updatePlateCount();
+  if (onPlate.size === 5) showCheer();
+}
+
+function removeFood(id) {
+  onPlate.delete(id);
+  document.getElementById('pill-' + id).classList.remove('on-plate');
+  const node = document.getElementById('food-' + id);
+  
+  if (node) {
+    // Target the inner animation node for a smooth exit!
+    const animNode = node.firstChild; 
+    if(animNode) {
+        animNode.style.animation = 'none';
+        animNode.style.opacity = '0';
+        animNode.style.transform = 'scale(0)';
+        animNode.style.transition = 'all 0.25s';
+    }
+    setTimeout(() => node.remove(), 260);
+  }
+  
+  rebuildPlate();
+  document.getElementById('plate-cheer').style.display = 'none';
+  updatePlateCount();
+}
+
+function rebuildPlate() {
+  const g = document.getElementById('plate-foods');
+  g.innerHTML = ''; // This resets the HTML
+  
+  const ids = [...onPlate.keys()];
+  onPlate.clear();
+  ids.forEach(id => { onPlate.set(id, -1); }); 
+  onPlate.clear();
+  
+  // Re-add the remaining items without animation
+  ids.forEach(id => addFoodSilent(id));
+  
+  if (onPlate.size === 0) {
+    document.getElementById('empty-hint').style.display = '';
+    document.getElementById('plate-label').textContent = 'Your plate is empty — add something delicious! 🍴';
+  }
+}
+
+function addFoodSilent(id) {
+  const f   = FOODS.find(f => f.id === id);
+  const idx = onPlate.size;
+  onPlate.set(id, idx);
+  const pos = POSITIONS[idx];
+
+  const g   = document.getElementById('plate-foods');
+  
+  const node = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  node.id = 'food-' + id;
+  node.setAttribute('transform', `translate(${pos.x},${pos.y})`);
+
+  const animNode = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+  const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circ.setAttribute('r', f.r);
+  circ.setAttribute('fill', f.color);
+  circ.setAttribute('opacity', '0.88');
+  circ.setAttribute('filter', 'url(#foodShadow)'); // Shadow restored here!
+  animNode.appendChild(circ);
+
+  const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  txt.setAttribute('text-anchor', 'middle');
+  txt.setAttribute('dominant-baseline', 'central');
+  txt.setAttribute('font-size', Math.round(f.r * 1.1));
+  txt.setAttribute('dy', '1');
+  txt.textContent = f.em;
+  animNode.appendChild(txt);
+
+  node.appendChild(animNode);
+  g.appendChild(node);
+}
+
+function clearPlate() {
+  onPlate.clear();
+  document.getElementById('plate-foods').innerHTML = '';
+  document.querySelectorAll('.food-pill').forEach(p => p.classList.remove('on-plate'));
+  document.getElementById('empty-hint').style.display = '';
+  document.getElementById('plate-label').textContent = 'Your plate is empty — add something delicious! 🍴';
+  document.getElementById('plate-cheer').style.display = 'none';
+  updatePlateCount();
+}
+
+function updatePlateLabel(lastAdded) {
+  document.getElementById('plate-label').textContent = '✨ ' + lastAdded + ' added to your plate!';
+}
+
+function updatePlateCount() {
+  const el = document.getElementById('plate-count');
+  const n  = onPlate.size;
+  el.textContent = n + ' of 8 food' + (n !== 1 ? 's' : '') + ' on your plate';
+  el.className   = n >= 8 ? 'full' : '';
+}
+
+function showCheer() {
+  const el = document.getElementById('plate-cheer');
+  el.style.display = 'block';
+  setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+}
+
+buildPalette();
+</script>
+</body>
+</html>

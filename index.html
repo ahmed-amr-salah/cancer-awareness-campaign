@@ -37,6 +37,31 @@
     --shadow-hover: 0 12px 40px rgba(90,172,225,0.25);
     --radius: 20px;
     --radius-lg: 32px;
+    --phys-mint:     #4cc9a0;
+    --phys-mint-dk:  #2ea07a;
+    --phys-mint-lt:  #e6faf3;
+    --phys-mint-mid: #a8e8ce;
+    --phys-coral:    #f07860;
+    --phys-coral-lt: #fff0ec;
+    --phys-coral-mid:#f8c4b8;
+    --phys-gold:     #f0c830;
+    --phys-gold-lt:  #fffbe6;
+    --phys-gold-mid: #f8e480;
+    --phys-sky:      #e0f4ff;
+    --phys-sky-mid:  #b8dcf8;
+    --phys-blue:     #5ab0e8;
+    --phys-lavender: #e8e0fc;
+    --phys-purple:   #9878e8;
+    --phys-cream:    #fdfcf7;
+    --phys-earth:    #8b6040;
+    --phys-earth-lt: #c8a878;
+    --phys-grass:    #58b848;
+    --phys-grass-dk: #3a9030;
+    --phys-text:     #243020;
+    --phys-text-m:   #4a6040;
+    --phys-text-l:   #8aaa88;
+    --phys-r:        22px;
+    --phys-rlg:      32px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -291,8 +316,10 @@
 
   /* PAGE HERO */
   .page-hero {
-    padding: 64px 24px 52px; text-align: center;
+    padding: 90px 24px 88px; text-align: center;
     position: relative; overflow: hidden;
+    min-height: clamp(520px, 70vh, 760px);
+    display: flex; align-items: center; justify-content: center;
   }
   .page-hero.has-video .section-video {
     position: absolute; inset: 0; width: 100%; height: 100%;
@@ -306,7 +333,11 @@
     z-index: 1;
     pointer-events: none;
   }
-  .page-hero.has-video .hero-inner { position: relative; z-index: 2; }
+  .page-hero.has-video .hero-inner {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; min-height: 100%; gap: 18px;
+  }
   .page-hero.has-video p { color: #fff; }
   .page-hero h1 {
     font-family: 'Playfair Display', serif;
@@ -325,6 +356,190 @@
     gap: 24px; margin-top: 0;
   }
   .cards-grid { align-items: start; }
+
+  /* Relationships interactive activities */
+  .relationships-activities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 42px;
+  }
+  .activity-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px 30px 28px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(90,172,225,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+  .activity-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+  }
+  .activity-card.card-b::before {
+    background: linear-gradient(90deg, var(--green), var(--gold));
+  }
+  .act-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--sky), var(--mint));
+    color: var(--blue-dark);
+    margin-bottom: 18px;
+  }
+  .activity-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+    margin-bottom: 12px;
+    color: var(--text-dark);
+  }
+  .activity-card p {
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 22px;
+  }
+  .step-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: 10px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .chip {
+    background: var(--sky);
+    color: var(--blue-dark);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+  .chip:hover { background: var(--sky-mid); transform: translateY(-1px); }
+  .chip.sel {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white;
+  }
+  .name-row {
+    margin-bottom: 22px;
+  }
+  .name-row input {
+    width: 100%; padding: 14px 18px;
+    border: 2px solid var(--sky-mid);
+    border-radius: 18px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: #f9fbff;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .name-row input:focus { border-color: var(--blue); }
+  .gen-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 28px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 22px;
+  }
+  .gen-btn:hover { transform: translateY(-1px); }
+  #kmg-output { display: none; margin-top: 18px; }
+  .msg-card {
+    background: linear-gradient(135deg, #eef7ff, #f5f0fb);
+    border: 1px solid rgba(90,172,225,0.18);
+    border-radius: 22px;
+    padding: 22px 20px;
+    margin-bottom: 18px;
+  }
+  .msg-card p { margin: 0; color: var(--text-dark); line-height: 1.8; }
+  .action-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .btn-copy, .btn-retry, .btn-next, #cc-done-btn {
+    border-radius: 999px;
+    padding: 12px 24px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-copy { background: linear-gradient(135deg, var(--green), var(--blue-dark)); color: white; }
+  .btn-retry { background: white; color: var(--blue-dark); border: 2px solid var(--sky-mid); }
+  .btn-copy:hover, .btn-retry:hover, .btn-next:hover, #cc-done-btn:hover { transform: translateY(-1px); }
+  #kmg-copied-msg { display: none; margin-top: 10px; color: var(--green-dark); font-weight: 700; }
+  .deck-wrap { perspective: 1000px; max-width: 500px; margin: 0 auto 26px; }
+  #cc-card {
+    background: linear-gradient(135deg, #3a8bc4, #7b5fc8);
+    border-radius: 24px;
+    padding: 46px 32px;
+    color: white;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 14px 48px rgba(58,139,196,0.34);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-height: 220px;
+  }
+  #cc-card:hover { transform: translateY(-3px); }
+  #cc-card .deck-shadow-1, #cc-card .deck-shadow-2 {
+    position: absolute; left: 0; right: 0; border-radius: 24px; z-index: -1;
+  }
+  #cc-card .deck-shadow-1 {
+    top: -8px; left: 10px; right: 10px; height: calc(100% + 8px);
+    background: linear-gradient(135deg, #4a90d4, #9b7de8); opacity: 0.55;
+  }
+  #cc-card .deck-shadow-2 {
+    top: -16px; left: 20px; right: 20px; height: calc(100% + 16px);
+    background: linear-gradient(135deg, #5aaae1, #b090f0); opacity: 0.32;
+  }
+  #cc-emoji { font-size: 3rem; display: block; margin-bottom: 14px; }
+  #cc-text { font-size: 1.05rem; line-height: 1.75; min-height: 76px; }
+  .tap-hint { margin-top: 18px; font-size: 0.82rem; letter-spacing: 0.08em; opacity: 0.88; }
+  #cc-dots { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .dot { width: 10px; height: 10px; border-radius: 999px; background: #cfe6f6; cursor: pointer; transition: all 0.25s ease; }
+  .dot.active { width: 22px; background: var(--blue); }
+  .dot.done { background: var(--green); }
+  .deck-btns { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+  .btn-next { background: linear-gradient(135deg, var(--blue), var(--purple)); color: white; }
+  #cc-done-btn { background: white; color: var(--green-dark); border: 2px solid var(--mint-mid); }
+  #cc-celebrate { display: none; background: linear-gradient(135deg, #dff7ef, #e8f9f0); border: 1px solid rgba(90,191,152,0.22); border-radius: 20px; padding: 16px 18px; margin-bottom: 16px; color: var(--green-dark); font-weight: 700; text-align: center; }
+  #cc-score { color: var(--text-mid); font-weight: 700; text-align: center; }
+  @media (max-width: 860px) {
+    .relationships-activities { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .activity-card { padding: 26px 22px 22px; }
+  }
   .card {
     background: white; border-radius: var(--radius); padding: 30px 26px;
     box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.9);
@@ -370,6 +585,91 @@
   .card.int-low { border-top: 4px solid var(--green); }
   .card.int-medium { border-top: 4px solid var(--orange); }
   .card.int-high { border-top: 4px solid var(--rose); }
+
+  /* FOOD PLATE BUILDER */
+  .builder-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .plate-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  #plate-svg {
+    width: 100%; max-width: 340px;
+    filter: drop-shadow(0 10px 30px rgba(90,191,152,0.22));
+  }
+  .plate-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--text-mid);
+    text-align: center;
+  }
+  #plate-label {
+    font-size: 0.82rem; font-weight: 700;
+    color: var(--text-lt); text-align: center;
+    min-height: 22px; transition: all 0.3s;
+  }
+  .plate-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .btn-clear {
+    background: var(--rose-lt); color: var(--rose);
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    font-size: 0.86rem; padding: 10px 22px;
+    border-radius: 50px; border: 2px solid rgba(240,120,120,0.25);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-clear:hover { background: #fbd8d8; transform: translateY(-1px); }
+  .palette-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .palette-wrap h3 {
+    font-size: 0.78rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--green-dk); margin-bottom: 2px;
+  }
+  .palette-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .food-pill {
+    background: var(--mint); border: 2px solid transparent;
+    border-radius: 14px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; transition: all 0.22s;
+    font-family: 'Nunito', sans-serif; user-select: none;
+  }
+  .food-pill:hover {
+    background: var(--mint-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(90,191,152,0.2);
+  }
+  .food-pill.on-plate {
+    background: linear-gradient(135deg, var(--mint), #c8f0e0);
+    border-color: var(--mint-mid);
+    box-shadow: 0 3px 12px rgba(90,191,152,0.22);
+  }
+  .food-pill .fp-em { font-size: 1.5rem; flex-shrink: 0; }
+  .food-pill .fp-lbl { font-size: 0.84rem; font-weight: 700; color: var(--text-dark); line-height: 1.2; }
+  #plate-count {
+    text-align: center; font-size: 0.88rem; font-weight: 700;
+    color: var(--text-mid); margin-top: 6px;
+  }
+  #plate-count.full { color: var(--green-dk); }
+  #plate-cheer {
+    display: none;
+    background: linear-gradient(135deg, var(--mint), #d4fce8);
+    border: 2px solid var(--mint-mid);
+    border-radius: 18px; padding: 18px 22px;
+    text-align: center; margin-top: 18px;
+    animation: fadeUp 0.4s ease both;
+  }
+  #plate-cheer p {
+    color: var(--green-dk); font-weight: 800;
+    font-size: 0.95rem; line-height: 1.6;
+  }
+  @media (max-width: 780px) {
+    .builder-layout { grid-template-columns: 1fr; }
+    .palette-grid { grid-template-columns: 1fr 1fr; }
+  }
 
   /* responsive video wrapper for embedded YouTube iframes */
   .video-wrapper { position: relative; width: 100%; padding-top: 56.25%; overflow: hidden; border-radius: 12px; }
@@ -557,7 +857,6 @@
       <h1>Finding <em>Happiness</em> During the Cancer Journey</h1>
       <p>This website is designed to help young cancer patients ages 8–19 find happiness, comfort, and strength through simple daily activities, emotional support, and positive routines during treatment.</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="showPage('relationships')">Explore All Topics ✨</button>
         <button class="btn-secondary" onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'})">Learn More ↓</button>
       </div>
     </div>
@@ -587,13 +886,7 @@
           <p>You don't need big changes. A laugh, a creative moment, a warm conversation, or a restful nap — tiny moments of joy truly add up and help.</p>
         </div>
       </div>
-      <div class="steps-banner">
-        <div class="star">⭐</div>
-        <div>
-          <h3>Remember: Every Small Moment Counts</h3>
-          <p>You don't have to feel happy every second — and that's perfectly okay. But whenever you can, reach for a little joy. Watch something funny, talk to a friend, draw something colorful. You deserve it.</p>
-        
-      </div>
+
     </div>
   </section>
 
@@ -635,10 +928,6 @@
         </div>
       </div>
 
-      <div class="testimonial-banner">
-        <p>"You are not alone on this journey. Thousands of young people are finding ways to smile, laugh, create, and connect — even during the hardest days. You can too."</p>
-        <small>— A message to every young patient reading this 💙</small>
-      </div>
     </div>
   </section>
 
@@ -662,76 +951,109 @@
       <source src="resources/RelationshipVideo.mp4" type="video/mp4">
     </video>
     <div class="hero-inner">
-      <span class="emoji-big">🤝</span>
-      <h1 style="color:var(--blue-dark)">Relationships & Support</h1>
-      <p>Staying connected with people who care about you is one of the most powerful things you can do for your happiness and strength during treatment.</p>
+      <span class="emoji-big"></span>
+      <h1 style="color:var(--mint-mid)">Relationships & Support</h1>
     </div>
   </section>
   <section class="section">
     <div class="section-inner">
-      <div class="quote-box">
-        <p>"You don't have to face this journey alone — every connection you keep is a light that guides you through the dark."</p>
-      </div>
+
       <div class="cards-grid">
         <div class="card" style="border-top:4px solid var(--blue);">
-          <div class="card-icon">📞</div>
-          <h3>Stay in Touch with Friends</h3>
+          <div class="card-icon">🤝</div>
+          <h3>Support Brings Comfort</h3>
           <div class="card-body">
-            <p>Even when you can't be together in person, your friendships are still alive and real. Keeping those connections warm matters enormously.</p>
-            <ul>
-              <li>Video calls feel more personal and special than texts</li>
-              <li>Send a funny meme or a voice note to make them smile</li>
-              <li>Online gaming together counts as quality time</li>
-            </ul>
+            <p>Supportive relationships can bring real comfort during cancer treatment. The American Cancer Society explains that people with cancer who have social and practical support often feel better emotionally and have a better quality of life. This shows that relationships are not only emotionally meaningful, but also an important part of daily well-being. A kind message, a short visit, or simply knowing that someone cares can make a hard day feel lighter and more manageable.</p>
           </div>
         </div>
         <div class="card" style="border-top:4px solid var(--green);">
-          <div class="card-icon">👨‍👩‍👧</div>
-          <h3>Lean on Your Family</h3>
+          <div class="card-icon">🧡</div>
+          <h3>Feeling Understood Matters</h3>
           <div class="card-body">
-            <p>Your family loves you more than words can say. Letting them in — even when it feels hard — strengthens your bond and eases your heart.</p>
-            <ul>
-              <li>Share how you're feeling, even when it's scary</li>
-              <li>Ask for company when you feel lonely</li>
-              <li>Watch movies or play games together at home</li>
-            </ul>
+            <p>One of the most valuable parts of a good relationship is feeling truly understood. Support is not only about how many people are around someone, but also about whether that person genuinely feels cared for and supported. That matters because a patient can be surrounded by others and still feel alone if the connection does not feel real. Relationships built on patience, listening, and kindness can bring peace, reassurance, and emotional comfort.</p>
           </div>
         </div>
         <div class="card" style="border-top:4px solid var(--purple);">
-          <div class="card-icon">💬</div>
-          <h3>Join a Support Group</h3>
+          <div class="card-icon">🌟</div>
+          <h3>Relationships Bring Happiness</h3>
           <div class="card-body">
-            <p>Talking to others your age who truly understand what you're going through can feel like a huge, warm relief. You are not the only one.</p>
-            <ul>
-              <li>Online support groups for young cancer patients exist</li>
-              <li>Many hospitals have peer support programs</li>
-              <li>Sharing your story can also help others</li>
-            </ul>
+            <p>Strong relationships can help protect the joyful parts of life, even during treatment. Support from family, friends, and trusted people can bring hope, encouragement, and a sense of emotional safety. It can also help patients hold on to small moments of normal life, like laughing together, watching something comforting, sharing a meal, or simply spending quiet time with someone who makes them feel calm. Happiness often grows through these small acts of love and connection.</p>
           </div>
         </div>
-        <div class="card" style="border-top:4px solid var(--rose);">
-          <div class="card-icon">🗣️</div>
-          <h3>Talk About Your Feelings</h3>
-          <div class="card-body">
-            <p>It's okay to not be okay. Hiding feelings makes them heavier. Sharing them — even just a little — makes them lighter and more manageable.</p>
-            <ul>
-              <li>Talk to a trusted adult, counselor, or therapist</li>
-              <li>Write your feelings in a journal if talking feels hard</li>
-              <li>You are always allowed to feel scared, angry, or sad</li>
-            </ul>
+      </div>
+      <div class="relationships-activities">
+        <div class="activity-card card-a">
+          <span class="act-badge">💌 Interactive Activity</span>
+          <h2>Kindness Message Generator</h2>
+          <p>Pick who you want to reach out to and the kind of message you'd like to send — then generate a warm note you can copy and share.</p>
+
+          <div>
+            <p class="step-label">① Who are you sending this to?</p>
+            <div class="chips" id="who-chips">
+              <button class="chip" type="button" data-g="who" data-v="friend" onclick="relationshipsPick(this,'who')">👫 Friend</button>
+              <button class="chip" type="button" data-g="who" data-v="parent" onclick="relationshipsPick(this,'who')">👨‍👩‍👧 Parent / Family</button>
+              <button class="chip" type="button" data-g="who" data-v="sibling" onclick="relationshipsPick(this,'who')">🧒 Sibling</button>
+              <button class="chip" type="button" data-g="who" data-v="nurse" onclick="relationshipsPick(this,'who')">🩺 Nurse / Doctor</button>
+              <button class="chip" type="button" data-g="who" data-v="grandparent" onclick="relationshipsPick(this,'who')">👴 Grandparent</button>
+              <button class="chip" type="button" data-g="who" data-v="self" onclick="relationshipsPick(this,'who')">🪞 Myself</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="step-label">② What kind of message?</p>
+            <div class="chips" id="type-chips">
+              <button class="chip" type="button" data-g="type" data-v="thankyou" onclick="relationshipsPick(this,'type')">🙏 Thank You</button>
+              <button class="chip" type="button" data-g="type" data-v="thinking" onclick="relationshipsPick(this,'type')">💭 Thinking of You</button>
+              <button class="chip" type="button" data-g="type" data-v="miss" onclick="relationshipsPick(this,'type')">🌙 I Miss You</button>
+              <button class="chip" type="button" data-g="type" data-v="smile" onclick="relationshipsPick(this,'type')">😊 You Make Me Smile</button>
+              <button class="chip" type="button" data-g="type" data-v="strength" onclick="relationshipsPick(this,'type')">💪 You Give Me Strength</button>
+            </div>
+          </div>
+
+          <div class="name-row">
+            <p class="step-label">③ Their name (optional)</p>
+            <input type="text" id="kmg-name" placeholder="e.g. Layla, Mum, Dr. Hana …" maxlength="30">
+          </div>
+
+          <button class="gen-btn" type="button" onclick="relationshipsGenerateMessage()">✨ Generate My Message</button>
+
+          <div id="kmg-output">
+            <div class="msg-card">
+              <div id="kmg-hearts"></div>
+              <p id="kmg-text"></p>
+            </div>
+            <div class="action-row">
+              <button class="btn-copy" type="button" onclick="relationshipsCopyMsg()">📋 Copy Message</button>
+              <button class="btn-retry" type="button" onclick="relationshipsGenerateMessage()">🔄 Try Another</button>
+            </div>
+            <p id="kmg-copied-msg">✅ Copied! Go ahead — send some love right now. 💙</p>
           </div>
         </div>
-        <div class="card" style="border-top:4px solid var(--gold);">
-          <div class="card-icon">🌸</div>
-          <h3>Accept Help with Kindness</h3>
-          <div class="card-body">
-            <p>Letting others help you is not weakness — it is wisdom. People genuinely want to support you, so allow them to be there for you.</p>
-            <ul>
-              <li>Say yes when someone offers to visit or help</li>
-              <li>Tell people clearly what kind of support you need</li>
-              <li>A simple "thank you" strengthens every relationship</li>
-            </ul>
+
+        <div class="activity-card card-b">
+          <span class="act-badge">🎯 Daily Connection Challenge</span>
+          <h2>Connection Challenge Deck</h2>
+          <p>Tap the card to reveal a kind challenge to help you stay connected with someone who cares. Complete one, then mark it done.</p>
+
+          <div class="deck-wrap">
+            <div id="cc-card" onclick="relationshipsNextCard()">
+              <div class="deck-shadow-1"></div>
+              <div class="deck-shadow-2"></div>
+              <span id="cc-emoji"></span>
+              <p id="cc-text"></p>
+              <p class="tap-hint">Tap card for the next challenge</p>
+            </div>
           </div>
+
+          <div id="cc-dots"></div>
+          <div id="cc-celebrate">🌟 Amazing! You made someone feel loved today — that matters more than you know. 💙</div>
+
+          <div class="deck-btns">
+            <button class="btn-next" type="button" onclick="relationshipsNextCard()">Next Challenge →</button>
+            <button id="cc-done-btn" type="button" onclick="relationshipsMarkDone()">✅ I Did This!</button>
+          </div>
+
+          <p id="cc-score"></p>
         </div>
       </div>
     </div>
@@ -747,52 +1069,121 @@
       <source src="resources/FoodVideo.mp4" type="video/mp4">
     </video>
     <div class="hero-inner">
-      <span class="emoji-big">🍎</span>
+      <span class="emoji-big"></span>
       <h1 style="color:#b06800">Food & Comfort</h1>
-      <p>Food is more than just fuel — it can bring joy, comfort, and connection. Enjoying your favorite foods (within doctor guidelines) is a small but meaningful way to feel happy.</p>
     </div>
   </section>
   <section class="section">
     <div class="section-inner">
-      <div class="quote-box" style="background:linear-gradient(135deg,var(--yellow),var(--peach));border-left-color:var(--gold);">
-        <p style="color:#a06010">"A favorite meal, a warm snack, or a sweet treat — sometimes the simplest things bring the brightest smiles."</p>
-      </div>
       <div class="cards-grid">
         <div class="card" style="border-top:4px solid var(--gold);">
           <div class="card-icon">😋</div>
-          <h3>Favorite Foods Boost Your Mood</h3>
+          <h3>Nourishing Egyptian Comfort</h3>
           <div class="card-body">
             <img src="resources/molokhia_1.jpg.webp" alt="Comfort Food" style="border-radius:12px;">
-            <p> "Molokhia`" </p>
+            <p>Molokhia can feel warm, familiar, and deeply comforting. During treatment, gentle home-style meals can make eating feel less stressful and more soothing. Familiar foods often bring emotional comfort too, making mealtime a calmer, more positive part of the day.</p>
+            <p><strong>Simple recipe:</strong> Warm a light chicken or vegetable broth, add finely chopped or frozen molokhia, and stir until smooth and heated through. Lightly sauté crushed garlic with a little coriander, then add it to the soup for flavor. Serve warm with soft white rice or small pieces of baladi bread. Add soft boiled or shredded chicken for extra protein if wanted, and keep the seasoning light so it stays gentle and easy to enjoy.</p>
           </div>
         </div>
         <div class="card" style="border-top:4px solid var(--orange);">
           <div class="card-icon">🍰</div>
-          <h3>Small Treats Bring Big Joy</h3>
+          <h3>Soft Sweet Comfort</h3>
           <div class="card-body">
             <img src="resources/Egyptian-Rice-Pudding-Traditional.jpg" alt="Comfort Food" style="border-radius:12px;">
+            <p>Rice pudding is soft, smooth, and easy to enjoy in small portions. On days when the mouth or stomach feels sensitive, gentle foods like this can feel more manageable while still bringing comfort and a little sweetness.</p>
+            <p><strong>Simple recipe:</strong> Rinse a small amount of rice, then cook it slowly in milk over low heat until the grains become very soft and the mixture turns creamy. Stir often so it stays smooth. Add a small spoon of sugar or honey if desired, and a little vanilla for gentle flavor. Serve warm for comfort or chilled if cooler foods feel better. Top with soft banana slices or blended dates for extra nourishment.</p>
           </div>
         </div>
         <div class="card" style="border-top:4px solid var(--rose);">
           <div class="card-icon">👨‍👩‍👧</div>
-          <h3>Eating Together Creates Connection</h3>
+          <h3>Family Meals Feel Special</h3>
           <div class="card-body">
             <img src="resources/18325d0ac663e6282bc6193b93d7f81d.jpg" alt="Comfort Food" style="border-radius:12px;">
+            <p>Traditional family dishes can turn a meal into a moment of warmth and connection. Foods made with care often carry a feeling of home, love, and togetherness. During treatment, even a small serving of a familiar family meal can make eating feel more comforting and emotionally uplifting.</p>
+            <p><strong>Simple recipe:</strong> For stuffed grape leaves, prepare a light filling with rice, a little chopped dill or parsley, and a squeeze of lemon juice. Roll the mixture gently inside grape leaves and cook slowly in a pot with water or light broth until the leaves become soft and tender. Serve warm in a small portion with plain yogurt on the side if that feels easy to eat. Keep the filling simple and lightly seasoned so it stays gentle while still feeling special.</p>
           </div>
         </div>
         <div class="card" style="border-top:4px solid var(--green);">
           <div class="card-icon">🎉</div>
-          <h3>Fun Food Activities</h3>
+          <h3>Fresh Flavors Brighten the Day</h3>
           <div class="card-body">
             <img src="resources/tropical-fruit-salad-square-500x500.jpeg.webp" alt="Comfort Food" style="border-radius:12px;">
+            <p>Fresh foods can feel light, colorful, and cheerful. On days when heavier meals do not sound appealing, fruit can be a refreshing option that still makes eating feel pleasant. Bright colors and natural sweetness can make the meal look inviting and bring a small spark of joy.</p>
+            <p><strong>Simple recipe:</strong> Make a soft fruit bowl with easy-to-eat fruits such as banana, strawberries, kiwi, blueberries, melon, or peeled apple slices. Cut everything into small pieces so it feels easier to manage. Mix gently in a bowl and add plain yogurt if desired. Drizzle a little honey or orange juice for extra flavor. If chewing feels harder, blend the same ingredients into a smoothie with yogurt or milk.</p>
           </div>
         </div>
         <div class="card" style="border-top:4px solid var(--blue);">
           <div class="card-icon">🩺</div>
-          <h3>Always Follow Doctor Recommendations</h3>
+          <h3>Gentle Soups Help the Body Rest</h3>
           <div class="card-body">
             <img src="resources/c37c0484e5a7d85515d6f5995100538c6f931bea.jpg.avif" alt="Comfort Food" style="border-radius:12px;">
+            <p>Soup can be one of the gentlest and most comforting foods during treatment. It is warm, soft, and often easier to eat when appetite is low or solid foods feel harder to manage. A smooth homemade soup can bring comfort, hydration, and nourishment without feeling too heavy.</p>
+            <p><strong>Simple recipe:</strong> For a gentle vegetable soup, cook peeled carrots, pumpkin, sweet potato, or zucchini in light broth until very soft. Blend the vegetables with the broth until smooth and creamy. Add a little milk, cream, or yogurt for a softer texture and milder taste. Warm gently before serving and add only a small pinch of salt if needed. Serve with soft toast, crackers, or a few spoonfuls of rice. For extra protein, blend in cooked lentils or add soft shredded chicken.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="icard card-b">
+        <span class="act-badge b">🍽 Interactive Plate Builder</span>
+        <h2>Build Your Happy Comfort Plate</h2>
+        <p>Click foods below to place them on your plate and design a cozy meal that feels just right for you.</p>
+
+        <div class="builder-layout" id="builder-layout">
+          <div class="plate-wrap">
+            <p class="plate-title">🍽 My Happy Plate</p>
+            <svg id="plate-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="foodShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.12)"/>
+                </filter>
+              </defs>
+              <circle cx="150" cy="154" r="136" fill="rgba(90,191,152,0.08)"/>
+              <circle cx="150" cy="150" r="134" fill="#f0f9f4"/>
+              <circle cx="150" cy="150" r="130" fill="none" stroke="#c8e8d8" stroke-width="3"/>
+              <circle cx="150" cy="150" r="120" fill="none" stroke="#e0f4ea" stroke-width="2"/>
+              <circle cx="150" cy="150" r="112" fill="white"/>
+              <circle cx="150" cy="150" r="108" fill="none" stroke="#f0fdf6" stroke-width="6"/>
+              <g id="rim-dots" opacity="0.5">
+                <circle cx="150" cy="22"  r="4" fill="#a8e0c8"/>
+                <circle cx="214" cy="40"  r="3" fill="#f5c842"/>
+                <circle cx="261" cy="86"  r="4" fill="#f5a050"/>
+                <circle cx="278" cy="150" r="3" fill="#e8779a"/>
+                <circle cx="261" cy="214" r="4" fill="#9b7de8"/>
+                <circle cx="214" cy="260" r="3" fill="#5aace1"/>
+                <circle cx="150" cy="278" r="4" fill="#5abf98"/>
+                <circle cx="86"  cy="260" r="3" fill="#f5c842"/>
+                <circle cx="39"  cy="214" r="4" fill="#f5a050"/>
+                <circle cx="22"  cy="150" r="3" fill="#e8779a"/>
+                <circle cx="39"  cy="86"  r="4" fill="#9b7de8"/>
+                <circle cx="86"  cy="40"  r="3" fill="#5aace1"/>
+              </g>
+              <g id="plate-foods"></g>
+              <g id="empty-hint">
+                <text x="150" y="142" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#c0d8c8" font-weight="700">Click foods below</text>
+                <text x="150" y="162" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#c0d8c8" font-weight="700">to build your meal ✨</text>
+              </g>
+              <rect x="6" y="60" width="5" height="180" rx="3" fill="#e0ede8"/>
+              <rect x="6" y="60" width="5" height="60"  rx="3" fill="#c8dcd4"/>
+              <rect x="18" y="60" width="5" height="180" rx="3" fill="#e0ede8"/>
+              <rect x="270" y="60" width="8" height="180" rx="4" fill="#e0ede8"/>
+              <ellipse cx="274" cy="72" rx="10" ry="14" fill="#c8dcd4"/>
+            </svg>
+            <p id="plate-label">Your plate is empty — add something delicious! 🍴</p>
+            <div class="plate-actions">
+              <button class="btn-clear" type="button" onclick="clearPlate()">🗑 Clear Plate</button>
+            </div>
+            <p id="plate-count">0 of 8 foods added</p>
+          </div>
+          <div class="palette-wrap">
+            <h3>Choose Your Foods</h3>
+            <div class="palette-grid" id="palette-grid"></div>
+          </div>
+        </div>
+        <div id="plate-cheer">
+          <p>🎉 Your plate looks amazing! That's a beautiful, happy meal — and you deserve every bite of it. Enjoy! 💙🌟</p>
         </div>
       </div>
     </div>
@@ -807,54 +1198,1016 @@
       <source src="resources/PhysicalVideo.mp4" type="video/mp4">
     </video>
     <div class="hero-inner">
-      <span class="emoji-big">🏃</span>
+      <span class="emoji-big"></span>
       <h1 style="color:var(--green-dark)">Physical Wellness</h1>
-      <p>Gentle movement, even just a little each day, can lift your mood, reduce fatigue, and help your body feel stronger. Always listen to your body and go at your own pace.</p>
     </div>
   </section>
   <section class="section">
     <div class="section-inner">
-      <div class="quote-box" style="background:linear-gradient(135deg,var(--mint),#eefff6);border-left-color:var(--green);">
-        <p style="color:var(--green-dark)">"Moving your body — even just a little — is a way of saying: I am here, I am alive, and I am taking care of myself."</p>
-      </div>
       <div class="cards-grid">
-        <div class="card int-low">
-          <div class="card-icon">🚶</div>
-          <h3>Low Intensity — Gentle Movement</h3>
+        <div class="card">
+          <div class="card-icon">😊</div>
+          <h3>Movement Can Lift Your Mood</h3>
           <div class="card-body">
-            <p>Perfect for low-energy days: short walks, gentle stretches, and breathing exercises.</p>
-            <div class="video-wrapper">
-              <a class="video-thumb" href="https://youtu.be/cc435ONdnFY" target="_blank" rel="noopener noreferrer">
-                <img src="https://img.youtube.com/vi/cc435ONdnFY/hqdefault.jpg" alt="Low intensity workout thumbnail">
-                <div class="play-overlay">▶</div>
-              </a>
-            </div>
+            <p>Gentle physical activity can do more than help the body. Cancer guidance from NCI says exercise during and after treatment can reduce anxiety, depressive symptoms, and fatigue, while improving health-related quality of life. That means movement can help patients feel brighter, calmer, and more emotionally balanced, even in small amounts.</p>
           </div>
         </div>
-        <div class="card int-medium">
-          <div class="card-icon">🏃</div>
-          <h3>Medium Intensity — Moderate Activity</h3>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Gentle Movement Can Ease Fatigue</h3>
           <div class="card-body">
-            <p>Short, steady-paced activities: brisk walking, chair exercises, or simple bodyweight moves.</p>
-            <div class="video-wrapper">
-              <a class="video-thumb" href="https://youtu.be/SdbMVQg0g7M" target="_blank" rel="noopener noreferrer">
-                <img src="https://img.youtube.com/vi/SdbMVQg0g7M/hqdefault.jpg" alt="Medium intensity workout thumbnail">
-                <div class="play-overlay">▶</div>
-              </a>
-            </div>
+            <p>Many people think rest is the only answer to cancer-related fatigue, but movement can help too. NCI reports strong evidence that moderate aerobic and resistance exercise can reduce fatigue and improve physical function and quality of life during and after treatment. So gentle movement is not the opposite of healing. It can be part of healing.</p>
           </div>
         </div>
-        <div class="card int-high">
-          <div class="card-icon">💪</div>
-          <h3>High Intensity — Stronger Movement</h3>
+        <div class="card">
+          <div class="card-icon">🌿</div>
+          <h3>Moving at Your Own Pace Matters</h3>
           <div class="card-body">
-            <p>For days with more energy: short higher-effort routines, light cardio bursts, and strength moves — modify as needed.</p>
-            <div class="video-wrapper">
-              <a class="video-thumb" href="https://youtu.be/HMqikcwlMTg?t=360" target="_blank" rel="noopener noreferrer">
-                <img src="https://img.youtube.com/vi/HMqikcwlMTg/hqdefault.jpg" alt="High intensity workout thumbnail">
-                <div class="play-overlay">▶</div>
-              </a>
+            <p>The best kind of physical activity is activity that feels safe, manageable, and right for the person. Cancer Research UK recommends working at your own level, building up slowly, and choosing something you enjoy. That fits your website perfectly because it keeps the focus on kindness, comfort, and hope instead of pressure or performance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-inner" style="background: linear-gradient(175deg, #e8fdf4 0%, #f5fff8 35%, #fffce8 75%, #fff8f0 100%); padding: 44px 20px 72px;">
+      <style>
+        :root {
+          --mint:     #4cc9a0;
+          --mint-dk:  #2ea07a;
+          --mint-lt:  #e6faf3;
+          --mint-mid: #a8e8ce;
+          --coral:    #f07860;
+          --coral-lt: #fff0ec;
+          --coral-mid:#f8c4b8;
+          --gold:     #f0c830;
+          --gold-lt:  #fffbe6;
+          --gold-mid: #f8e480;
+          --text:     #243020;
+          --text-m:   #4a6040;
+          --text-l:   #8aaa88;
+          --grass:    #58b848;
+          --grass-dk: #3a9030;
+          --rlg:      32px;
+        }
+
+        /* ── Header ── */
+        .page-label { text-align: center; margin-bottom: 48px; }
+        .page-label .badge {
+          display: inline-flex; align-items: center; gap: 8px;
+          background: linear-gradient(135deg, var(--mint-lt), #e8fce8);
+          color: var(--mint-dk); font-size: .72rem; font-weight: 800;
+          letter-spacing: .14em; text-transform: uppercase;
+          padding: 7px 22px; border-radius: 50px; margin-bottom: 16px;
+          border: 1px solid rgba(76,201,160,.25);
+          box-shadow: 0 2px 12px rgba(76,201,160,.15);
+        }
+        .page-label h1 {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(2rem, 5vw, 3rem);
+          color: var(--text); line-height: 1.2;
+        }
+        .page-label h1 em { color: var(--mint-dk); font-style: italic; }
+        .page-label p {
+          color: var(--text-m); font-size: 1.02rem;
+          max-width: 540px; margin: 14px auto 0; line-height: 1.82;
+        }
+        .wrapper { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+
+        /* ── Card shell ── */
+        .icard {
+          background: white; border-radius: var(--rlg);
+          padding: 48px 44px; position: relative; overflow: hidden;
+        }
+        .icard.ca { box-shadow: 0 10px 50px rgba(76,201,160,.16); }
+        .icard.cb { box-shadow: 0 10px 50px rgba(240,200,48,.18); }
+        .icard::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+          border-radius: var(--rlg) var(--rlg) 0 0;
+        }
+        .icard.ca::before { background: linear-gradient(90deg, var(--mint), #80e8c0, #5ab0e8); }
+        .icard.cb::before { background: linear-gradient(90deg, var(--gold), var(--coral), #f090a8); }
+
+        .act-badge {
+          display: inline-block; font-size: .68rem; font-weight: 800;
+          letter-spacing: .14em; text-transform: uppercase;
+          padding: 5px 16px; border-radius: 50px; margin-bottom: 12px;
+        }
+        .act-badge.a { background: var(--mint-lt); color: var(--mint-dk); border: 1px solid rgba(76,201,160,.2); }
+        .act-badge.b { background: var(--gold-lt); color: #a07808; border: 1px solid rgba(240,200,48,.3); }
+
+        .icard h2 {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+          color: var(--text); margin-bottom: 10px; line-height: 1.25;
+        }
+        .icard > p.sub {
+          color: var(--text-m); font-size: .97rem; line-height: 1.8;
+          max-width: 620px; margin-bottom: 34px;
+        }
+
+        /* ── Energy level chips ── */
+        .energy-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 34px; }
+        .energy-btn {
+          flex: 1; min-width: 140px; max-width: 220px;
+          background: var(--mint-lt); border: 2px solid transparent;
+          border-radius: 20px; padding: 20px 18px;
+          text-align: center; cursor: pointer; transition: all .25s;
+          font-family: 'Nunito', sans-serif; user-select: none;
+        }
+        .energy-btn:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(76,201,160,.2); }
+        .energy-btn .e-icon { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+        .energy-btn .e-name { font-size: .95rem; font-weight: 800; color: var(--text); display: block; margin-bottom: 4px; }
+        .energy-btn .e-desc { font-size: .78rem; color: var(--text-l); line-height: 1.45; }
+        .energy-btn.sel {
+          background: linear-gradient(135deg, var(--mint-lt), #d4fce8);
+          border-color: var(--mint);
+          box-shadow: 0 6px 24px rgba(76,201,160,.28);
+          transform: translateY(-4px);
+        }
+
+        /* ── Exercise layout ── */
+        .ex-layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: start; }
+
+        /* SVG figure */
+        .figure-wrap {
+          display: flex; flex-direction: column; align-items: center; gap: 14px;
+          background: linear-gradient(160deg, var(--mint-lt), #edfff6);
+          border-radius: 22px; padding: 28px 20px;
+          border: 1px solid rgba(76,201,160,.18);
+        }
+        .figure-wrap h4 {
+          font-family: 'DM Serif Display', serif; font-size: 1rem;
+          color: var(--mint-dk); text-align: center;
+        }
+        #fig-svg { width: 180px; height: 200px; }
+        #fig-label {
+          font-size: .82rem; font-weight: 700; color: var(--text-l);
+          text-align: center; min-height: 18px; transition: all .3s;
+        }
+
+        /* Exercise cards */
+        .ex-cards { display: flex; flex-direction: column; gap: 14px; }
+        .ex-card {
+          background: linear-gradient(135deg, #f8fffe, #f0fdf8);
+          border: 1px solid rgba(76,201,160,.18);
+          border-radius: 18px; padding: 20px 22px;
+          display: grid; grid-template-columns: 1fr auto;
+          gap: 12px; align-items: center;
+          transition: all .25s; cursor: pointer;
+          box-shadow: 0 2px 12px rgba(76,201,160,.08);
+        }
+        .ex-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(76,201,160,.16); border-color: var(--mint-mid); }
+        .ex-card.active-ex { background: linear-gradient(135deg, var(--mint-lt), #d8fced); border-color: var(--mint); box-shadow: 0 4px 24px rgba(76,201,160,.25); }
+        .ex-card-body { display: flex; align-items: flex-start; gap: 14px; }
+        .ex-icon { font-size: 2rem; flex-shrink: 0; }
+        .ex-name { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+        .ex-time { font-size: .8rem; font-weight: 700; color: var(--mint-dk); margin-bottom: 5px; }
+        .ex-why  { font-size: .82rem; color: var(--text-m); line-height: 1.55; }
+        .ex-dots { display: flex; gap: 4px; margin-top: 6px; }
+        .ex-dot  { width: 8px; height: 8px; border-radius: 50%; background: var(--mint-mid); }
+        .ex-dot.lit { background: var(--mint); }
+
+        /* Timer */
+        .timer-wrap { text-align: center; }
+        .btn-timer {
+          background: linear-gradient(135deg, var(--mint), var(--mint-dk));
+          color: white; font-family: 'Nunito', sans-serif; font-weight: 900;
+          font-size: .88rem; padding: 10px 20px; border-radius: 50px; border: none;
+          cursor: pointer; box-shadow: 0 4px 14px rgba(76,201,160,.35); transition: all .22s;
+          white-space: nowrap;
+        }
+        .btn-timer:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(76,201,160,.4); }
+        .btn-timer.running { background: linear-gradient(135deg, var(--coral), #e05840); }
+        .btn-timer.done    { background: linear-gradient(135deg, #60c880, #3aa060); }
+        .timer-count {
+          display: block; font-family: 'DM Serif Display', serif;
+          font-size: 1.5rem; color: var(--mint-dk); min-height: 36px;
+          margin-top: 6px; text-align: center;
+        }
+
+        #ex-results { display: none; animation: fadeUp .5s ease both; }
+        #ex-empty {
+          background: linear-gradient(135deg, var(--mint-lt), #e8fff6);
+          border-radius: 18px; padding: 40px 28px;
+          text-align: center; border: 2px dashed rgba(76,201,160,.3);
+        }
+        #ex-empty p { color: var(--text-l); font-size: .97rem; font-weight: 700; line-height: 1.7; }
+
+        .done-badge {
+          display: none; margin-top: 18px;
+          background: linear-gradient(135deg, var(--mint-lt), #d0fce8);
+          border: 2px solid var(--mint-mid); border-radius: 16px;
+          padding: 18px 22px; text-align: center;
+          animation: fadeUp .4s ease both;
+        }
+        .done-badge p { color: var(--mint-dk); font-weight: 800; font-size: .95rem; line-height: 1.65; }
+
+        /* ── GARDEN ── */
+        .garden-top { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 24px; }
+
+        .move-palette h3 {
+          font-size: .75rem; font-weight: 800; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--coral); margin-bottom: 14px;
+        }
+        .move-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .move-pill {
+          background: var(--coral-lt); border: 2px solid transparent;
+          border-radius: 14px; padding: 13px 14px;
+          display: flex; align-items: center; gap: 10px;
+          cursor: pointer; transition: all .22s; user-select: none;
+        }
+        .move-pill:hover { background: var(--coral-mid); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(240,120,96,.2); }
+        .move-pill.just-done {
+          background: linear-gradient(135deg, #d8f8e8, #c0fad8);
+          border-color: var(--mint-mid);
+        }
+        .move-pill .mp-em  { font-size: 1.5rem; flex-shrink: 0; }
+        .move-pill .mp-lbl { font-size: .82rem; font-weight: 700; color: var(--text); }
+
+        /* Garden wrap */
+        .garden-viz { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .garden-viz h3 {
+          font-family: 'DM Serif Display', serif; font-size: 1.1rem;
+          color: var(--grass-dk); align-self: flex-start;
+        }
+        #garden-svg { width: 100%; max-width: 360px; border-radius: 20px; overflow: hidden; }
+        #garden-count {
+          font-size: .85rem; font-weight: 700; color: var(--text-l);
+          text-align: center; min-height: 20px;
+        }
+
+        .garden-log { display: flex; flex-direction: column; gap: 8px; }
+        .garden-log h4 {
+          font-size: .72rem; font-weight: 800; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--text-l); margin-bottom: 4px;
+        }
+        .log-entry {
+          background: linear-gradient(135deg, var(--gold-lt), #fffdf0);
+          border-radius: 12px; padding: 10px 16px;
+          font-size: .87rem; font-weight: 700; color: var(--text-m); line-height: 1.5;
+          animation: popIn .4s cubic-bezier(.34,1.56,.64,1) both;
+          border-left: 3px solid var(--gold);
+        }
+
+        #garden-cheer {
+          display: none; width: 100%; margin-top: 4px;
+          background: linear-gradient(135deg, var(--gold-lt), #fffbe0);
+          border: 2px solid var(--gold-mid); border-radius: 16px;
+          padding: 18px 22px; text-align: center;
+          animation: fadeUp .4s ease both;
+          grid-column: 1/-1;
+        }
+        #garden-cheer p { color: #a07808; font-weight: 800; font-size: .95rem; line-height: 1.65; }
+
+        /* ── Animations ── */
+        @keyframes fadeUp  { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
+        @keyframes popIn   { 0%{transform:scale(0) rotate(-10deg);opacity:0;} 70%{transform:scale(1.12) rotate(3deg);} 100%{transform:scale(1) rotate(0);opacity:1;} }
+        @keyframes growUp  { from{transform:scaleY(0) translateY(20px);opacity:0;transform-origin:bottom;}to{transform:scaleY(1) translateY(0);opacity:1;transform-origin:bottom;} }
+        @keyframes sway    { 0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);} }
+        @keyframes flutter { 0%,100%{transform:rotate(-8deg) scale(1);}50%{transform:rotate(8deg) scale(1.1);} }
+        @keyframes pulse   { 0%,100%{opacity:.7;}50%{opacity:1;} }
+        @keyframes walkCycle { 0%,100%{transform:rotate(0deg);}25%{transform:rotate(8deg);}75%{transform:rotate(-8deg);} }
+        @keyframes stretchArm { 0%,100%{transform:rotate(-20deg);}50%{transform:rotate(20deg);} }
+        @keyframes breatheSVG { 0%,100%{transform:scaleX(1);}50%{transform:scaleX(1.08);} }
+
+        @media(max-width:680px) {
+          .ex-layout   { grid-template-columns: 1fr; }
+          .garden-top  { grid-template-columns: 1fr; }
+          .icard       { padding:32px 22px; }
+          .energy-row  { flex-direction: column; }
+          .energy-btn  { max-width: none; }
+        }
+      </style>
+
+      <div class="page-label">
+        <div class="badge">🏃 Physical Wellness · Interactive Activities</div>
+        <h1>Every <em>Little Move</em> Matters 🌿</h1>
+        <p>Two gentle, joyful activities to help you find movement that fits exactly how you feel today — and watch your own strength grow, one tiny step at a time.</p>
+      </div>
+
+      <div class="wrapper">
+
+          <!-- ══════════════════════════════════════════════
+               ACTIVITY 1 — GENTLE MOVEMENT PICKER
+          ══════════════════════════════════════════════ -->
+          <div class="icard ca">
+            <span class="act-badge a">🌿 Interactive Activity</span>
+            <h2>What Can My Body Do Today?</h2>
+            <p class="sub">Tell us how you're feeling right now and we'll suggest gentle movements made exactly for your energy level. Every body is different every day — and every movement, no matter how small, is a real act of strength. 💚</p>
+
+            <div class="energy-row" id="energy-row">
+              <button class="energy-btn" data-level="low"    onclick="pickEnergy(this)">
+                <span class="e-icon">🌱</span>
+                <span class="e-name">Low Energy</span>
+                <span class="e-desc">I'm tired today, just getting through it</span>
+              </button>
+              <button class="energy-btn" data-level="medium" onclick="pickEnergy(this)">
+                <span class="e-icon">🌿</span>
+                <span class="e-name">Some Energy</span>
+                <span class="e-desc">I have a little energy to spare today</span>
+              </button>
+              <button class="energy-btn" data-level="good"   onclick="pickEnergy(this)">
+                <span class="e-icon">🌻</span>
+                <span class="e-name">Feeling Okay!</span>
+                <span class="e-desc">Today feels manageable — I'm up for it</span>
+              </button>
             </div>
+
+            <!-- SPLIT LAYOUT: SVG figure + exercise cards -->
+            <div id="ex-empty">
+              <p>✨ Pick your energy level above to get your personalised gentle movement suggestions — made just for how you're feeling right now.</p>
+            </div>
+
+            <div id="ex-results">
+              <div class="ex-layout">
+
+                <!-- Animated SVG Figure -->
+                <div class="figure-wrap">
+                  <h4>Gentle Movement Guide</h4>
+                  <svg id="fig-svg" viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="bgCircle" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"  stop-color="rgba(76,201,160,0.12)"/>
+                        <stop offset="100%" stop-color="rgba(76,201,160,0)"/>
+                      </radialGradient>
+                    </defs>
+                    <!-- Background glow -->
+                    <circle cx="90" cy="110" r="80" fill="url(#bgCircle)"/>
+                    <!-- Floor line -->
+                    <line x1="20" y1="178" x2="160" y2="178" stroke="#a8e8ce" stroke-width="2" stroke-linecap="round"/>
+
+                    <!-- Figure group — animated by JS -->
+                    <g id="fig-body" transform="translate(90,100)">
+                      <!-- Head -->
+                      <circle id="fig-head" cy="-62" r="16" fill="#f8c4b8" stroke="#f07860" stroke-width="1.5"/>
+                      <!-- Smile -->
+                      <path d="M -5,-58 Q 0,-54 5,-58" stroke="#f07860" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                      <!-- Eyes -->
+                      <circle cx="-5" cy="-64" r="2" fill="#243020"/>
+                      <circle cx=" 5" cy="-64" r="2" fill="#243020"/>
+                      <!-- Neck -->
+                      <line x1="0" y1="-46" x2="0" y2="-36" stroke="#f8c4b8" stroke-width="4" stroke-linecap="round"/>
+                      <!-- Torso -->
+                      <rect id="fig-torso" x="-14" y="-36" width="28" height="36" rx="8" fill="#4cc9a0" opacity="0.9"/>
+                      <!-- Arms -->
+                      <line id="fig-arm-l" x1="-14" y1="-28" x2="-34" y2="-10" stroke="#2ea07a" stroke-width="5" stroke-linecap="round"/>
+                      <line id="fig-arm-r" x1=" 14" y1="-28" x2=" 34" y2="-10" stroke="#2ea07a" stroke-width="5" stroke-linecap="round"/>
+                      <!-- Legs -->
+                      <line id="fig-leg-l" x1="-7" y1="0" x2="-14" y2="38" stroke="#f8c4b8" stroke-width="5" stroke-linecap="round"/>
+                      <line id="fig-leg-r" x1=" 7" y1="0" x2=" 14" y2="38" stroke="#f8c4b8" stroke-width="5" stroke-linecap="round"/>
+                      <!-- Feet -->
+                      <ellipse id="fig-foot-l" cx="-17" cy="42" rx="10" ry="5" fill="#f07860"/>
+                      <ellipse id="fig-foot-r" cx=" 17" cy="42" rx="10" ry="5" fill="#f07860"/>
+                    </g>
+                  </svg>
+                  <p id="fig-label">Choose an exercise to see it here ✨</p>
+                </div>
+
+                <!-- Exercise Cards -->
+                <div class="ex-cards" id="ex-cards"></div>
+
+              </div>
+
+              <div class="done-badge" id="done-badge">
+                <p id="done-text">🌟 You did it! That's a real movement milestone — your body is stronger than it knows. Amazing work! 💚</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══════════════════════════════════════════════
+               ACTIVITY 2 — MY SUNSHINE GARDEN
+          ══════════════════════════════════════════════ -->
+          <div class="icard cb">
+            <span class="act-badge b">🌻 Visualization Activity</span>
+            <h2>My Sunshine Strength Garden 🌸</h2>
+            <p class="sub">Every time you move — even a tiny little bit — tap the movement below and watch a flower grow in your garden. Each flower is proof of your strength and effort. Even the smallest movements plant something beautiful. 🌼</p>
+
+            <div class="garden-top">
+
+              <!-- MOVEMENT PALETTE -->
+              <div class="move-palette">
+                <h3>What did I just do?</h3>
+                <div class="move-grid" id="move-grid">
+                  <!-- filled by JS -->
+                </div>
+              </div>
+
+              <!-- GARDEN VISUALIZATION -->
+              <div class="garden-viz">
+                <h3>🌱 Today's Garden</h3>
+                <svg id="garden-svg" viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"  stop-color="#c8eeff"/>
+                      <stop offset="100%" stop-color="#e8f8e8"/>
+                    </linearGradient>
+                    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"  stop-color="#7ac050"/>
+                      <stop offset="30%" stop-color="#5aa030"/>
+                      <stop offset="100%" stop-color="#8b6040"/>
+                    </linearGradient>
+                    <radialGradient id="sunGrad" cx="30%" cy="30%" r="70%">
+                      <stop offset="0%"  stop-color="#fff8b0"/>
+                      <stop offset="100%" stop-color="#f8d040"/>
+                    </radialGradient>
+                    <filter id="softGlow">
+                      <feGaussianBlur stdDeviation="3" result="b"/>
+                      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                  </defs>
+
+                  <!-- Sky -->
+                  <rect width="360" height="240" fill="url(#skyGrad)"/>
+
+                  <!-- Clouds -->
+                  <g opacity="0.7" style="animation:pulse 4s ease infinite">
+                    <ellipse cx="60"  cy="38" rx="28" ry="12" fill="white"/>
+                    <ellipse cx="80"  cy="32" rx="22" ry="14" fill="white"/>
+                    <ellipse cx="46"  cy="34" rx="18" ry="10" fill="white"/>
+                  </g>
+                  <g opacity="0.5" style="animation:pulse 5s ease infinite;animation-delay:1.5s">
+                    <ellipse cx="280" cy="28" rx="24" ry="10" fill="white"/>
+                    <ellipse cx="298" cy="22" rx="18" ry="12" fill="white"/>
+                    <ellipse cx="265" cy="26" rx="16" ry="8"  fill="white"/>
+                  </g>
+
+                  <!-- Sun -->
+                  <circle cx="308" cy="42" r="26" fill="url(#sunGrad)" filter="url(#softGlow)"
+                          style="animation:pulse 3s ease infinite"/>
+                  <!-- Sun rays -->
+                  <g stroke="#f8d040" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+                    <line x1="308" y1="10" x2="308" y2="4"/>
+                    <line x1="308" y1="74" x2="308" y2="80"/>
+                    <line x1="276" y1="42" x2="270" y2="42"/>
+                    <line x1="340" y1="42" x2="346" y2="42"/>
+                    <line x1="285" y1="19" x2="281" y2="15"/>
+                    <line x1="331" y1="65" x2="335" y2="69"/>
+                    <line x1="331" y1="19" x2="335" y2="15"/>
+                    <line x1="285" y1="65" x2="281" y2="69"/>
+                  </g>
+                  <!-- Sun face -->
+                  <circle cx="302" cy="38" r="2.5" fill="#243020"/>
+                  <circle cx="314" cy="38" r="2.5" fill="#243020"/>
+                  <path d="M303,46 Q308,50 313,46" stroke="#243020" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                  <!-- Ground -->
+                  <rect x="0" y="174" width="360" height="66" fill="url(#groundGrad)"/>
+
+                  <!-- Grass blades base -->
+                  <g stroke="#58b848" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="10"  y1="174" x2="8"   y2="162"/>
+                    <line x1="22"  y1="174" x2="24"  y2="160"/>
+                    <line x1="36"  y1="174" x2="34"  y2="164"/>
+                    <line x1="50"  y1="174" x2="52"  y2="158"/>
+                    <line x1="65"  y1="174" x2="63"  y2="163"/>
+                    <line x1="80"  y1="174" x2="82"  y2="160"/>
+                    <line x1="100" y1="174" x2="98"  y2="164"/>
+                    <line x1="120" y1="174" x2="122" y2="158"/>
+                    <line x1="140" y1="174" x2="138" y2="162"/>
+                    <line x1="160" y1="174" x2="162" y2="160"/>
+                    <line x1="180" y1="174" x2="178" y2="164"/>
+                    <line x1="200" y1="174" x2="202" y2="158"/>
+                    <line x1="220" y1="174" x2="218" y2="162"/>
+                    <line x1="240" y1="174" x2="242" y2="160"/>
+                    <line x1="260" y1="174" x2="258" y2="164"/>
+                    <line x1="280" y1="174" x2="282" y2="160"/>
+                    <line x1="300" y1="174" x2="298" y2="164"/>
+                    <line x1="320" y1="174" x2="322" y2="158"/>
+                    <line x1="340" y1="174" x2="338" y2="162"/>
+                    <line x1="354" y1="174" x2="356" y2="163"/>
+                  </g>
+
+                  <!-- Empty garden hint text -->
+                  <g id="g-hint">
+                    <text x="180" y="120" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="rgba(60,100,50,.45)" font-weight="700">Your garden is waiting</text>
+                    <text x="180" y="140" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="rgba(60,100,50,.45)" font-weight="700">to bloom! 🌱 Move something</text>
+                  </g>
+
+                  <!-- Flowers land here -->
+                  <g id="garden-plants"></g>
+                </svg>
+                <p id="garden-count">0 movements planted today 🌱</p>
+              </div>
+            </div>
+
+            <!-- LOG -->
+            <div class="garden-log" id="garden-log-wrap" style="display:none">
+              <h4>Today's movements</h4>
+              <div id="garden-log"></div>
+            </div>
+
+            <div id="garden-cheer" style="display:none;margin-top:20px;border-radius:16px;padding:18px 22px;text-align:center;background:linear-gradient(135deg,#fffbe6,#fffbe0);border:2px solid #f8e480;">
+              <p id="garden-cheer-text" style="color:#a07808;font-weight:800;font-size:.95rem;line-height:1.65"></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <script>
+/* ═══════════════════════════════════════════════
+   EXERCISE DATA
+════════════════════════════════════════════════ */
+const EXERCISES = {
+  low: [
+    {
+      em:'🤲', name:'Gentle Hand Stretches', time:'2 minutes', diff:1,
+      why:'Open and close your hands slowly, then stretch each finger. This improves circulation and feels wonderfully calming — perfect for bed or the treatment chair.',
+      fig:'hands', label:'Stretch fingers open & closed'
+    },
+    {
+      em:'🌬️', name:'Deep Belly Breathing', time:'3 minutes', diff:1,
+      why:'Place one hand on your belly. Breathe in slowly for 4 counts, let your belly rise. Breathe out for 6. This is movement that heals — it lowers stress hormones immediately.',
+      fig:'breathe', label:'Belly rises & falls with breath'
+    },
+    {
+      em:'🙆', name:'Gentle Shoulder Rolls', time:'2 minutes', diff:1,
+      why:'Slowly roll your shoulders forward 5 times, then backward 5 times. Releases the tension that builds up during treatment and feels instant relief for tight muscles.',
+      fig:'shoulders', label:'Roll shoulders forward & back'
+    }
+  ],
+  medium: [
+    {
+      em:'🚶', name:'5-Minute Slow Walk', time:'5 minutes', diff:2,
+      why:'A slow stroll — even just around your room or down the hallway — improves circulation, lifts your mood through endorphins, and builds strength over time. Every step counts.',
+      fig:'walk', label:'Slow stroll at your own pace'
+    },
+    {
+      em:'🧘', name:'Seated Gentle Stretches', time:'4 minutes', diff:2,
+      why:'Sitting upright, reach your arms overhead, then gently tilt side to side. Rotate your neck slowly. This relieves stiffness and sends fresh blood through your whole body.',
+      fig:'stretch', label:'Reach up & gently tilt side to side'
+    },
+    {
+      em:'💃', name:'Gentle Sway & Dance', time:'3 minutes', diff:2,
+      why:'Put on one song you love and let your body sway gently. You don\'t have to do anything formal — just feel the music. Joy and movement together are one of the best medicines there is.',
+      fig:'dance', label:'Sway gently to music you love'
+    }
+  ],
+  good: [
+    {
+      em:'🌳', name:'10-Minute Nature Walk', time:'10 minutes', diff:3,
+      why:'Get outside if you can! Walking in daylight improves your vitamin D, mood, and sleep quality all at once. Even walking near a window with sunlight visible makes a real difference.',
+      fig:'walk', label:'Walking outside in fresh air'
+    },
+    {
+      em:'🧘', name:'Standing Yoga Flow', time:'7 minutes', diff:3,
+      why:'Simple standing poses — like mountain pose, arms-up stretch, and a gentle forward fold — build balance and strength while deeply calming the nervous system. Go at your own pace.',
+      fig:'yoga', label:'Standing mountain pose & stretch'
+    },
+    {
+      em:'🏊', name:'Gentle Arm Circles', time:'5 minutes', diff:3,
+      why:'Stand with feet hip-width apart. Make large, slow circles with both arms — forward 10 times, then backward 10 times. Strengthens the upper body and increases shoulder mobility gently.',
+      fig:'arms', label:'Slow circles with both arms'
+    }
+  ]
+};
+
+/* ═══════════════════════════════════════════════
+   FIGURE POSES
+════════════════════════════════════════════════ */
+const POSES = {
+  hands: {
+    armL: {x1:-14,y1:-28,x2:-40,y2:-5}, armR: {x1:14,y1:-28,x2:40,y2:-5},
+    legL: {x1:-7,y1:0,x2:-10,y2:38},    legR: {x1:7,y1:0,x2:10,y2:38},
+    style: 'breatheSVG 2.5s ease infinite', label:'Stretch fingers open & closed'
+  },
+  breathe: {
+    armL: {x1:-14,y1:-20,x2:-24,y2:5},  armR: {x1:14,y1:-20,x2:24,y2:5},
+    legL: {x1:-7,y1:0,x2:-10,y2:38},    legR: {x1:7,y1:0,x2:10,y2:38},
+    torsoAnim: 'breatheSVG 3s ease infinite', label:'Belly rises with each deep breath'
+  },
+  shoulders: {
+    armL: {x1:-14,y1:-28,x2:-36,y2:-18}, armR: {x1:14,y1:-28,x2:36,y2:-18},
+    legL: {x1:-7,y1:0,x2:-10,y2:38},     legR: {x1:7,y1:0,x2:10,y2:38},
+    animL:'stretchArm 1.8s ease infinite', label:'Shoulders roll slowly forward'
+  },
+  walk: {
+    armL: {x1:-14,y1:-28,x2:-32,y2:-2}, armR: {x1:14,y1:-28,x2:32,y2:-2},
+    legL: {x1:-7,y1:0,x2:-20,y2:36},    legR: {x1:7,y1:0,x2:18,y2:36},
+    bodyAnim:'walkCycle 1s ease infinite', label:'Steady walking pace'
+  },
+  stretch: {
+    armL: {x1:-14,y1:-28,x2:-44,y2:-52}, armR: {x1:14,y1:-28,x2:44,y2:-52},
+    legL: {x1:-7,y1:0,x2:-14,y2:38},     legR: {x1:7,y1:0,x2:14,y2:38},
+    label:'Arms reach up to a full stretch'
+  },
+  dance: {
+    armL: {x1:-14,y1:-28,x2:-40,y2:-40}, armR: {x1:14,y1:-28,x2:38,y2:-8},
+    legL: {x1:-7,y1:0,x2:-18,y2:34},     legR: {x1:7,y1:0,x2:6,y2:38},
+    bodyAnim:'sway 1.5s ease infinite', label:'Swaying gently to the music'
+  },
+  yoga: {
+    armL: {x1:-14,y1:-28,x2:-44,y2:-48}, armR: {x1:14,y1:-28,x2:44,y2:-48},
+    legL: {x1:-7,y1:0,x2:-12,y2:38},     legR: {x1:7,y1:0,x2:12,y2:38},
+    label:'Mountain pose — arms stretching tall'
+  },
+  arms: {
+    armL: {x1:-14,y1:-28,x2:-44,y2:-20}, armR: {x1:14,y1:-28,x2:44,y2:0},
+    legL: {x1:-7,y1:0,x2:-14,y2:38},     legR: {x1:7,y1:0,x2:14,y2:38},
+    animR:'stretchArm 1.4s ease infinite', label:'Slow circles with both arms'
+  }
+};
+
+/* ═══════════════════════════════════════════════
+   ACTIVITY 1 LOGIC
+════════════════════════════════════════════════ */
+let activeTimers = {};
+let completedCount = 0;
+
+function pickEnergy(el) {
+  document.querySelectorAll('.energy-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  const level = el.dataset.level;
+  showExercises(level);
+}
+
+function showExercises(level) {
+  document.getElementById('ex-empty').style.display   = 'none';
+  document.getElementById('ex-results').style.display = 'block';
+  document.getElementById('done-badge').style.display = 'none';
+  completedCount = 0;
+
+  const exs = EXERCISES[level];
+  const container = document.getElementById('ex-cards');
+  container.innerHTML = '';
+
+  exs.forEach((ex, i) => {
+    const card = document.createElement('div');
+    card.className = 'ex-card';
+    card.id = 'excard-' + i;
+    card.setAttribute('data-fig', ex.fig);
+    card.setAttribute('data-label', ex.label);
+    card.setAttribute('data-secs', parseSecs(ex.time));
+
+    const dots = Array.from({length:3}, (_,d) =>
+      `<div class="ex-dot${d < ex.diff ? ' lit' : ''}"></div>`).join('');
+
+    card.innerHTML = `
+      <div class="ex-card-body">
+        <span class="ex-icon">${ex.em}</span>
+        <div class="ex-info">
+          <p class="ex-name">${ex.name}</p>
+          <p class="ex-time">⏱ ${ex.time}</p>
+          <p class="ex-why">${ex.why}</p>
+          <div class="ex-dots">${dots}</div>
+        </div>
+      </div>
+      <div class="timer-wrap">
+        <button class="btn-timer" id="btn-${i}" onclick="toggleTimer(${i})">▶ Start</button>
+        <span class="timer-count" id="tc-${i}"></span>
+      </div>`;
+
+    card.onclick = (e) => {
+      if (e.target.classList.contains('btn-timer') || e.target.closest('.btn-timer')) return;
+      setFigure(ex.fig, ex.label);
+      document.querySelectorAll('.ex-card').forEach(c => c.classList.remove('active-ex'));
+      card.classList.add('active-ex');
+    };
+    container.appendChild(card);
+  });
+
+  // Show first exercise figure by default
+  setFigure(exs[0].fig, exs[0].label);
+  document.getElementById('excard-0').classList.add('active-ex');
+}
+
+function parseSecs(timeStr) {
+  const m = timeStr.match(/(\d+)/);
+  return m ? parseInt(m[1]) * 60 : 60;
+}
+
+function setFigure(pose, label) {
+  const p = POSES[pose] || POSES.stretch;
+  const setLine = (id, coords) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    Object.entries(coords).forEach(([k,v]) => el.setAttribute(k, v));
+  };
+  setLine('fig-arm-l', p.armL);
+  setLine('fig-arm-r', p.armR);
+  setLine('fig-leg-l', p.legL);
+  setLine('fig-leg-r', p.legR);
+
+  const body = document.getElementById('fig-body');
+  body.style.animation = p.bodyAnim || '';
+
+  const torso = document.getElementById('fig-torso');
+  torso.style.animation = p.torsoAnim || '';
+
+  const armL = document.getElementById('fig-arm-l');
+  const armR = document.getElementById('fig-arm-r');
+  armL.style.animation = p.animL || '';
+  armR.style.animation = p.animR || '';
+
+  document.getElementById('fig-label').textContent = label || '';
+}
+
+function toggleTimer(idx) {
+  const btn = document.getElementById('btn-' + idx);
+  const tc  = document.getElementById('tc-'  + idx);
+  const card = document.getElementById('excard-' + idx);
+  const totalSecs = parseInt(card.dataset.secs);
+
+  if (activeTimers[idx]) {
+    clearInterval(activeTimers[idx]);
+    delete activeTimers[idx];
+    btn.textContent = '▶ Start';
+    btn.className = 'btn-timer';
+    tc.textContent = '';
+    return;
+  }
+
+  let remaining = totalSecs;
+  tc.textContent = formatTime(remaining);
+  btn.textContent = '⏸ Pause';
+  btn.className = 'btn-timer running';
+
+  activeTimers[idx] = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(activeTimers[idx]);
+      delete activeTimers[idx];
+      btn.textContent = '✓ Done!';
+      btn.className = 'btn-timer done';
+      tc.textContent = '🌟';
+      completedCount++;
+      showDoneBadge();
+    } else {
+      tc.textContent = formatTime(remaining);
+    }
+  }, 1000);
+}
+
+function formatTime(s) {
+  return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+}
+
+function showDoneBadge() {
+  const badge = document.getElementById('done-badge');
+  const msgs = [
+    '🌟 You completed an exercise! That took real courage and strength — be proud of yourself! 💚',
+    '🎉 Two movements done! Your body is receiving so much love right now. Keep going! 🌿',
+    '🏆 Three exercises complete! You are absolutely incredible. Every movement you make matters so much! 💚🌟'
+  ];
+  document.getElementById('done-text').textContent = msgs[Math.min(completedCount-1, msgs.length-1)];
+  badge.style.display = 'block';
+  setTimeout(() => badge.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
+}
+
+/* ═══════════════════════════════════════════════
+   GARDEN DATA
+════════════════════════════════════════════════ */
+const MOVES = [
+  {id:'walk',    em:'🚶', label:'Walked'},
+  {id:'stretch', em:'🙆', label:'Stretched'},
+  {id:'dance',   em:'💃', label:'Danced'},
+  {id:'breath',  em:'🌬️', label:'Deep Breathing'},
+  {id:'yoga',    em:'🧘', label:'Did Yoga'},
+  {id:'arms',    em:'💪', label:'Arm Exercises'},
+  {id:'sat',     em:'🪑', label:'Sat Up Straight'},
+  {id:'stairs',  em:'🪜', label:'Climbed Stairs'},
+  {id:'garden',  em:'🌿', label:'Did Stretches'},
+  {id:'swim',    em:'🏊', label:'Moved in Water'},
+];
+
+// Flower types: each has a draw function
+const FLOWER_TYPES = [
+  // Sunflower-style
+  (x,y,c) => `
+    <g style="animation:growUp .6s ease both;transform-origin:${x}px ${y}px">
+      <line x1="${x}" y1="${y}" x2="${x}" y2="${y+32}" stroke="${c.stem}" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="${x}" cy="${y}" r="9" fill="${c.center}"/>
+      ${[-60,-30,0,30,60,90,120,150,180,210,240,270].map(a=>{
+        const rx=x+16*Math.cos(a*Math.PI/180), ry=y+16*Math.sin(a*Math.PI/180);
+        return `<ellipse cx="${rx}" cy="${ry}" rx="5" ry="3" fill="${c.petal}" transform="rotate(${a} ${rx} ${ry})" opacity=".9"/>`;
+      }).join('')}
+    </g>`,
+  // Tulip-style
+  (x,y,c) => `
+    <g style="animation:growUp .6s ease both;transform-origin:${x}px ${y}px">
+      <line x1="${x}" y1="${y+6}" x2="${x}" y2="${y+36}" stroke="${c.stem}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="${x}" y1="${y+20}" x2="${x-10}" y2="${y+12}" stroke="${c.stem}" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="${x}" cy="${y}" rx="8" ry="12" fill="${c.petal}" opacity=".9"/>
+      <ellipse cx="${x-5}" cy="${y+2}" rx="5" ry="10" fill="${c.petal2}" opacity=".8"/>
+      <ellipse cx="${x+5}" cy="${y+2}" rx="5" ry="10" fill="${c.petal2}" opacity=".8"/>
+    </g>`,
+  // Daisy-style
+  (x,y,c) => `
+    <g style="animation:growUp .6s ease both;transform-origin:${x}px ${y}px">
+      <line x1="${x}" y1="${y}" x2="${x}" y2="${y+34}" stroke="${c.stem}" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="${x}" cy="${y}" r="6" fill="${c.center}" filter="url(#softGlow)"/>
+      ${[0,45,90,135,180,225,270,315].map(a=>{
+        const rx=x+13*Math.cos(a*Math.PI/180), ry=y+13*Math.sin(a*Math.PI/180);
+        return `<ellipse cx="${rx}" cy="${ry}" rx="4" ry="6" fill="white" transform="rotate(${a} ${rx} ${ry})" opacity=".95"/>`;
+      }).join('')}
+    </g>`,
+];
+
+const PALETTE = [
+  {petal:'#f9c823',petal2:'#f8e040',center:'#c06010',stem:'#58a830'},
+  {petal:'#f07878',petal2:'#f8a8a8',center:'#f8d040',stem:'#4a9828'},
+  {petal:'#9878e8',petal2:'#c0a8f8',center:'#f8e040',stem:'#50a030'},
+  {petal:'#f07040',petal2:'#f8a060',center:'#fffbe0',stem:'#5ab030'},
+  {petal:'#5ac0e8',petal2:'#90d8f8',center:'#f8e040',stem:'#48a028'},
+  {petal:'#f090c0',petal2:'#f8c0d8',center:'#f8f040',stem:'#52a830'},
+];
+
+// Pre-set x positions across the garden floor
+const PLANT_XS = [32,68,105,142,180,218,255,292,328,355,
+                  50,90,130,168,208,248,285,320,40,260];
+let gardenCount = 0;
+
+function buildMovePalette() {
+  const grid = document.getElementById('move-grid');
+  MOVES.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'move-pill';
+    div.id = 'mpill-' + m.id;
+    div.innerHTML = `<span class="mp-em">${m.em}</span><span class="mp-lbl">${m.label}</span>`;
+    div.onclick = () => plantFlower(m);
+    grid.appendChild(div);
+  });
+}
+
+function plantFlower(move) {
+  gardenCount++;
+  const xPos = PLANT_XS[(gardenCount - 1) % PLANT_XS.length];
+  const yPos = 174; // ground level
+  const fType = FLOWER_TYPES[gardenCount % FLOWER_TYPES.length];
+  const col   = PALETTE[gardenCount % PALETTE.length];
+
+  // Remove hint
+  document.getElementById('g-hint').style.display = 'none';
+
+  // Draw flower
+  const g = document.getElementById('garden-plants');
+  const wrapper = document.createElementNS('http://www.w3.org/2000/svg','g');
+  wrapper.innerHTML = fType(xPos, yPos - 36, col);
+  g.appendChild(wrapper);
+
+  // Occasionally add a butterfly
+  if (gardenCount % 4 === 0) addButterfly();
+
+  // Flash pill
+  const pill = document.getElementById('mpill-' + move.id);
+  pill.classList.add('just-done');
+  setTimeout(() => pill.classList.remove('just-done'), 1800);
+
+  // Log entry
+  const log = document.getElementById('garden-log');
+  document.getElementById('garden-log-wrap').style.display = 'block';
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `${move.em} ${move.label} — movement #${gardenCount} planted! 🌸`;
+  log.prepend(entry);
+  while (log.children.length > 4) log.removeChild(log.lastChild);
+
+  // Count + cheer
+  const counts = ['0','1 flower 🌸','2 flowers 🌸🌸','3 flowers! 🌺','4 blooms! 🌻','5 — a whole bouquet! 🌷🌸🌻','6 beautiful flowers! 🌿','7 — your garden is blooming! 🌻🌸','8 — look at this garden! 🌺🌷','9 — so much beauty! 🎊','10 flowers — YOUR GARDEN IS FULL OF LIFE! 🌻🌸🌺🌷🌹'];
+  document.getElementById('garden-count').textContent = (gardenCount <= 10 ? counts[gardenCount] : gardenCount + ' movements planted! 🌻') + ' planted';
+
+  // Milestone cheers
+  const cheers = {
+    1: '🌱 Your very first flower! You moved your body today and that is extraordinary. Every giant garden starts with one tiny seed.',
+    3: '🌸 Three flowers! Your garden is starting to bloom — just like you are. Each movement is a gift you give yourself.',
+    5: '🌻 Five whole flowers! Look at what you\'ve grown. You are stronger than you know, and this garden is the proof. 💚',
+    8: '🌺 Eight movements! Your garden is absolutely beautiful. You should feel so proud — this is what strength looks like.',
+    10: '🏆 TEN FLOWERS! Your garden is overflowing with beauty and life — just like you are. You did this. Be proud. 🌻💚🌸'
+  };
+  if (cheers[gardenCount]) {
+    const cheer = document.getElementById('garden-cheer');
+    document.getElementById('garden-cheer-text').textContent = cheers[gardenCount];
+    cheer.style.display = 'block';
+    setTimeout(() => cheer.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
+  }
+}
+
+function addButterfly() {
+  const g   = document.getElementById('garden-plants');
+  const x   = Math.random() * 280 + 40;
+  const y   = Math.random() * 80 + 60;
+  const col = ['#f07878','#9878e8','#f9c823','#5ac0e8','#f090c0'][Math.floor(Math.random()*5)];
+  const b   = document.createElementNS('http://www.w3.org/2000/svg','g');
+  b.innerHTML = `
+    <g transform="translate(${x},${y})" style="animation:flutter 1.2s ease infinite;animation-delay:${Math.random()*0.6}s">
+      <ellipse cx="-6" cy="-2" rx="7" ry="5" fill="${col}" opacity=".75" transform="rotate(-20,-6,-2)"/>
+      <ellipse cx=" 6" cy="-2" rx="7" ry="5" fill="${col}" opacity=".75" transform="rotate(20,6,-2)"/>
+      <ellipse cx="-4" cy=" 3" rx="4" ry="3" fill="${col}" opacity=".6" transform="rotate(15,-4,3)"/>
+      <ellipse cx=" 4" cy=" 3" rx="4" ry="3" fill="${col}" opacity=".6" transform="rotate(-15,4,3)"/>
+      <ellipse cx="0" cy="0" rx="2" ry="5" fill="#333" opacity=".5"/>
+    </g>`;
+  g.appendChild(b);
+}
+
+buildMovePalette();
+      </script>
+    </div>
+  </section>
+
+<!-- ============================== RELAXATION ============================== -->
+<div class="page" id="page-relaxation">
+  <section class="page-hero bg-lavender" style="position:relative; overflow:hidden;">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none;">
+      <source src="resources/YOGA_VIDEO.mp4" type="video/mp4">
+      <!-- fallback: shows nothing if video unsupported -->
+    </video>
+    <div class="hero-inner" style="position:relative; z-index:2;">
+      <span class="emoji-big"></span>
+      <h1 style="color:var(--purple)">Relaxation & Stress Relief</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="cards-grid">
+        <!-- Replace relaxation cards with a focused breathing widget -->
+        <div class="card expanded" style="padding:18px; border-top:4px solid var(--purple); width:100%;">
+          <div class="card-body" style="display:block;">
+            <style>
+              /* breathing widget (namespaced rl_) - uses site palette */
+              .rl-wrap { max-width:640px; margin:0 auto; text-align:center; }
+              .rl-desc { font-size:0.95rem; color:var(--text-mid); font-style:italic; margin-bottom:14px; }
+              .rl-circle {
+                width:180px; height:180px; border-radius:50%;
+                background: var(--lavender-mid); border: 3px solid var(--lavender);
+                display:flex; align-items:center; justify-content:center; margin: 0 auto 18px;
+                font-size:16px; font-weight:600; color:var(--blue-dark);
+                transition: transform 1s ease-in-out, background 1s;
+              }
+              .rl-phase { font-size:15px; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+              .rl-count { font-size:32px; font-family: 'Playfair Display', serif; color:var(--lavender); margin-bottom:18px; min-height:44px; }
+              .rl-steps { display:flex; justify-content:center; gap:8px; margin-bottom:16px; }
+              .rl-step { padding:6px 12px; font-size:13px; border-radius:16px; background:var(--cream); color:var(--text-mid); border:1px solid rgba(0,0,0,0.06); }
+              .rl-step.active { background:var(--lavender); color:#fff; border-color:var(--lavender); }
+              .rl-start { padding:10px 28px; font-size:15px; border-radius:999px; border:1px solid var(--lavender); background:var(--lavender); color:#fff; cursor:pointer; }
+              .rl-start:hover { background:#7a6db0; }
+              .rl-note { font-size:13px; color:var(--text-mid); margin-top:12px; font-style:italic; }
+            </style>
+
+            <div class="rl-wrap">
+              <div class="rl-desc">Box breathing is a simple technique to bring calm and focus — breathe slowly and gently.</div>
+              <div class="rl-circle" id="rl-breath-circle">Ready</div>
+              <div class="rl-phase" id="rl-breath-phase">Box breathing · 4 counts each step</div>
+              <div class="rl-count" id="rl-breath-count"></div>
+              <div class="rl-steps">
+                <div class="rl-step" id="rl-bs0">Breathe in</div>
+                <div class="rl-step" id="rl-bs1">Hold</div>
+                <div class="rl-step" id="rl-bs2">Breathe out</div>
+                <div class="rl-step" id="rl-bs3">Hold</div>
+              </div>
+              <button class="rl-start" id="rl-breath-btn">Begin</button>
+              <div class="rl-note">Close your eyes if you wish · breathe gently</div>
+            </div>
+
+            <script>
+              (function(){
+                // namespaced breathing functions (rl_)
+                let rl_bRun=false, rl_bTimer=null, rl_bTick=null, rl_bPhase=0, rl_bCount=0;
+                const rl_phases = [
+                  {label:'Breathe in', dur:4, scale:1.35, bg: 'var(--lavender-mid)'},
+                  {label:'Hold', dur:4, scale:1.35, bg: 'var(--lavender-mid)'},
+                  {label:'Breathe out', dur:4, scale:1.0, bg: 'var(--mint-mid)'},
+                  {label:'Hold', dur:4, scale:1.0, bg: 'var(--mint-mid)'}
+                ];
+
+                function rl_reset() {
+                  const c = document.getElementById('rl-breath-circle');
+                  c.textContent = 'Ready'; c.style.transform = ''; c.style.background = getComputedStyle(document.documentElement).getPropertyValue('--lavender-mid') || '#D4CCEE';
+                  document.getElementById('rl-breath-phase').textContent = 'Box breathing · 4 counts each step';
+                  document.getElementById('rl-breath-count').textContent = '';
+                  for(let i=0;i<4;i++) document.getElementById('rl-bs'+i).classList.remove('active');
+                }
+
+                function rl_runPhase(){
+                  if(!rl_bRun) return;
+                  const p = rl_phases[rl_bPhase % 4];
+                  const c = document.getElementById('rl-breath-circle');
+                  c.textContent = p.label;
+                  c.style.transform = `scale(${p.scale})`;
+                  // resolve CSS var to computed color
+                  const bg = getComputedStyle(document.documentElement).getPropertyValue(p.bg.replace(/var\(|\)/g,'')) || '';
+                  c.style.background = p.bg;
+                  document.getElementById('rl-breath-phase').textContent = p.label;
+                  for(let i=0;i<4;i++) document.getElementById('rl-bs'+i).classList.toggle('active', i===rl_bPhase%4);
+                  rl_bCount = p.dur;
+                  document.getElementById('rl-breath-count').textContent = rl_bCount;
+                  clearInterval(rl_bTick);
+                  rl_bTick = setInterval(()=>{ rl_bCount--; document.getElementById('rl-breath-count').textContent = rl_bCount>0? rl_bCount : ''; }, 1000);
+                  rl_bTimer = setTimeout(()=>{ clearInterval(rl_bTick); rl_bPhase++; rl_runPhase(); }, p.dur * 1000);
+                }
+
+                function rl_toggle(){
+                  rl_bRun = !rl_bRun;
+                  const btn = document.getElementById('rl-breath-btn');
+                  btn.textContent = rl_bRun ? 'Stop' : 'Begin';
+                  if(rl_bRun){ rl_bPhase = 0; rl_runPhase(); } else { clearTimeout(rl_bTimer); clearInterval(rl_bTick); rl_reset(); }
+                }
+
+                document.getElementById('rl-breath-btn').addEventListener('click', rl_toggle);
+                // ensure reset on load
+                rl_reset();
+              })();
+            </script>
           </div>
         </div>
       </div>
@@ -862,6 +2215,476 @@
   </section>
   <footer><div class="footer-inner"><div><div class="footer-logo">🌟 Happiness & Well-Being</div><p class="footer-desc">A school project about well-being for young cancer patients ages 8–19.</p></div><div class="footer-col"><h4>Group Members</h4><p>[Student Name 1]<br>[Student Name 2]<br>[Student Name 3]<br>[Student Name 4]</p></div><div class="footer-col"><h4>Project Info</h4><p>[School Name]<br>[Course / Class]<br>[Teacher Name]<br>[Academic Year]</p></div></div><div class="footer-bottom">Made with 💙 as a school project · For educational purposes only</div></footer>
 </div>
+
+<!-- ============================== CREATIVITY ============================== -->
+<div class="page" id="page-creativity">
+  <section class="page-hero has-video" style="background:linear-gradient(135deg,#fff5ee,#fdf0f5,#f0ebfb)">
+    <video class="section-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/CreativityVideo.mp4" type="video/mp4">
+    </video>
+    <div class="hero-inner">
+      <span class="emoji-big">🎨</span>
+      <h1 style="color:var(--rose)">Creativity & Expression</h1>
+      <p>Creating something — art, music, writing, or crafts — is one of the most powerful ways to express your feelings, calm your mind, and bring beauty into your day.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <div class="quote-box" style="background:linear-gradient(135deg,#fff5ee,#fdf0f5);border-left-color:var(--rose);">
+        <p style="color:var(--rose)">"Creativity is your heart speaking out loud. There is no wrong way to make something that is truly yours."</p>
+      </div>
+      <div class="cards-grid">
+        <!-- Replaced cards with interactive art canvas -->
+  <div class="card expanded" style="padding:18px; border-top:4px solid var(--rose); width:100%;">
+          <div class="card-body" style="display:block;">
+            <style>
+              .art-wrap { padding: 1rem 0; font-family: var(--font-sans); }
+              .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; padding: 10px 14px; background: var(--color-background-secondary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); }
+              .tool-btn { padding: 6px 12px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); border-radius: var(--border-radius-md); cursor: pointer; transition: background 0.15s; }
+              .tool-btn:hover { background: var(--color-background-secondary); }
+              .tool-btn.active { background: #EEEDFE; border-color: #7F77DD; color: #3C3489; }
+              .color-swatch { width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; flex-shrink: 0; transition: border-color 0.15s; }
+              .color-swatch.active { border-color: var(--color-text-primary); }
+              canvas#artCanvas { display: block; width: 100%; border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); background: #fff; cursor: crosshair; touch-action: none; }
+              .size-label { font-size: 12px; color: var(--color-text-secondary); min-width: 22px; text-align: right; }
+              .sep { width: 1px; height: 24px; background: var(--color-border-tertiary); flex-shrink: 0; }
+              .action-btn { padding: 6px 14px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); border-radius: var(--border-radius-md); cursor: pointer; }
+              .action-btn:hover { background: var(--color-background-secondary); }
+              .canvas-wrap { position: relative; }
+              .affirmation { text-align: center; margin-top: 10px; font-size: 13px; color: var(--color-text-secondary); font-style: italic; }
+            </style>
+
+            <div class="art-wrap">
+              <h2 class="sr-only">Creative art canvas for drawing and expression</h2>
+              <div class="toolbar">
+                <button class="tool-btn active" id="btn-brush" onclick="setTool('brush')">Brush</button>
+                <button class="tool-btn" id="btn-eraser" onclick="setTool('eraser')">Eraser</button>
+                <button class="tool-btn" id="btn-fill" onclick="setTool('fill')">Fill bucket</button>
+                <div class="sep"></div>
+                <input type="range" min="2" max="40" value="8" id="sizeSlider" style="width:80px;" oninput="updateSize(this.value)">
+                <span class="size-label" id="sizeVal">8</span>
+                <div class="sep"></div>
+                <div id="colorPalette" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+                <input type="color" id="customColor" value="#7F77DD" title="Custom color" style="width:26px;height:26px;border-radius:50%;border:none;cursor:pointer;padding:0;background:none;" oninput="setColor(this.value, null)">
+                <div class="sep"></div>
+                <button class="action-btn" onclick="undoLast()">Undo</button>
+                <button class="action-btn" onclick="clearCanvas()">Clear</button>
+                <button class="action-btn" onclick="saveCanvas()">Save image</button>
+              </div>
+              <div class="canvas-wrap">
+                <canvas id="artCanvas" height="420"></canvas>
+              </div>
+              <div class="affirmation" id="affirmMsg">Your creativity has no limits. Express yourself freely. 🌸</div>
+            </div>
+
+            <script>
+              (function(){
+                const canvas = document.getElementById('artCanvas');
+                const ctx = canvas.getContext('2d');
+                const msgs = [
+                  'Your creativity has no limits. Express yourself freely.',
+                  'Art is healing. Every stroke is yours.',
+                  'This moment is yours. Paint it beautifully.',
+                  'You are stronger than you know. Keep creating.',
+                  'Color your world the way you feel.',
+                  'Every line tells a story. Tell yours.'
+                ];
+                let tool = 'brush', color = '#7F77DD', size = 8;
+                let painting = false, history = [], lastX = 0, lastY = 0;
+
+                const palette = ['#FFFFFF','#2C2C2A','#D85A30','#D4537E','#7F77DD','#378ADD','#1D9E75','#EF9F27','#E24B4A','#9FE1CB','#F5C4B3','#FAC775'];
+
+                function setupPalette() {
+                  const el = document.getElementById('colorPalette');
+                  palette.forEach((c, i) => {
+                    const s = document.createElement('div');
+                    s.className = 'color-swatch' + (i === 6 ? ' active' : '');
+                    s.style.background = c;
+                    s.style.border = c === '#FFFFFF' ? '2px solid #ccc' : '2px solid transparent';
+                    s.dataset.idx = i;
+                    s.onclick = () => setColor(c, s);
+                    el.appendChild(s);
+                  });
+                }
+
+                function setColor(c, el) {
+                  color = c;
+                  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                  if (el) el.classList.add('active');
+                }
+
+                function setTool(t) {
+                  tool = t;
+                  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                  const btn = document.getElementById('btn-' + t);
+                  if (btn) btn.classList.add('active');
+                }
+
+                function updateSize(v) { size = +v; const el = document.getElementById('sizeVal'); if (el) el.textContent = v; }
+
+                function resizeCanvas() {
+                  try {
+                    const w = canvas.parentElement.offsetWidth;
+                    const snap = ctx.getImageData(0, 0, canvas.width || 1, canvas.height || 1);
+                    canvas.width = Math.max(320, Math.floor(w));
+                    canvas.height = 420;
+                    ctx.putImageData(snap, 0, 0);
+                  } catch (e) {
+                    // first run: set size only
+                    const w = canvas.parentElement.offsetWidth;
+                    canvas.width = Math.max(320, Math.floor(w));
+                    canvas.height = 420;
+                  }
+                  ctx.lineCap = 'round';
+                  ctx.lineJoin = 'round';
+                }
+
+                function saveHistory() { try { history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); if (history.length > 40) history.shift(); } catch (e) {} }
+                function undoLast() { if (history.length > 0) ctx.putImageData(history.pop(), 0, 0); }
+
+
+        /* ═══════════════════════════════════════════════
+           FIGURE POSES
+        ════════════════════════════════════════════════ */
+        const POSES = {
+          hands: {
+            armL: {x1:-14,y1:-28,x2:-40,y2:-5}, armR: {x1:14,y1:-28,x2:40,y2:-5},
+            legL: {x1:-7,y1:0,x2:-10,y2:38},    legR: {x1:7,y1:0,x2:10,y2:38},
+            style: 'breatheSVG 2.5s ease infinite', label:'Stretch fingers open & closed'
+          },
+          breathe: {
+            armL: {x1:-14,y1:-20,x2:-24,y2:5},  armR: {x1:14,y1:-20,x2:24,y2:5},
+            legL: {x1:-7,y1:0,x2:-10,y2:38},    legR: {x1:7,y1:0,x2:10,y2:38},
+            torsoAnim: 'breatheSVG 3s ease infinite', label:'Belly rises with each deep breath'
+          },
+          shoulders: {
+            armL: {x1:-14,y1:-28,x2:-36,y2:-18}, armR: {x1:14,y1:-28,x2:36,y2:-18},
+            legL: {x1:-7,y1:0,x2:-10,y2:38},     legR: {x1:7,y1:0,x2:10,y2:38},
+            animL:'stretchArm 1.8s ease infinite', label:'Shoulders roll slowly forward'
+          },
+          walk: {
+            armL: {x1:-14,y1:-28,x2:-32,y2:-2}, armR: {x1:14,y1:-28,x2:32,y2:-2},
+            legL: {x1:-7,y1:0,x2:-20,y2:36},    legR: {x1:7,y1:0,x2:18,y2:36},
+            bodyAnim:'walkCycle 1s ease infinite', label:'Steady walking pace'
+          },
+          stretch: {
+            armL: {x1:-14,y1:-28,x2:-44,y2:-52}, armR: {x1:14,y1:-28,x2:44,y2:-52},
+            legL: {x1:-7,y1:0,x2:-14,y2:38},     legR: {x1:7,y1:0,x2:14,y2:38},
+            label:'Arms reach up to a full stretch'
+          },
+          dance: {
+            armL: {x1:-14,y1:-28,x2:-40,y2:-40}, armR: {x1:14,y1:-28,x2:38,y2:-8},
+            legL: {x1:-7,y1:0,x2:-18,y2:34},     legR: {x1:7,y1:0,x2:6,y2:38},
+            bodyAnim:'sway 1.5s ease infinite', label:'Swaying gently to music you love'
+          },
+          yoga: {
+            armL: {x1:-14,y1:-28,x2:-44,y2:-48}, armR: {x1:14,y1:-28,x2:44,y2:-48},
+            legL: {x1:-7,y1:0,x2:-12,y2:38},     legR: {x1:7,y1:0,x2:12,y2:38},
+            label:'Mountain pose — arms stretching tall'
+          },
+          arms: {
+            armL: {x1:-14,y1:-28,x2:-44,y2:-20}, armR: {x1:14,y1:-28,x2:44,y2:0},
+            legL: {x1:-7,y1:0,x2:-14,y2:38},     legR: {x1:7,y1:0,x2:14,y2:38},
+            animR:'stretchArm 1.4s ease infinite', label:'Slow circles with both arms'
+          }
+        };
+
+        /* ═══════════════════════════════════════════════
+           ACTIVITY 1 LOGIC
+        ════════════════════════════════════════════════ */
+        let activeTimers = {};
+        let completedCount = 0;
+
+        window.pickEnergy = function(el) {
+          document.querySelectorAll('.energy-btn').forEach(b => b.classList.remove('sel'));
+          el.classList.add('sel');
+          const level = el.dataset.level;
+          window.showExercises(level);
+        };
+
+        window.showExercises = function(level) {
+          document.getElementById('ex-empty').style.display   = 'none';
+          document.getElementById('ex-results').style.display = 'block';
+          document.getElementById('done-badge').style.display = 'none';
+          completedCount = 0;
+
+          const exs = EXERCISES[level];
+          const container = document.getElementById('ex-cards');
+          container.innerHTML = '';
+
+          exs.forEach((ex, i) => {
+            const card = document.createElement('div');
+            card.className = 'ex-card';
+            card.id = 'excard-' + i;
+            card.setAttribute('data-fig', ex.fig);
+            card.setAttribute('data-label', ex.label);
+card.setAttribute('data-secs', window.parseSecs(ex.time));
+
+            const dots = Array.from({length:3}, (_,d) =>
+              `<div class="ex-dot${d < ex.diff ? ' lit' : ''}"></div>`).join('');
+
+            card.innerHTML = `
+              <div class="ex-card-body">
+                <span class="ex-icon">${ex.em}</span>
+                <div class="ex-info">
+                  <p class="ex-name">${ex.name}</p>
+                  <p class="ex-time">⏱ ${ex.time}</p>
+                  <p class="ex-why">${ex.why}</p>
+                  <div class="ex-dots">${dots}</div>
+                </div>
+              </div>
+              <div class="timer-wrap">
+                <button class="btn-timer" id="btn-${i}" onclick="toggleTimer(${i})">▶ Start</button>
+                <span class="timer-count" id="tc-${i}"></span>
+              </div>`;
+
+            card.onclick = (e) => {
+              if (e.target.classList.contains('btn-timer') || e.target.closest('.btn-timer')) return;
+              window.setFigure(ex.fig, ex.label);
+              document.querySelectorAll('.ex-card').forEach(c => c.classList.remove('active-ex'));
+              card.classList.add('active-ex');
+            };
+            container.appendChild(card);
+          });
+
+          // Show first exercise figure by default
+          window.setFigure(exs[0].fig, exs[0].label);
+          document.getElementById('excard-0').classList.add('active-ex');
+        }
+
+        window.parseSecs = function(timeStr) {
+          const m = timeStr.match(/(\d+)/);
+          return m ? parseInt(m[1]) * 60 : 60;
+        };
+
+        window.setFigure = function(pose, label) {
+          const p = POSES[pose] || POSES.stretch;
+          const setLine = (id, coords) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            Object.entries(coords).forEach(([k,v]) => el.setAttribute(k, v));
+          };
+          setLine('fig-arm-l', p.armL);
+          setLine('fig-arm-r', p.armR);
+          setLine('fig-leg-l', p.legL);
+          setLine('fig-leg-r', p.legR);
+
+          const body = document.getElementById('fig-body');
+          body.style.animation = p.bodyAnim || '';
+
+          const torso = document.getElementById('fig-torso');
+          torso.style.animation = p.torsoAnim || '';
+
+          const armL = document.getElementById('fig-arm-l');
+          const armR = document.getElementById('fig-arm-r');
+          armL.style.animation = p.animL || '';
+          armR.style.animation = p.animR || '';
+
+          document.getElementById('fig-label').textContent = label || '';
+        };
+
+        window.toggleTimer = function(idx) {
+          const btn = document.getElementById('btn-' + idx);
+          const tc  = document.getElementById('tc-'  + idx);
+          const card = document.getElementById('excard-' + idx);
+          const totalSecs = parseInt(card.dataset.secs);
+
+          if (activeTimers[idx]) {
+            clearInterval(activeTimers[idx]);
+            delete activeTimers[idx];
+            btn.textContent = '▶ Start';
+            btn.className = 'btn-timer';
+            tc.textContent = '';
+            return;
+          }
+
+          let remaining = totalSecs;
+          tc.textContent = window.formatTime(remaining);
+          btn.textContent = '⏸ Pause';
+          btn.className = 'btn-timer running';
+
+          activeTimers[idx] = setInterval(() => {
+            remaining--;
+            if (remaining <= 0) {
+              clearInterval(activeTimers[idx]);
+              delete activeTimers[idx];
+              btn.textContent = '✓ Done!';
+              btn.className = 'btn-timer done';
+              tc.textContent = '🌟';
+              completedCount++;
+              window.showDoneBadge();
+            } else {
+              tc.textContent = window.formatTime(remaining);
+            }
+          }, 1000);
+        };
+
+        window.formatTime = function(s) {
+          return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+        };
+
+        window.showDoneBadge = function() {
+          const badge = document.getElementById('done-badge');
+          const msgs = [
+            '🌟 You completed an exercise! That took real courage and strength — be proud of yourself! 💚',
+            '🎉 Two movements done! Your body is receiving so much love right now. Keep going! 🌿',
+            '🏆 Three exercises complete! You are absolutely incredible. Every movement you make matters so much! 💚🌟'
+          ];
+          document.getElementById('done-text').textContent = msgs[Math.min(completedCount-1, msgs.length-1)];
+          badge.style.display = 'block';
+          setTimeout(() => badge.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
+        };
+
+        /* ═══════════════════════════════════════════════
+           GARDEN DATA
+        ════════════════════════════════════════════════ */
+        const MOVES = [
+          {id:'walk',    em:'🚶', label:'Walked'},
+          {id:'stretch', em:'🙆', label:'Stretched'},
+          {id:'dance',   em:'💃', label:'Danced'},
+          {id:'breath',  em:'🌬️', label:'Deep Breathing'},
+          {id:'yoga',    em:'🧘', label:'Did Yoga'},
+          {id:'arms',    em:'💪', label:'Arm Exercises'},
+          {id:'sat',     em:'🪑', label:'Sat Up Straight'},
+          {id:'stairs',  em:'🪜', label:'Climbed Stairs'},
+          {id:'garden',  em:'🌿', label:'Did Stretches'},
+          {id:'swim',    em:'🏊', label:'Moved in Water'},
+        ];
+
+        // Flower types: each has a draw function
+        const FLOWER_TYPES = [
+          // Sunflower-style
+          (x,y,c) => `
+            <g style="animation:growUp .6s ease both;transform-origin:${x}px ${y}px">
+              <line x1="${x}" y1="${y}" x2="${x}" y2="${y+32}" stroke="${c.stem}" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="${x}" cy="${y}" r="9" fill="${c.center}"/>
+              ${[-60,-30,0,30,60,90,120,150,180,210,240,270,300,330].map(a=>{
+                const rx=x+16*Math.cos(a*Math.PI/180), ry=y+16*Math.sin(a*Math.PI/180);
+                return `<ellipse cx="${rx}" cy="${ry}" rx="5" ry="3" fill="${c.petal}" transform="rotate(${a} ${rx} ${ry})" opacity=".9"/>`;
+              }).join('')}
+            </g>`,
+          // Tulip-style
+          (x,y,c) => `
+            <g style="animation:growUp .6s ease both;transform-origin:${x}px ${y}px">
+              <line x1="${x}" y1="${y+6}" x2="${x}" y2="${y+36}" stroke="${c.stem}" stroke-width="3" stroke-linecap="round"/>
+              <line x1="${x}" y1="${y+20}" x2="${x-10}" y2="${y+12}" stroke="${c.stem}" stroke-width="2" stroke-linecap="round"/>
+              <ellipse cx="${x}" cy="${y}" rx="8" ry="12" fill="${c.petal}" opacity=".9"/>
+              <ellipse cx="${x-5}" cy="${y+2}" rx="5" ry="10" fill="${c.petal2}" opacity=".8"/>
+              <ellipse cx="${x+5}" cy="${y+2}" rx="5" ry="10" fill="${c.petal2}" opacity=".8"/>
+            </g>`,
+          // Daisy-style
+          (x,y,c) => `
+            <g style="animation:growUp .6s ease both;transform-origin:${x}px ${y}px">
+              <line x1="${x}" y1="${y}" x2="${x}" y2="${y+34}" stroke="${c.stem}" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="${x}" cy="${y}" r="6" fill="${c.center}" filter="url(#softGlow)"/>
+              ${[0,45,90,135,180,225,270,315].map(a=>{
+                const rx=x+13*Math.cos(a*Math.PI/180), ry=y+13*Math.sin(a*Math.PI/180);
+                return `<ellipse cx="${rx}" cy="${ry}" rx="4" ry="6" fill="white" transform="rotate(${a} ${rx} ${ry})" opacity=".95"/>`;
+              }).join('')}
+            </g>`,
+        ];
+
+        const PALETTE = [
+          {petal:'#f9c823',petal2:'#f8e040',center:'#c06010',stem:'#58a830'},
+          {petal:'#f07878',petal2:'#f8a8a8',center:'#f8e040',stem:'#4a9828'},
+          {petal:'#9878e8',petal2:'#c0a8f8',center:'#f8e040',stem:'#50a030'},
+          {petal:'#f07040',petal2:'#f8a060',center:'#fffbe0',stem:'#5ab030'},
+          {petal:'#5ac0e8',petal2:'#90d8f8',center:'#f8e040',stem:'#48a028'},
+          {petal:'#f090c0',petal2:'#f8c0d8',center:'#f8f040',stem:'#52a830'},
+        ];
+
+        // Pre-set x positions across the garden floor
+        const PLANT_XS = [32,68,105,142,180,218,255,292,328,355,
+                          50,90,130,168,208,248,285,320,40,260];
+        let gardenCount = 0;
+
+        window.buildMovePalette = function() {
+          const grid = document.getElementById('move-grid');
+          MOVES.forEach(m => {
+            const div = document.createElement('div');
+            div.className = 'move-pill';
+            div.id = 'mpill-' + m.id;
+            div.innerHTML = `<span class="mp-em">${m.em}</span><span class="mp-lbl">${m.label}</span>`;
+            div.onclick = () => window.plantFlower(m);
+            grid.appendChild(div);
+          });
+        };
+
+        window.plantFlower = function(move) {
+          gardenCount++;
+          const xPos = PLANT_XS[(gardenCount - 1) % PLANT_XS.length];
+          const yPos = 174; // ground level
+          const fType = FLOWER_TYPES[gardenCount % FLOWER_TYPES.length];
+          const col   = PALETTE[gardenCount % PALETTE.length];
+
+          // Remove hint
+          document.getElementById('g-hint').style.display = 'none';
+
+          // Draw flower
+          const g = document.getElementById('garden-plants');
+          const wrapper = document.createElementNS('http://www.w3.org/2000/svg','g');
+          wrapper.innerHTML = fType(xPos, yPos - 36, col);
+          g.appendChild(wrapper);
+
+          // Occasionally add a butterfly
+          if (gardenCount % 4 === 0) window.addButterfly();
+
+          // Flash pill
+          const pill = document.getElementById('mpill-' + move.id);
+          pill.classList.add('just-done');
+          setTimeout(() => pill.classList.remove('just-done'), 1800);
+
+          // Log entry
+          const log = document.getElementById('garden-log');
+          document.getElementById('garden-log-wrap').style.display = 'block';
+          const entry = document.createElement('div');
+          entry.className = 'log-entry';
+          entry.innerHTML = `${move.em} ${move.label} — movement #${gardenCount} planted! 🌸`;
+          log.prepend(entry);
+          while (log.children.length > 4) log.removeChild(log.lastChild);
+
+          // Count + cheer
+          const counts = ['0','1 flower 🌸','2 flowers 🌸🌸','3 flowers! 🌺','4 blooms! 🌻','5 — a whole bouquet! 🌷🌸🌻','6 beautiful flowers! 🌿','7 — your garden is blooming! 🌻🌸','8 — look at this garden! 🌺🌷','9 — so much beauty! 🎊','10 flowers — YOUR GARDEN IS FULL OF LIFE! 🌻🌸🌺🌷🌹'];
+          document.getElementById('garden-count').textContent = (gardenCount <= 10 ? counts[gardenCount] : gardenCount + ' movements planted! 🌻') + ' planted';
+
+          // Milestone cheers
+          const cheers = {
+            1: '🌱 Your very first flower! You moved your body today and that is extraordinary. Every giant garden starts with one tiny seed.',
+            3: '🌸 Three flowers! Your garden is starting to bloom — just like you are. Each movement is a gift you give yourself.',
+            5: '🌻 Five whole flowers! Look at what you\'ve grown. You are stronger than you know, and this garden is the proof. 💚',
+            8: '🌺 Eight movements! Your garden is absolutely beautiful. You should feel so proud — this is what strength looks like.',
+            10: '🏆 TEN FLOWERS! Your garden is overflowing with beauty and life — just like you are. You did this. Be proud. 🌻💚🌸'
+          };
+          if (cheers[gardenCount]) {
+            const cheer = document.getElementById('garden-cheer');
+            document.getElementById('garden-cheer-text').textContent = cheers[gardenCount];
+            cheer.style.display = 'block';
+            setTimeout(() => cheer.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
+          }
+        };
+
+        window.addButterfly = function() {
+          const g   = document.getElementById('garden-plants');
+          const x   = Math.random() * 280 + 40;
+          const y   = Math.random() * 80 + 60;
+          const col = ['#f07878','#9878e8','#f9c823','#5ac0e8','#f090c0'][Math.floor(Math.random()*5)];
+          const b   = document.createElementNS('http://www.w3.org/2000/svg','g');
+          b.innerHTML = `
+            <g transform="translate(${x},${y})" style="animation:flutter 1.2s ease infinite;animation-delay:${Math.random()*0.6}s">
+              <ellipse cx="-6" cy="-2" rx="7" ry="5" fill="${col}" opacity=".75" transform="rotate(-20,-6,-2)"/>
+              <ellipse cx=" 6" cy="-2" rx="7" ry="5" fill="${col}" opacity=".75" transform="rotate(20,6,-2)"/>
+              <ellipse cx="-4" cy=" 3" rx="4" ry="3" fill="${col}" opacity=".6" transform="rotate(15,-4,3)"/>
+              <ellipse cx=" 4" cy=" 3" rx="4" ry="3" fill="${col}" opacity=".6" transform="rotate(-15,4,3)"/>
+              <ellipse cx="0" cy="0" rx="2" ry="5" fill="#333" opacity=".5"/>
+            </g>`;
+          g.appendChild(b);
+        };
+
+        window.buildMovePalette();
+              })();
+      </script>
+    </div>
+  </section>
 
 <!-- ============================== RELAXATION ============================== -->
 <div class="page" id="page-relaxation">
@@ -878,9 +2701,6 @@
   </section>
   <section class="section">
     <div class="section-inner">
-      <div class="quote-box" style="background:linear-gradient(135deg,var(--lavender),#f5f0ff);border-left-color:var(--purple);">
-        <p style="color:var(--purple)">"In the middle of difficulty lies the opportunity for peace. A single deep breath can truly change everything."</p>
-      </div>
       <div class="cards-grid">
         <!-- Replace relaxation cards with a focused breathing widget -->
         <div class="card expanded" style="padding:18px; border-top:4px solid var(--purple); width:100%;">
@@ -2268,6 +4088,375 @@
       }
     });
   })();
+
+  const relAct = { who: null, type: null };
+
+  const REL_MESSAGES = {
+    friend: {
+      thankyou:  "Hey [n]! I just wanted to reach out and say thank you from the bottom of my heart 💙 You've been such an amazing friend — your messages, calls, and presence mean more than I could ever put into words. I'm so lucky to have you in my corner.",
+      thinking:  "Hi [n]! I've been thinking about you today and just wanted you to know — having you as a friend makes everything brighter 🌟 I might not be everywhere right now, but you're always in my heart and on my mind.",
+      miss:      "Hey [n], I miss you so much! Life feels a little quieter without your energy around 💛 I can't wait until we can hang out again. Until then, every memory we have together makes me smile and keeps me going.",
+      smile:     "Hey [n]! You make me smile even on the hardest days 😊 Whether it's a funny meme, a quick check-in, or just knowing you're out there — you are one of the best parts of my life. Thank you for being YOU.",
+      strength:  "I want you to know, [n], that you give me so much strength just by being my friend 💪 When things get tough, I think of the people I love — and you're always right at the top of that list. Thank you for believing in me."
+    },
+    parent: {
+      thankyou:  "Dear [n], thank you for everything you do for me every single day 💙 The care, the love, the little things you do when you think I'm not watching — I see it all and I am so grateful. You are my safe place, and I love you deeply.",
+      thinking:  "I've been thinking about you and how lucky I am to have you in my life 🌸 Your love wraps around me like a warm blanket, [n]. On the toughest days, the thought of you helps me keep going.",
+      miss:      "I miss the simple moments with you — sitting together, hearing your voice, feeling like everything will be okay 🌟 Distance can't change how much I love you, [n]. You're always with me.",
+      smile:     "You know what makes me smile even on hard days? Thinking of you, [n] 💛 Your warmth, your love, the way you always show up — you are one of the greatest blessings in my life.",
+      strength:  "Dear [n], I draw so much of my strength from your love 💪 Knowing that you believe in me gives me the courage to face anything. I love you more than you know."
+    },
+    sibling: {
+      thankyou:  "Hey [n]! I know we don't always say it out loud, but I'm so thankful to have you as my sibling 💙 You've shown up for me in ways that mean the world — even the small things. I love you.",
+      thinking:  "Thinking of you today, [n] 🌟 Having you nearby — even just knowing you're there — makes everything so much easier. You're stuck with me forever and I wouldn't have it any other way.",
+      miss:      "[n], I miss just hanging out with you like normal! Can we plan something soon, even something small? 💛 Life is so much better when we're together.",
+      smile:     "You drive me a little crazy sometimes, but you also make me laugh harder than anyone, [n] 😂💙 Thanks for being my weirdo sibling — you make every single day brighter.",
+      strength:  "Watching YOU every day gives me strength, [n] 💪 The way you carry on, the way you love our family — it inspires me more than you'll ever know. Thank you for being my sibling."
+    },
+    nurse: {
+      thankyou:  "Dear [n], thank you so much for the care, patience, and kindness you show me 💙 You might see it as your job, but to me, you are one of the most important people in my world right now. You make such an incredible difference.",
+      thinking:  "I was thinking today about how lucky I am to have such a caring team around me 🌸 You, [n], are part of what helps me feel safe and hopeful. I don't know if you hear this enough — but you truly, truly matter.",
+      miss:      "The days without your familiar face feel a little different, [n] 🌟 Knowing you're there helps me feel less scared. Thank you for being such a consistent, kind presence in my days.",
+      smile:     "You have one of those smiles that makes a whole room feel better, [n] 😊 Seeing a familiar, kind face like yours makes such a huge difference. Thank you for bringing lightness into a heavy time.",
+      strength:  "Dear [n], your dedication and care give me real strength 💪 When I feel weak, I look at how hard you work — how much you give — and it reminds me I'm not alone in this. Thank you from the bottom of my heart."
+    },
+    grandparent: {
+      thankyou:  "Dearest [n], I want to thank you for the love you've always surrounded me with 💙 The stories you tell, the wisdom you share, the hugs you give — these things have shaped who I am. I'm so grateful for every moment with you.",
+      thinking:  "I've been thinking of you today, [n], and all the wonderful memories we've shared 🌟 Your presence in my life is something I treasure so deeply. I hope you're feeling wonderful — sending you all my love.",
+      miss:      "I miss you so much, [n] 💛 I miss our conversations, your stories, your warmth. I miss feeling safe the way only you can make me feel. Can we plan a call soon?",
+      smile:     "Thinking of you always makes me smile, [n] 😊 The love and warmth you've given me throughout my whole life is one of my greatest treasures. Thank you for being the extraordinary person that you are.",
+      strength:  "You give me so much strength just by existing, [n] 💪 Everything you've been through in your life reminds me that our family is made of tough, loving, resilient people — and I'm so proud to be yours."
+    },
+    self: {
+      thankyou:  "Dear Me 💙 Thank you. Thank you for showing up every single day, even when it was the hardest thing in the world. You are braver than you know, stronger than you feel, and more loved than you fully realize. I am so proud of you.",
+      thinking:  "Hey, I just wanted to check in on you 🌸 I know things are hard right now. I know some days feel impossible. But I want you to know — I'm thinking of you, I'm rooting for you, and I believe in you completely. You've got this.",
+      miss:      "I miss the lighter days, the carefree moments, the version of life before all of this 💛 But I also see how strong the person going through this has become. You're still you — just a braver, more beautiful version.",
+      smile:     "Hey, you 😊 Look how far you've come. Look at everything you've been through and kept going anyway. That deserves a smile. You deserve a smile. You are doing an incredible, courageous job — even on the days it doesn't feel like it.",
+      strength:  "You are so much stronger than you give yourself credit for 💪 Every hard day you get through, every treatment you face, every moment you choose hope over fear — that is real, extraordinary strength. I see it. I'm proud of you."
+    }
+  };
+
+  const REL_CHALLENGES = [
+    { e: '🌈', t: 'Send a voice message to someone you love today — just say "I\'m thinking of you." That\'s enough, and it will mean the world.' },
+    { e: '📸', t: 'Share a happy photo with a friend — something that made you smile recently, even something small and ordinary.' },
+    { e: '🎬', t: 'Plan a virtual movie night with a friend for this week. Pick the film together right now — make it official!' },
+    { e: '💌', t: 'Write a short thank-you note to someone who has helped or comforted you during your treatment journey.' },
+    { e: '🎮', t: 'Invite a family member to play a game with you today — any game at all, even a simple card game counts.' },
+    { e: '🌸', t: 'Tell someone three things you genuinely appreciate about them. Watch how much it lights up their face.' },
+    { e: '😂', t: 'Send the funniest video or meme you know to someone who could really use a good laugh today.' },
+    { e: '☎️', t: 'Call someone you haven\'t spoken to in a while — even just 5 minutes. Your voice will make their day.' },
+    { e: '🌟', t: 'Make a list of all the people who love you. Keep it somewhere you can read it whenever you need a reminder.' },
+    { e: '💛', t: 'Ask a family member to share their favourite memory about you. Really listen — and let it sink in.' },
+    { e: '🤗', t: 'Next time someone asks "how are you?" — try to answer honestly. Real connection starts with real words.' },
+    { e: '🎨', t: 'Create something small — a drawing, a note, or a poem — and give it to someone you love. Homemade is priceless.' }
+  ];
+
+  let relCcIdx = 0;
+  const relCcDone = new Set();
+
+  function relationshipsPick(el, group) {
+    document.querySelectorAll('.chip[data-g="' + group + '"]').forEach(c => c.classList.remove('sel'));
+    el.classList.add('sel');
+    relAct[group] = el.dataset.v;
+    document.getElementById('kmg-output').style.display = 'none';
+    document.getElementById('kmg-copied-msg').style.display = 'none';
+  }
+
+  function relationshipsGenerateMessage() {
+    const { who, type } = relAct;
+    const btn = document.querySelector('.gen-btn');
+    if (!who || !type) {
+      btn.style.background = 'linear-gradient(135deg,#e87a7a,#c04040)';
+      btn.textContent = '⚠️ Please pick both options above';
+      setTimeout(() => {
+        btn.style.background = 'linear-gradient(135deg,var(--blue),var(--purple))';
+        btn.textContent = '✨ Generate My Message';
+      }, 2200);
+      return;
+    }
+    const raw = document.getElementById('kmg-name').value.trim();
+    const name = raw || (who === 'self' ? 'Me' : 'them');
+    const msg = REL_MESSAGES[who][type].replace(/\[n\]/g, name);
+    document.getElementById('kmg-text').textContent = msg;
+    document.getElementById('kmg-output').style.display = 'block';
+    document.getElementById('kmg-copied-msg').style.display = 'none';
+    document.querySelector('.btn-copy').textContent = '📋 Copy Message';
+    relationshipsSpawnHearts();
+    setTimeout(() => document.getElementById('kmg-output').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+  }
+
+  function relationshipsSpawnHearts() {
+    const c = document.getElementById('kmg-hearts');
+    c.innerHTML = '';
+    '💙💛🌟💜💚🌸✨💖'.split('').forEach((em, i) => {
+      const h = document.createElement('span');
+      h.textContent = em;
+      h.style.cssText = `position:absolute;font-size:${Math.random()*12+11}px;left:${Math.random()*88+4}%;bottom:8%;animation:floatHeart ${Math.random()*1+1.1}s ease forwards;animation-delay:${i*0.07}s;pointer-events:none;`;
+      c.appendChild(h);
+    });
+    setTimeout(() => { c.innerHTML = ''; }, 2800);
+  }
+
+  function relationshipsCopyMsg() {
+    const txt = document.getElementById('kmg-text').textContent;
+    const show = () => {
+      document.querySelector('.btn-copy').textContent = '✅ Copied!';
+      document.getElementById('kmg-copied-msg').style.display = 'block';
+    };
+    if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(show); }
+    else {
+      const ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); show();
+    }
+  }
+
+  function relationshipsRenderCard() {
+    const c = REL_CHALLENGES[relCcIdx];
+    document.getElementById('cc-emoji').textContent = c.e;
+    document.getElementById('cc-text').textContent = c.t;
+    document.getElementById('cc-celebrate').style.display = 'none';
+    const db = document.getElementById('cc-done-btn');
+    if (relCcDone.has(relCcIdx)) {
+      db.textContent = '✅ Done!';
+      db.style.background = 'linear-gradient(135deg,var(--mint),#d0f0e4)';
+    } else {
+      db.textContent = '✅ I Did This!';
+      db.style.background = 'white';
+    }
+    relationshipsRenderDots();
+    relationshipsRenderScore();
+  }
+
+  function relationshipsNextCard() {
+    const card = document.getElementById('cc-card');
+    card.style.transform = 'scale(0.94)';
+    card.style.opacity = '0.7';
+    setTimeout(() => {
+      relCcIdx = (relCcIdx + 1) % REL_CHALLENGES.length;
+      relationshipsRenderCard();
+      card.style.transform = 'translateY(-4px)';
+      card.style.opacity = '1';
+      setTimeout(() => { card.style.transform = ''; }, 160);
+    }, 160);
+  }
+
+  function relationshipsMarkDone() {
+    relCcDone.add(relCcIdx);
+    document.getElementById('cc-celebrate').style.display = 'block';
+    document.getElementById('cc-done-btn').textContent = '✅ Done!';
+    document.getElementById('cc-done-btn').style.background = 'linear-gradient(135deg,var(--mint),#d0f0e4)';
+    relationshipsRenderDots();
+    relationshipsRenderScore();
+    document.getElementById('cc-celebrate').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function relationshipsRenderDots() {
+    const wrap = document.getElementById('cc-dots');
+    wrap.innerHTML = '';
+    REL_CHALLENGES.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === relCcIdx ? ' active' : '') + (relCcDone.has(i) ? ' done' : '');
+      d.style.width = (i === relCcIdx ? '22' : '10') + 'px';
+      d.onclick = () => { relCcIdx = i; relationshipsRenderCard(); };
+      wrap.appendChild(d);
+    });
+  }
+
+  function relationshipsRenderScore() {
+    const s = document.getElementById('cc-score');
+    s.textContent = relCcDone.size === 0
+      ? 'Card ' + (relCcIdx + 1) + ' of ' + REL_CHALLENGES.length
+      : '🌟 ' + relCcDone.size + ' of ' + REL_CHALLENGES.length + ' challenge' + (relCcDone.size > 1 ? 's' : '') + ' completed!';
+  }
+
+  relationshipsRenderCard();
+
+  /* FOOD PLATE CUSTOMIZER */
+  const FOODS = [
+    { id: 'banana',    em: '🍌', label: 'Banana',      color: '#f5e040', r: 26 },
+    { id: 'strawb',    em: '🍓', label: 'Strawberry',  color: '#f07070', r: 22 },
+    { id: 'blueberry', em: '🫐', label: 'Blueberries', color: '#9080e8', r: 24 },
+    { id: 'oat',       em: '🥣', label: 'Oatmeal',     color: '#e8c880', r: 30 },
+    { id: 'choc',      em: '🍫', label: 'Chocolate',   color: '#8b5e3c', r: 24 },
+    { id: 'toast',     em: '🍞', label: 'Toast',       color: '#e8b060', r: 28 },
+    { id: 'apple',     em: '🍎', label: 'Apple',       color: '#e85050', r: 25 },
+    { id: 'yogurt',    em: '🥛', label: 'Yogurt',      color: '#f0f4f0', r: 28 },
+    { id: 'muffin',    em: '🧁', label: 'Muffin',      color: '#f0a060', r: 26 },
+    { id: 'grapes',    em: '🍇', label: 'Grapes',      color: '#9b5fc8', r: 24 },
+    { id: 'soup',      em: '🍲', label: 'Soup',        color: '#e8900c', r: 30 },
+    { id: 'tea',       em: '🍵', label: 'Warm Tea',    color: '#70b890', r: 26 }
+  ];
+
+  const POSITIONS = [
+    { x: 150, y: 105 }, { x: 105, y: 140 }, { x: 195, y: 140 },
+    { x: 120, y: 185 }, { x: 180, y: 185 }, { x: 150, y: 218 },
+    { x: 90,  y: 165 }, { x: 210, y: 165 }
+  ];
+
+  const onPlate = new Map();
+
+  function buildPalette() {
+    const grid = document.getElementById('palette-grid');
+    if (!grid) return;
+    FOODS.forEach(f => {
+      const pill = document.createElement('div');
+      pill.className = 'food-pill';
+      pill.id = 'pill-' + f.id;
+      pill.innerHTML = `<span class="fp-em">${f.em}</span><span class="fp-lbl">${f.label}</span>`;
+      pill.onclick = () => toggleFood(f.id);
+      grid.appendChild(pill);
+    });
+  }
+
+  function toggleFood(id) {
+    if (onPlate.has(id)) removeFood(id);
+    else addFood(id);
+  }
+
+  function addFood(id) {
+    if (onPlate.size >= 8) {
+      const pc = document.getElementById('plate-count');
+      pc.textContent = '🍽 Your plate is full! Clear some space first.';
+      pc.className = 'full';
+      setTimeout(() => updatePlateCount(), 2000);
+      return;
+    }
+    const f = FOODS.find(item => item.id === id);
+    if (!f) return;
+
+    onPlate.set(id, onPlate.size);
+    document.getElementById('pill-' + id).classList.add('on-plate');
+    const g = document.getElementById('plate-foods');
+    const hint = document.getElementById('empty-hint');
+    if (hint) hint.style.display = 'none';
+
+    const pos = POSITIONS[onPlate.size - 1];
+    const node = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    node.id = 'food-' + id;
+    node.setAttribute('transform', `translate(${pos.x},${pos.y})`);
+
+    const animNode = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    animNode.style.animation = 'popIn 0.45s ease both';
+
+    const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circ.setAttribute('r', f.r);
+    circ.setAttribute('fill', f.color);
+    circ.setAttribute('opacity', '0.88');
+    circ.setAttribute('filter', 'url(#foodShadow)');
+    animNode.appendChild(circ);
+
+    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('dominant-baseline', 'central');
+    txt.setAttribute('font-size', Math.round(f.r * 1.1));
+    txt.setAttribute('dy', '1');
+    txt.textContent = f.em;
+    animNode.appendChild(txt);
+
+    node.appendChild(animNode);
+    g.appendChild(node);
+
+    updatePlateLabel(f.label);
+    updatePlateCount();
+    if (onPlate.size === 5) showCheer();
+  }
+
+  function removeFood(id) {
+    onPlate.delete(id);
+    const pill = document.getElementById('pill-' + id);
+    if (pill) pill.classList.remove('on-plate');
+
+    const node = document.getElementById('food-' + id);
+    if (node) {
+      const animNode = node.firstChild;
+      if (animNode) {
+        animNode.style.animation = 'none';
+        animNode.style.opacity = '0';
+        animNode.style.transform = 'scale(0)';
+        animNode.style.transition = 'all 0.25s';
+      }
+      setTimeout(() => node.remove(), 260);
+    }
+
+    rebuildPlate();
+    document.getElementById('plate-cheer').style.display = 'none';
+    updatePlateCount();
+  }
+
+  function rebuildPlate() {
+    const g = document.getElementById('plate-foods');
+    const ids = [...onPlate.keys()];
+    onPlate.clear();
+    if (g) g.innerHTML = '';
+    ids.forEach(id => addFoodSilent(id));
+    if (onPlate.size === 0) {
+      const hint = document.getElementById('empty-hint');
+      if (hint) hint.style.display = '';
+      document.getElementById('plate-label').textContent = 'Your plate is empty — add something delicious! 🍴';
+    }
+  }
+
+  function addFoodSilent(id) {
+    const f = FOODS.find(item => item.id === id);
+    if (!f) return;
+    const idx = onPlate.size;
+    onPlate.set(id, idx);
+    const pos = POSITIONS[idx];
+    const g = document.getElementById('plate-foods');
+    const node = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    node.id = 'food-' + id;
+    node.setAttribute('transform', `translate(${pos.x},${pos.y})`);
+    const animNode = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const circ = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circ.setAttribute('r', f.r);
+    circ.setAttribute('fill', f.color);
+    circ.setAttribute('opacity', '0.88');
+    circ.setAttribute('filter', 'url(#foodShadow)');
+    animNode.appendChild(circ);
+    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('dominant-baseline', 'central');
+    txt.setAttribute('font-size', Math.round(f.r * 1.1));
+    txt.setAttribute('dy', '1');
+    txt.textContent = f.em;
+    animNode.appendChild(txt);
+    node.appendChild(animNode);
+    if (g) g.appendChild(node);
+  }
+
+  function clearPlate() {
+    onPlate.clear();
+    const g = document.getElementById('plate-foods');
+    if (g) g.innerHTML = '';
+    document.querySelectorAll('.food-pill').forEach(p => p.classList.remove('on-plate'));
+    const hint = document.getElementById('empty-hint');
+    if (hint) hint.style.display = '';
+    document.getElementById('plate-label').textContent = 'Your plate is empty — add something delicious! 🍴';
+    document.getElementById('plate-cheer').style.display = 'none';
+    updatePlateCount();
+  }
+
+  function updatePlateLabel(lastAdded) {
+    document.getElementById('plate-label').textContent = '✨ ' + lastAdded + ' added to your plate!';
+  }
+
+  function updatePlateCount() {
+    const el = document.getElementById('plate-count');
+    const n = onPlate.size;
+    if (!el) return;
+    el.textContent = n + ' of 8 food' + (n !== 1 ? 's' : '') + ' on your plate';
+    el.className = n >= 8 ? 'full' : '';
+  }
+
+  function showCheer() {
+    const el = document.getElementById('plate-cheer');
+    if (!el) return;
+    el.style.display = 'block';
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+  }
+
+  buildPalette();
 </script>
 </body>
 </html>
